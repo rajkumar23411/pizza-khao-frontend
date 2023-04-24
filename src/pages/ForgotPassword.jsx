@@ -5,6 +5,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSnackbar } from "notistack";
+import { baseUrl } from "../utils";
 
 const ForgotPassword = () => {
   const [contact, setContact] = useState();
@@ -16,7 +17,9 @@ const ForgotPassword = () => {
   const handleSendOTP = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/forgot/password", { contact });
+      const { data } = await axios.post(`${baseUrl}/api/forgot/password`, {
+        contact,
+      });
       if (data.success) {
         navigate("/verify/otp", { state: { contact } });
       } else {

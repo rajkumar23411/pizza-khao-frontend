@@ -15,6 +15,7 @@ import AddressForm from "./../components/AddressForm";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import PageHead from "../components/PageHead";
 import Loader from "./../components/Loader";
+import { baseUrl } from "../utils";
 const CheckoutStep = (props) => {
   return (
     <div className="bg-white shadow-sm w-full">
@@ -154,10 +155,10 @@ const CheckOut = () => {
     }
     if (selectPaymentOption === "online") {
       try {
-        const { data } = await axios.get("/api/getapikey");
+        const { data } = await axios.get(`${baseUrl}/api/getapikey`);
         const {
           data: { order },
-        } = await axios.post("/api/create-rzp-order", {
+        } = await axios.post(`${baseUrl}/api/create-rzp-order`, {
           amount: orderData.totalAmount,
         });
         const options = {
@@ -171,7 +172,7 @@ const CheckOut = () => {
             "https://avatars.githubusercontent.com/u/90103892?s=400&u=1147637f019bbb8a63f51fed38a6f0a5e02371d2&v=4",
           handler: function (response) {
             axios
-              .post("/api/verifypayment", {
+              .post(`${baseUrl}/api/verifypayment`, {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,

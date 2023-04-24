@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { clearError, login, verifyLoginOtp } from "../redux/actions/userAction";
 import { useSnackbar } from "notistack";
 import axios from "axios";
+import { baseUrl } from "../utils";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ const Login = () => {
   };
   const handleLoginUsingOtp = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post("/api/login/contact", { contact: phone });
+    const { data } = await axios.post(`${baseUrl}/api/login/contact`, {
+      contact: phone,
+    });
 
     if (data.success) {
       setOtpSent(true);

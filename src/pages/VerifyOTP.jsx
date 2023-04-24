@@ -5,6 +5,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { useSnackbar } from "notistack";
 import MainNav from "../components/MainNav";
+import { baseUrl } from "../utils";
 
 const VerifyOTP = () => {
   const [otp, setOTP] = useState();
@@ -16,10 +17,13 @@ const VerifyOTP = () => {
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/verify/forgot/password/otp", {
-        contact,
-        otp,
-      });
+      const { data } = await axios.post(
+        `${baseUrl}/api/verify/forgot/password/otp`,
+        {
+          contact,
+          otp,
+        }
+      );
       if (data.success) {
         navigate("/reset/password", { state: { contact } });
       }

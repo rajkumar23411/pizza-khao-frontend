@@ -1,3 +1,5 @@
+export const baseUrl = "https://creepy-jersey-dog.cyclic.app";
+
 export const config = {
   headers: { "Content-Type": "application/json" },
 };

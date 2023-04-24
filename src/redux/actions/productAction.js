@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../../utils";
+import { baseUrl, config } from "../../utils";
 import {
   ADD_REVIEW_FAIL,
   ADD_REVIEW_REQUEST,
@@ -37,7 +37,7 @@ export const createProduct =
     try {
       dispatch({ type: NEW_PRODUCT_REQUEST });
       const { data } = await axios.post(
-        `/api/product/add`,
+        `${baseUrl}/api/product/add`,
         {
           name,
           regularPrice,
@@ -66,7 +66,7 @@ export const getAllProducts =
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
 
-      let Link = `/api/products?keyword=${keyword}&prices.regular[gte]=${price[0]}&prices.regular[lte]=${price[1]}`;
+      let Link = `${baseUrl}/api/products?keyword=${keyword}&prices.regular[gte]=${price[0]}&prices.regular[lte]=${price[1]}`;
 
       const { data } = await axios.get(Link, config);
 
@@ -82,7 +82,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/pizza/${id}`);
+    const { data } = await axios.get(`${baseUrl}/api/pizza/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -100,7 +100,7 @@ export const getProductReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(`/api/reviews?id=${id}`);
+    const { data } = await axios.get(`${baseUrl}/api/reviews?id=${id}`);
 
     dispatch({ type: ALL_REVIEW_SUCCESS, payload: data.reviews });
   } catch (error) {
@@ -115,7 +115,7 @@ export const addNewReview = (id, rating, comment) => async (dispatch) => {
   try {
     dispatch({ type: ADD_REVIEW_REQUEST });
     const { data } = await axios.post(
-      `/api/product/add/review`,
+      `${baseUrl}/api/product/add/review`,
       { id, rating, comment },
       config
     );
@@ -133,7 +133,7 @@ export const getRelatedProducts = (id) => async (dispatch) => {
   try {
     dispatch({ type: RELATED_PRODUCT_REQUEST });
 
-    const { data } = await axios.get(`/api/products/related/${id}`);
+    const { data } = await axios.get(`${baseUrl}/api/products/related/${id}`);
 
     dispatch({ type: RELATED_PRODUCT_SUCCESS, payload: data });
   } catch (error) {

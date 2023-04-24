@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../../utils";
+import { baseUrl, config } from "../../utils";
 import {
   CLEAR_ERRORS,
   LOGIN_FAIL,
@@ -27,7 +27,7 @@ export const login = (contact, password) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
     const { data } = await axios.post(
-      `/api/login`,
+      `${baseUrl}/api/login`,
       { contact, password },
       config
     );
@@ -43,7 +43,7 @@ export const register =
       dispatch({ type: REGISTER_REQUEST });
 
       const { data } = await axios.post(
-        `/api/register`,
+        `${baseUrl}/api/register`,
         { firstname, lastname, password, email, contact },
         config
       );
@@ -57,7 +57,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: USER_LOAD_REQUEST });
 
-    const { data } = await axios.get(`/api/me`, {
+    const { data } = await axios.get(`${baseUrl}/api/me`, {
       withCredentials: true,
     });
 
@@ -70,7 +70,7 @@ export const updateName = (firstname, lastname) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_NAME_REQUEST });
     const { data } = await axios.post(
-      `/api/update/name`,
+      `${baseUrl}/api/update/name`,
       { firstname, lastname },
       config
     );
@@ -82,7 +82,7 @@ export const updateName = (firstname, lastname) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`/api/logout`);
+    await axios.get(`${baseUrl}/api/logout`);
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
@@ -93,7 +93,7 @@ export const verifyLoginOtp = (contact, otp) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_USING_OTP_REQUEST });
     const { data } = await axios.post(
-      `/api/verify/login/otp`,
+      `${baseUrl}/api/verify/login/otp`,
       { contact, otp },
       config
     );
@@ -108,7 +108,7 @@ export const resetPassword = (contact, password) => async (dispatch) => {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const { data } = await axios.post(
-      "/api/reset/password",
+      `${baseUrl}/api/reset/password`,
       { contact, password },
       config
     );

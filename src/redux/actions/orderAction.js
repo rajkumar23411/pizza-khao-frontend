@@ -1,4 +1,4 @@
-import { config } from "../../utils/index";
+import { baseUrl, config } from "../../utils/index";
 import axios from "axios";
 import {
   NEW_ORDER_REQUEST,
@@ -14,7 +14,11 @@ export const createOrder = (order) => async (dispatch) => {
   try {
     dispatch({ type: NEW_ORDER_REQUEST });
 
-    const { data } = await axios.post("/api/order/create", order, config);
+    const { data } = await axios.post(
+      `${baseUrl}/api/order/create`,
+      order,
+      config
+    );
 
     dispatch({ type: NEW_ORDER_SUCCESS, payload: data });
   } catch (error) {
@@ -25,7 +29,7 @@ export const createOrder = (order) => async (dispatch) => {
 export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
-    const { data } = await axios.get("/api/my/orders");
+    const { data } = await axios.get(`${baseUrl}/api/my/orders`);
     dispatch({ type: MY_ORDERS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({ type: MY_ORDERS_FAIL, payload: error.response.data.message });
