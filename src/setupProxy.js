@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     "/",
     createProxyMiddleware({
-      target: "http://localhost:8080",
+      target: "https://pizza-khao.cyclic.app",
       changeOrigin: true,
     })
   );
