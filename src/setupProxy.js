@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     "/",
     createProxyMiddleware({
-      target: "https://cute-pink-squid-tutu.cyclic.app",
+      target: "https://creepy-jersey-dog.cyclic.app",
       changeOrigin: true,
     })
   );
