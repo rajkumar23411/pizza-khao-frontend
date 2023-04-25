@@ -21,7 +21,7 @@ import {
   USER_LOAD_REQUEST,
   USER_LOAD_SUCCESS,
 } from "../constants/userConstant";
-
+axios.defaults.withCredentials = true;
 export const login = (contact, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST });
