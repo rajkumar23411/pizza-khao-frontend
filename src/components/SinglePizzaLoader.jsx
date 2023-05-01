@@ -2,7 +2,7 @@ import React from "react";
 
 const SinglePizzaLoader = () => {
   return (
-    <div className="w-full h-screen p-10 gap-10 flex">
+    <div className="w-full h-screen p-10 gap-10 flex md:flex-col lg:flex-none">
       <div
         data-placeholder
         className="flex-1 h-full overflow-hidden rounded relative bg-gray-200 flex items-center justify-center"

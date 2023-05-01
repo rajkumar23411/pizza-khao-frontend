@@ -23,14 +23,14 @@ const MenuLightPizza = ({ product }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col w-80 py-6 gap-2 pizza-box overflow-hidden relative h-[22rem] "
+      className="flex flex-col lg:w-80 md:w-60 py-6 gap-2 pizza-box overflow-hidden relative lg:h-[22rem]  md:h-[18rem]"
     >
       <Link to={`/pizza/${product._id}`}>
         <div className="pizza-image w-full flex flex-col gap-2 items-center justify-center">
           <img
             src={product.image}
             alt={product.name}
-            className="h-56 w-56 object-cover"
+            className="lg:h-56 md:h-40 lg:w-56 md:w-40 object-cover"
             draggable="false"
           />
           <p className=" text-yellow-700 uppercase font-medium tracking-wider text-sm">

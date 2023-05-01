@@ -48,19 +48,21 @@ const BannerNav = () => {
 
   return (
     <>
-      <nav className="flex items-center justify-evenly absolute w-full top-6 z-10">
-        <div className="flex items-center justify-center gap-4">
-          <div className="bg-white rounded-full p-3">
-            <PhoneEnabledOutlinedIcon fontSize="large" sx={{ color: "red" }} />
+      <nav className="hidden md:flex items-center justify-evenly absolute w-full top-6 z-10">
+        <div className="flex items-center justify-center gap-4 md:gap-2">
+          <div className="bg-white rounded-full p-3 md:p-2">
+            <PhoneEnabledOutlinedIcon className="text-lg text-red-600" />
           </div>
           <p className="flex flex-col">
-            <span className="uppercase font-normal text-white text-sm tracking-widest">
+            <span className="uppercase font-normal text-white text-sm tracking-widest md:tracking-wide md:text-xs">
               ORDER IT NOW
             </span>
-            <span className="text-white font-medium text-xl">91333 46789</span>
+            <span className="text-white font-medium text-xl md:text-sm">
+              91333 46789
+            </span>
           </p>
         </div>
-        <div className="flex items-center justify-center gap-8 relative">
+        <div className="flex items-center justify-center lg:gap-8 md:gap-4 relative">
           <Link className="uppercase tracking-widest text-white font-medium text-sm">
             Home
           </Link>
@@ -77,7 +79,7 @@ const BannerNav = () => {
             >
               {PagesSubMenu.map((item, index) => (
                 <li
-                  className="tracking-wide font-medium text-gray-600 text-sm hover:bg-red-50 hover:text-red-600"
+                  className="tracking-wide lg:font-medium md:font-normal text-gray-600 text-sm hover:bg-red-50 hover:text-red-600"
                   key={index}
                 >
                   {item}
@@ -113,7 +115,11 @@ const BannerNav = () => {
             </ul>
           </Link>
           <Link>
-            <img src="/images/logo-light.png" alt="logo" className="h-16" />
+            <img
+              src="/images/logo-light.png"
+              alt="logo"
+              className="lg:h-16 md:h-10"
+            />
           </Link>
           <Link className="uppercase tracking-widest text-white font-medium text-sm">
             Event
@@ -148,7 +154,7 @@ const BannerNav = () => {
               className="text-white uppercase tracking-widest font-medium text-sm"
               to="/cart"
             >
-              <MopedOutlinedIcon sx={{ color: "white" }} fontSize="large" />
+              <MopedOutlinedIcon sx={{ color: "white" }} fontSize="medium" />
               Cart
             </Link>
           </div>
@@ -156,7 +162,7 @@ const BannerNav = () => {
             className="flex items-center justify-center gap-1 cursor-pointer"
             onClick={handleShowSearchBar}
           >
-            <SearchOutlinedIcon sx={{ color: "white" }} fontSize="large" />
+            <SearchOutlinedIcon sx={{ color: "white" }} fontSize="small" />
             <span className="text-white uppercase tracking-widest font-medium text-sm">
               Search
             </span>

@@ -89,8 +89,8 @@ const Menu = () => {
         <MainNav />
       </div>
       <PageHead pageName={"Menu"} />
-      <section className="flex m-20">
-        <div className="flex-[0.2]">
+      <section className="flex lg:m-20 md:m-0">
+        <div className="flex-[0.2] md:m-10 lg:m-0">
           <div className="flex flex-col border-b-2 border-golden border-dashed pb-10">
             <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
               Products
@@ -171,8 +171,8 @@ const Menu = () => {
           </div>
         </div>
         {loading ? (
-          <div className="flex-1">
-            <div className="grid grid-cols-3 gap-6 place-items-center place-content-start h-full">
+          <div className="flex-1 md:my-10 lg:m-0">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-6 md:gap-4 place-items-center place-content-start h-full">
               {Array(8)
                 .fill(null)
                 .map((_, i) => (
@@ -181,7 +181,7 @@ const Menu = () => {
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col md:my-10 lg:m-0">
             <div className="flex w-full justify-between px-10">
               <div className="bg-gray-100 w-56 flex items-center justify-between h-12 rounded-sm overflow-hidden">
                 <select
@@ -213,7 +213,7 @@ const Menu = () => {
                 {displayProducts && <MenuPizzaCard pizza={displayProducts} />}
 
                 {totalProducts > resultPerPage && (
-                  <div className="grid place-items-center ">
+                  <div className="grid place-items-center text-red-600 font-medium">
                     <Stack>
                       <Pagination
                         onChange={handlePageChange}

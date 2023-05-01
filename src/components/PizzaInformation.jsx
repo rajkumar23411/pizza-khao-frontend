@@ -24,8 +24,8 @@ const PizzaInformation = ({ id, pizza }) => {
   }, [dispatch]);
 
   return (
-    <section className="py-20 relative">
-      <div className="w-4/5">
+    <section className="relative lg:p-20 md:p-10">
+      <div className="lg:w-4/5 md:w-full">
         <div className="w-full border-b-2 border-dashed border-golden flex gap-20">
           <p
             onClick={() => toggleTag(1)}

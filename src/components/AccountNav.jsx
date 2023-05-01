@@ -29,30 +29,32 @@ const AccountNav = () => {
     enqueueSnackbar("Logged out successfully", { variant: "success" });
   };
   return (
-    <div className="flex-[0.3] flex flex-col min-h-full bg-white shadow-md rounded-md overflow-hidden">
-      <div className="flex items-center gap-4 p-4 border-b-[1px]">
+    <div className="lg:flex-[0.3] md:flex-[0.4] flex flex-col min-h-full bg-white shadow-md rounded-md overflow-hidden">
+      <div className="flex items-center lg:gap-6 md:gap-3 p-4 border-b-[1px]">
         <img src="/images/profile-pic.svg" alt="profile pic" />
         <div className="flex flex-col gap-1">
           <span className="text-xs text-gray-800">Hello,</span>
-          <span className="text-red-600 font-semibold">Rajkumar Kalita</span>
+          <span className="text-red-600 font-semibold md:text-sm">
+            Rajkumar Kalita
+          </span>
         </div>
       </div>
       <div className="w-full h-full">
-        <div className="flex items-center justify-between p-4 border-b-[1px]">
-          <Link to="/my-order" className="flex items-center gap-6">
+        <div className="flex items-center justify-between lg:p-4 md:p-2 border-b-[1px]">
+          <Link to="/my-order" className="flex items-center lg:gap-6 md:gap-3">
             <DriveFileMoveIcon className="text-red-400" />
-            <span className="uppercase font-semibold text-gray-500 tracking-wide">
+            <span className="uppercase font-semibold text-gray-500 tracking-wide md:text-sm">
               My orders
             </span>
           </Link>
-          <ArrowForwardIosIcon fontSize="small" className="text-gray-500" />
+          <ArrowForwardIosIcon className="text-gray-500" />
         </div>
 
         <div className="border-b-[1px]">
-          <div className="flex items-center justify-between p-4 ">
-            <p className="flex items-center gap-6">
+          <div className="flex items-center justify-between lg:p-4 md:p-2">
+            <p className="flex items-center lg:gap-6 md:gap-3">
               <AccountBoxIcon className="text-red-400" />
-              <span className="uppercase font-semibold text-gray-500 tracking-wide">
+              <span className="uppercase font-semibold text-gray-500 tracking-wide md:text-sm">
                 Account settings
               </span>
             </p>
@@ -61,7 +63,7 @@ const AccountNav = () => {
             {settingsOption.map((item, i) => (
               <NavLink
                 to={item.link}
-                className={`pl-16 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:font-semibold cursor-pointer accountMenu`}
+                className={`lg:pl-16 md:pl-11 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:font-semibold cursor-pointer accountMenu`}
                 key={i}
               >
                 {item.name}
@@ -71,10 +73,10 @@ const AccountNav = () => {
         </div>
 
         <div className="border-b-[1px]">
-          <div className="flex items-center justify-between p-4 ">
-            <p className="flex items-center gap-6">
+          <div className="flex items-center justify-between lg:p-4 md:p-2">
+            <p className="flex items-center lg:gap-6 md:gap-3">
               <AccountBalanceWalletIcon className="text-red-400" />
-              <span className="uppercase font-semibold text-gray-500 tracking-wide">
+              <span className="uppercase font-semibold text-gray-500 tracking-wide md:text-sm">
                 My stuff
               </span>
             </p>
@@ -83,7 +85,7 @@ const AccountNav = () => {
             {stuffOption.map((item, i) => (
               <NavLink
                 to={item.link}
-                className="pl-16 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:font-semibold cursor-pointer accountMenu"
+                className="lg:pl-16 md:pl-11 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:font-semibold cursor-pointer accountMenu"
                 key={i}
               >
                 {item.name}
@@ -94,7 +96,7 @@ const AccountNav = () => {
       </div>
       <div className="flex items-center justify-between p-4">
         <p
-          className="flex items-center gap-6 cursor-pointer hover:text-blue-700"
+          className="flex items-center lg:gap-6 md:gap-3 cursor-pointer hover:text-blue-700"
           onClick={logoutHandler}
         >
           <PowerSettingsNewIcon className="text-red-400" />

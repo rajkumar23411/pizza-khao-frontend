@@ -3,7 +3,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const Events = () => {
   return (
-    <div className="p-20">
+    <div className="lg:p-20 md:p-10">
       <div className="flex justify-between">
         <div className="flex-1 flex flex-col gap-1">
           <p className="text-red-700 uppercase tracking-wider text-sm font-medium">
@@ -12,7 +12,7 @@ const Events = () => {
           <p className="uppercase text-4xl font-bold text-gray-800">
             our happenings
           </p>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 lg:text-lg md:text-base">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, fugit
             ab. Dolores veritatis nobis laudantium recusandae unde soluta quia
             accusamus.
@@ -25,17 +25,19 @@ const Events = () => {
         </div>
       </div>
       <div className="h-auto flex pt-6 gap-20 justify-between">
-        <div className="flex-[0.8]">
+        <div className="lg:flex-[0.8] md:flex-1">
           <div className="flex gap-6 border-b-2 border-dotted border-golden py-10">
             <div className="text-center">
-              <p className="text-6xl text-red-700 font-bold">09</p>
+              <p className="lg:text-6xl md:text-4xl text-red-700 font-bold">
+                09
+              </p>
               <p className="uppercase text-golden text-xl font-semibold">OCT</p>
             </div>
             <div className="flex flex-col gap-2">
-              <h1 className="uppercase text-2xl font-bold text-gray-800 tracking-wide">
+              <h1 className="uppercase text-2xl font-semibold text-gray-800 tracking-wide">
                 sienna private dining room
               </h1>
-              <p className="text-base text-gray-400 w-3/4">
+              <p className="text-base text-gray-400 w-3/4 font-light">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
                 modi repellendus pariatur maiores non voluptatibus,
               </p>
@@ -47,14 +49,16 @@ const Events = () => {
           </div>
           <div className="flex gap-6 border-b-2 border-dotted border-golden py-10">
             <div className="text-center">
-              <p className="text-6xl text-red-700 font-bold">09</p>
+              <p className="lg:text-6xl md:text-4xl text-red-700 font-bold">
+                09
+              </p>
               <p className="uppercase text-golden text-xl font-semibold">OCT</p>
             </div>
             <div className="flex flex-col gap-2">
-              <h1 className="uppercase text-2xl font-bold text-gray-800 tracking-wide">
+              <h1 className="uppercase text-2xl font-semibold text-gray-800 tracking-wide">
                 sienna private dining room
               </h1>
-              <p className="text-base text-gray-400 w-3/4">
+              <p className="text-base text-gray-400 w-3/4 font-light">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
                 modi repellendus pariatur maiores non voluptatibus,
               </p>
@@ -66,14 +70,16 @@ const Events = () => {
           </div>
           <div className="flex gap-6 border-b-2 border-dotted border-golden py-10">
             <div className="text-center">
-              <p className="text-6xl text-red-700 font-bold">09</p>
+              <p className="lg:text-6xl md:text-4xl text-red-700 font-bold">
+                09
+              </p>
               <p className="uppercase text-golden text-xl font-semibold">OCT</p>
             </div>
             <div className="flex flex-col gap-2">
-              <h1 className="uppercase text-2xl font-bold text-gray-800 tracking-wide">
+              <h1 className="uppercase text-2xl font-semibold text-gray-800 tracking-wide">
                 sienna private dining room
               </h1>
-              <p className="text-base text-gray-400 w-3/4">
+              <p className="text-base text-gray-400 w-3/4 font-light">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
                 modi repellendus pariatur maiores non voluptatibus,
               </p>
@@ -84,7 +90,7 @@ const Events = () => {
             </div>
           </div>
         </div>
-        <div className="flex-[0.6] flex items-center justify-center">
+        <div className="flex-[0.6] flex items-center justify-center md:hidden lg:flex">
           <img
             src="/images/h1-img-5a.jpg"
             alt="man"

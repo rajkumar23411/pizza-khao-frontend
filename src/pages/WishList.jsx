@@ -7,7 +7,6 @@ import {
   addRemoveFromWishlist,
   getWishlist,
 } from "../redux/actions/wishListAction";
-import { Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { RESET_ADD_TO_FAVOURITE } from "../redux/constants/wishListConstant";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
@@ -15,6 +14,7 @@ import { addToCart, clearError } from "../redux/actions/cartActions";
 import PageHead from "../components/PageHead";
 import Loader from "../components/Loader";
 import EmptyFavs from "../components/EmptyFavs";
+import HomeFooter from "./../components/HomeFooter";
 
 const WishList = () => {
   const { loading, wishlist, message } = useSelector((state) => state.wishlist);
@@ -51,7 +51,7 @@ const WishList = () => {
         </div>
         <PageHead pageName={"My Account / Favourites"} />
       </section>
-      <section className="flex items-start gap-4 p-20 bg-slate-50 h-screen">
+      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen md:min-h-max">
         <AccountNav />
         <div className="flex-1 bg-white shadow-md p-10 flex flex-col min-h-full gap-6 rounded-md">
           <h1 className="uppercase text-golden font-semibold tracking-wider text-xl">
@@ -75,6 +75,7 @@ const WishList = () => {
           )}
         </div>
       </section>
+      <HomeFooter />
     </>
   );
 };

@@ -31,14 +31,14 @@ const MainNav = () => {
   }, [dispatch]);
   return (
     <>
-      <nav className="w-full flex items-center justify-between px-10 h-20">
+      <nav className="w-full flex items-center justify-between lg:px-10 md:px-5 h-20">
         <div className="h-full">
           <ul className="flex items-center h-full justify-center">
             <NavLink to="/">
               <img
                 src="/images/logo.png"
                 alt="logo"
-                className="h-14 cursor-pointer"
+                className="lg:h-14 md:h-10  cursor-pointer"
               />
             </NavLink>
             <NavLink
@@ -124,7 +124,7 @@ const MainNav = () => {
             </li>
           </ul>
         </div>
-        <div className="flex items-center justify-center gap-12">
+        <div className="flex items-center justify-center lg:gap-12 md:gap-8">
           <Link to="/cart">
             <div className="cursor-pointer uppercase text-xs text-gray-600 font-medium tracking-wide flex items-center justify-center gap-1 relative">
               {cart && cart.items && (

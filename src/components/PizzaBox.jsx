@@ -2,12 +2,12 @@ import React from "react";
 
 const PizzaBox = () => {
   return (
-    <div className="w-full flex items-center justify-between px-20">
+    <div className="w-full flex items-center justify-between lg:px-20 md:p-10">
       <div className="flex flex-1 flex-col gap-2">
         <small className="uppercase text-red-700 tracking-wider font-medium text-base">
           Come and get
         </small>
-        <p className="text-4xl uppercase font-medium text-gray-700 tracking-wide">
+        <p className="lg:text-4xl md:text-3xl uppercase font-bold text-gray-700 tracking-wide ">
           Smart pizza slice box
         </p>
         <p className="text-lg font-light text-gray-600">
@@ -36,7 +36,7 @@ const PizzaBox = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 h-full items-center justify-end">
+      <div className="lg:flex md:hidden flex-1 h-full items-center justify-end">
         <img
           src="/images/pizza-box.png"
           alt="pizza-box"

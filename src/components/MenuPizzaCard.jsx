@@ -62,7 +62,7 @@ const MenuPizzaCard = ({ pizza }) => {
   return (
     <motion.div
       layout
-      className="grid grid-cols-3 place-items-center place-content-start h-full"
+      className="grid lg:grid-cols-3 md:grid-cols-2 place-items-center place-content-start h-full md:mt-5 lg:m-0"
     >
       <AnimatePresence>
         {pizza?.map((item) => (
@@ -72,21 +72,27 @@ const MenuPizzaCard = ({ pizza }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             key={item._id}
-            className="flex flex-col w-80 py-6 gap-6 pizza-box overflow-hidden cursor-pointer relative"
+            className="flex flex-col lg:w-80 md:w-64 py-6 lg:gap-6 md:gap-4 pizza-box overflow-hidden cursor-pointer relative"
           >
             <div
               className={`absolute top-0 right-0 font-light cursor-pointer`}
               onClick={() => handleAddtoFavourite(item._id)}
             >
               {isItemInWishlist(item._id) ? (
-                <FavoriteRoundedIcon className="text-red-500" />
+                <FavoriteRoundedIcon
+                  className="text-red-500"
+                  fontSize="medium"
+                />
               ) : (
-                <FavoriteBorderRoundedIcon className="text-gray-400" />
+                <FavoriteBorderRoundedIcon
+                  className="text-gray-400"
+                  fontSize="medium"
+                />
               )}
             </div>
             <Link to={`/pizza/${item._id}`}>
               <div className="pizza-image w-full flex items-center justify-center">
-                <div className="w-60 h-60">
+                <div className="lg:w-60 md:h-48 lg:h-60 md:w-48">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -104,16 +110,16 @@ const MenuPizzaCard = ({ pizza }) => {
                 </p>
               </div>
             </Link>
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-2 text-sm md:text-xs">
               <span
-                className="bg-red-600 text-center py-2 px-6 rounded cursor-pointer hover:bg-red-700 text-sm font-normal text-white uppercase tracking-widest"
+                className="bg-red-600 text-center py-2 px-6 rounded-sm cursor-pointer hover:bg-red-700 font-normal text-white uppercase tracking-widest"
                 onClick={() => handleAddtoCart(item._id, 1, "regular")}
               >
                 Add to cart
               </span>
               <span
                 onClick={() => handleClickOpen(item)}
-                className="bg-slate-200 text-center py-2 px-6 cursor-pointer rounded hover:bg-slate-300 text-sm font-normal tracking-widest text-gray-800 uppercase"
+                className="bg-slate-200 text-center py-2 px-6 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
               >
                 Quick View
               </span>

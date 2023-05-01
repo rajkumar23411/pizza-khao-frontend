@@ -93,21 +93,21 @@ const SinglePizza = () => {
     <>
       <MainNav />
       <PageHead pageName={`Shop / ${product?.name}`} />
-      <section className="flex flex-col p-20">
+      <section className="flex flex-col">
         {loading ? (
           <SinglePizzaLoader />
         ) : (
           <>
-            <section className="h-max flex gap-10">
+            <section className="h-max flex gap-10 md:flex-col lg:p-20 md:p-10">
               <div className="flex-1 flex bg-gray-50 h-max py-20 rounded-md items-center justify-center relative">
                 <span className="h-20 w-20 bg-yellow-400 absolute top-4 left-4 text-lg text-white font-bold rounded-full flex items-center justify-center">
                   -14%
                 </span>
-                <div className="h-96 w-96 rounded overflow-hidden drop-shadow-xl">
+                <div className="lg:h-96 lg:w-96 md:h-[30rem] md:w-[30rem] rounded overflow-hidden drop-shadow-xl">
                   <img
                     src={product && product.image}
                     alt="pizza"
-                    className={`h-96 w-96 object-cover`}
+                    className={`h-full w-full object-cover`}
                     draggable="false"
                   />
                 </div>
@@ -175,7 +175,7 @@ const SinglePizza = () => {
                           <option
                             key={index}
                             value={size}
-                            className="capitalize"
+                            className="capitalize lg:text-base md:text-sm"
                           >
                             {size}
                           </option>
@@ -229,7 +229,7 @@ const SinglePizza = () => {
                         isItemPresetInCart === -1
                           ? "bg-red-600 hover:bg-red-700"
                           : "bg-yellow-600 hover:bg-yellow-700"
-                      } text-white uppercase tracking-wide font-medium rounded h-full flex items-center justify-center px-6  cursor-pointer`}
+                      } text-white uppercase tracking-wide font-medium rounded h-full flex items-center justify-center lg:px-6 md:px-10  cursor-pointer`}
                       onClick={
                         isItemPresetInCart === -1
                           ? () => handleAddToCart(product._id, quantity, size)
@@ -249,11 +249,11 @@ const SinglePizza = () => {
         {relatedProductLoading ? (
           <ItemSkeleton />
         ) : (
-          <section className="flex flex-col gap-10">
-            <h1 className="font-medium text-golden text-2xl tracking-wider uppercase">
+          <section className="flex flex-col gap-10 lg:py-20 md:py-10">
+            <h1 className="font-medium text-golden text-2xl tracking-wider uppercase lg:mx-20 md:mx-10">
               Related products
             </h1>
-            <Slider {...settings} className="overflow-hidden">
+            <Slider {...settings} className="overflow-hidden md:pr-10">
               {relatedProducts.map((prod) => (
                 <SingleRelatedPizza
                   product={prod}

@@ -3,7 +3,7 @@ import BannerNav from "./BannerNav";
 import { motion } from "framer-motion";
 const Banner = () => {
   return (
-    <div className="h-screen w-full bg-[#D1411E] relative">
+    <div className="lg:h-screen md:h-[75vh] w-full bg-[#D1411E] relative">
       <BannerNav />
       <div className="imageDiv h-full w-full flex items-center justify-center flex-col">
         <motion.img

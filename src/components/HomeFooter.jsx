@@ -81,7 +81,7 @@ const HomeFooter = () => {
           />
         </div>
       </div>
-      <div className="footer-right flex-1">
+      <div className="footer-right lg:flex-1 md:hidden">
         <img
           src="/images/footer-img-2.jpg"
           alt="footer-img-2"
