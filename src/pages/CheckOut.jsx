@@ -15,15 +15,15 @@ import AddressForm from "./../components/AddressForm";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import PageHead from "../components/PageHead";
 import Loader from "./../components/Loader";
-import { baseUrl } from "../utils";
+
 const CheckoutStep = (props) => {
   return (
-    <div className="bg-white shadow-sm w-full">
+    <div className="bg-white shadow-sm w-full rounded-md">
       <div
         onClick={props.onClick}
         className={`w-full ${props.active && "bg-red-600"}`}
       >
-        <div className="flex items-center gap-6 px-10 py-3 ">
+        <div className="flex items-center lg:gap-6 md:gap-3 lg:px-10 md:px-5 py-3 ">
           <p
             className={`h-6 w-6 flex items-center justify-center font-semibold ${
               props.active ? "text-red-700" : "text-gray-600"
@@ -40,7 +40,7 @@ const CheckoutStep = (props) => {
           </p>
         </div>
       </div>
-      <div className={props.body && "px-10 py-3"}>
+      <div className={props.body && "lg:px-10 lg:py-3 md:p-5"}>
         {props.body && props.body}
       </div>
     </div>
@@ -48,22 +48,22 @@ const CheckoutStep = (props) => {
 };
 const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
   return (
-    <div className={`flex flex-col  border-b-2 p-6`}>
-      <div className="flex items-start justify-start gap-6">
+    <div
+      className={`flex flex-col ${
+        address.length > 1 && "border-b-2"
+      } lg:p-6 md:p-0`}
+    >
+      <div className="flex items-start justify-start lg:gap-6 md:gap-3">
         <Radio onClick={() => selectAddress(address)} />
         <div className="flex flex-col gap-4">
           <div className="flex gap-5">
             <p className="text-gray-800 font-medium">{address.name}</p>
             <p className="text-gray-800 font-medium">{address.contact}</p>
           </div>
-          <div className="text-gray-600 font-normal flex items-center gap-1">
-            <span>{address.locality}</span>
-            <span>{address.address}</span>
-            <span>{address.landMark}</span>
-            <span>{address.alternateContact}</span>
-            <span>
-              {address.state} - {address.pinCode}
-            </span>
+          <div className="text-gray-600 font-normal flex items-center gap-1 md:text-sm">
+            {address.locality}, {address.address}, {address.landMark},{" "}
+            {address.alternateContact} <br /> {address.state} -{" "}
+            {address.pinCode}
           </div>
           {address.selected && (
             <button
@@ -155,10 +155,10 @@ const CheckOut = () => {
     }
     if (selectPaymentOption === "online") {
       try {
-        const { data } = await axios.get(`${baseUrl}/api/getapikey`);
+        const { data } = await axios.get(`/api/getapikey`);
         const {
           data: { order },
-        } = await axios.post(`${baseUrl}/api/create-rzp-order`, {
+        } = await axios.post(`/api/create-rzp-order`, {
           amount: orderData.totalAmount,
         });
         const options = {
@@ -172,7 +172,7 @@ const CheckOut = () => {
             "https://avatars.githubusercontent.com/u/90103892?s=400&u=1147637f019bbb8a63f51fed38a6f0a5e02371d2&v=4",
           handler: function (response) {
             axios
-              .post(`${baseUrl}/api/verifypayment`, {
+              .post(`/api/verifypayment`, {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
@@ -256,7 +256,7 @@ const CheckOut = () => {
           </Link>
         </div>
       ) : (
-        <div className="min-h-screen w-full bg-slate-50 py-20 px-40 flex gap-4">
+        <div className="min-h-screen w-full bg-slate-50 py-20 lg:px-40 md:px-10 md:py-10 flex gap-4">
           <div className="flex-1 flex flex-col gap-4">
             <CheckoutStep
               stepNumber={1}
@@ -266,7 +266,7 @@ const CheckOut = () => {
                 userLoading ? (
                   <Loader />
                 ) : isAuthenticated ? (
-                  <div className="flex items-center gap-4 font-medium pl-12 text-gray-700">
+                  <div className="flex items-center gap-4 font-medium lg:pl-12 md:pl-4 text-gray-700">
                     <span className="capitalize">
                       {user.firstname} {user.lastname}
                     </span>
@@ -291,7 +291,7 @@ const CheckOut = () => {
                   />
                 ) : confirmAddress ? (
                   selectedAddress && (
-                    <div className="flex flex-col gap-2 pl-12">
+                    <div className="flex flex-col gap-2 lg:pl-12 md:pl-4">
                       <p className="text-gray-700 font-semibold">
                         {selectedAddress.name} - {selectedAddress.contact}
                       </p>
@@ -339,7 +339,7 @@ const CheckOut = () => {
                       <OrderedItems items={cart.items} />
                       <div className="mt-4 flex items-center justify-end">
                         <button
-                          className="text-white bg-green-600 font-normal tracking-wider capitalize hover:bg-green-700 cursor-pointer w-max px-4 py-2 rounded-sm"
+                          className="text-white bg-red-600 font-light tracking-wider capitalize hover:bg-green-700 cursor-pointer w-max px-4 py-2 rounded-sm"
                           onClick={proceedNext}
                         >
                           Continue
@@ -352,23 +352,25 @@ const CheckOut = () => {
                       {cart.items.map((item) => (
                         <div
                           key={item._id}
-                          className="flex items-center gap-6 px-10"
+                          className="flex items-center gap-6 lg:px-10 md:px-5"
                         >
                           <div className="h-24 w-24">
                             <img
                               src={item.product.image}
                               alt={item.product.image}
-                              className="h-full w-full"
+                              className="h-full w-full object-cover"
                             />
                           </div>
                           <div className="leading-5">
                             <p className="text-gray-800 font-normal uppercase tracking-wide">
                               {item.product.name}
                             </p>
-                            <p className="capitalize text-gray-600">
+                            <p className="capitalize text-gray-600 font-light text-sm">
                               {item.size}
                             </p>
-                            <p className="text-gray-600">{item.quantity}</p>
+                            <p className="text-gray-600 font-light text-sm">
+                              {item.quantity}
+                            </p>
                             <p className="font-semibold text-red-600 text-lg">
                               ₹{item.quantity * item.product.prices[item.size]}
                             </p>
@@ -453,7 +455,7 @@ const CheckOut = () => {
           <div
             className={`${
               !isAuthenticated ? "hidden" : "flex-[0.5]"
-            } bg-white h-max shadow-m`}
+            } bg-white h-max shadow-md rounded-md`}
           >
             <h1 className="uppercase font-semibold tracking-wide text-golden w-full border-b-2 border-golden border-dashed px-4 py-2">
               Price Details

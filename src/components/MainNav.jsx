@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import MopedOutlinedIcon from "@mui/icons-material/MopedOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -12,7 +12,9 @@ const MainNav = () => {
   const [isModelOpen, setIsModelOpen] = useState(0);
   const { cart } = useSelector((state) => state.myCart);
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
+
   const toggleMenu = (index) => {
     setIsModelOpen(index);
   };
@@ -145,7 +147,12 @@ const MainNav = () => {
           </div>
         </div>
       </nav>
-      {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
+      {showSearchBar && (
+        <SearchBar
+          onClose={() => setShowSearchBar(false)}
+          inputRef={inputRef}
+        />
+      )}
     </>
   );
 };

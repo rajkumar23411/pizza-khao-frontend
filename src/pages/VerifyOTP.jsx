@@ -1,97 +1,110 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import { useSnackbar } from "notistack";
 import MainNav from "../components/MainNav";
 import { baseUrl } from "../utils";
 
 const VerifyOTP = () => {
-  const [otp, setOTP] = useState();
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
+  const inputRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
   const navigate = useNavigate();
   const location = useLocation();
   const { contact } = location.state;
   const [message, setMessage] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
-  const handleVerifyOTP = async (e) => {
-    e.preventDefault();
+  const [showError, setShowError] = useState(false);
+
+  async function handleVerifyOTP(otp) {
     try {
-      const { data } = await axios.post(
-        `${baseUrl}/api/verify/forgot/password/otp`,
-        {
-          contact,
-          otp,
-        }
-      );
+      const { data } = await axios.post(`/api/verify/forgot/password/otp`, {
+        contact,
+        otp,
+      });
       if (data.success) {
         navigate("/reset/password", { state: { contact } });
       }
     } catch (error) {
+      setShowError(true);
       setMessage(error.response.data.message);
+      setTimeout(() => {
+        setShowError(false);
+        setMessage("");
+      }, 3000);
+    }
+  }
+
+  const handleChange = (e, index) => {
+    if (e.target.value.length === 1 && index !== 5) {
+      inputRefs[index + 1].current.focus();
+    }
+    const otpCopy = [...otp];
+    otpCopy[index] = e.target.value;
+    setOTP(otpCopy);
+
+    // check if all otp fields are filled
+    if (otpCopy.every((digit) => digit !== "")) {
+      // verify otp
+      handleVerifyOTP(otpCopy.join(""));
     }
   };
-  useEffect(() => {
-    if (message) {
-      enqueueSnackbar(message, { variant: "error" });
-      setMessage("");
-    }
-  }, [message, enqueueSnackbar]);
+
   return (
     <div className="h-screen w-screen flex items-center justify-center flex-col relative">
       <div className="absolute top-0 left-0 right-0">
         <MainNav />
       </div>
       <div className="h-full w-full flex items-center justify-center flex-col">
-        <div className="h-12 w-12 bg-purple-200 flex items-center justify-center rounded-full">
+        <div className="h-12 w-12 bg-purple-200 flex items-center justify-center rounded-full mb-10">
           <LockOpenOutlinedIcon fontSize="medium" className="text-purple-500" />
         </div>
-        <form
-          action="#"
-          className="w-[40%] flex items-center justify-center p-10 flex-col "
-          onSubmit={handleVerifyOTP}
+        <p className="text-2xl font-semibold text-golden uppercase ">
+          Forgot Password?
+        </p>
+        <p className="text-gray-600 font-light">
+          Don't worry! Follow the instructions and reset your password.
+        </p>
+        <p className="mt-8 font-normal text-gray-800 text-lg">
+          Enter the password that has been send to{" "}
+          <span className="text-red-600 font-semibold">{contact}</span>{" "}
+          <Link
+            to="/forgot/password"
+            className="font-normal text-blue-600 cursor-pointer hover:text-blue-700"
+          >
+            Edit
+          </Link>
+        </p>
+        {showError && (
+          <p className="mt-6 bg-red-100 px-10 py-2 rounded border-2 border-red-400 text-red-600">
+            {message}
+          </p>
+        )}
+        <div className="grid grid-cols-6 gap-4 my-6">
+          {otp.map((digit, index) => (
+            <input
+              type="text"
+              key={index}
+              ref={inputRefs[index]}
+              value={digit}
+              onChange={(e) => handleChange(e, index)}
+              maxLength={1}
+              className="border-2 border-gray-400 w-12 h-12 rounded text-center text-xl focus:border-blue-400 focus:shadow focus:shadow-blue-400"
+            />
+          ))}
+        </div>
+        <button
+          className="w-max px-10 py-2 text-xl font-normal tracking-wider rounded text-white bg-red-600"
+          onClick={() => handleVerifyOTP(otp.join(""))}
         >
-          <h1 className="text-2xl font-semibold text-gray-700">
-            Forgot password?
-          </h1>
-          <div className="flex items-center justify-center gap-2 mb-8 mt-2">
-            <p className="text-gray-600">
-              Enter the OTP that has been sent to{" "}
-              <span className="text-purple-600 font-semibold">{contact}</span>
-            </p>
-            <Link
-              to="/forgot/password"
-              className="cursor-pointer text-red-600 font-semibold"
-            >
-              Edit
-            </Link>
-          </div>
-          <div className="w-[75%] gap-6 flex items-center justify-center flex-col">
-            <div className="w-full h-12 border-[1px] border-gray-500 rounded focus:bg-purple-600">
-              <input
-                type="number"
-                placeholder="Enter the 6-digit OTP*"
-                className="h-full w-full pl-2 bg-transparent placeholder:font-normal placeholder:text-gray-500"
-                value={otp}
-                onChange={(e) => setOTP(e.target.value)}
-              />
-            </div>
-            <div className="w-full h-12 bg-purple-600 rounded cursor-pointer hover:bg-purple-700">
-              <input
-                type="submit"
-                value="Verify OTP"
-                className="h-full w-full pl-2 bg-transparent text-white text-base font-semibold tracking-wide cursor-pointer"
-              />
-            </div>
-            <Link
-              to="/login"
-              className="flex items-center justify-center text-purple-500 gap-2 hover:text-purple-700 cursor-pointer font-sans"
-            >
-              <ArrowBackOutlinedIcon fontSize="small" />
-              <p className="font-semibold">Back to log in</p>
-            </Link>
-          </div>
-        </form>
+          Verify
+        </button>
       </div>
     </div>
   );

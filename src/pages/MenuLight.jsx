@@ -101,7 +101,7 @@ const MenuLight = () => {
       ) : (
         <motion.div
           layout
-          className="grid grid-cols-4 gap-y-6 place-items-center justify-center pb-20 min-h-[28rem] lg:px-20 md:px-10"
+          className="grid lg:grid-cols-5 md:grid-cols-4 gap-y-6 place-items-center justify-center pb-20 min-h-[28rem] lg:px-20 md:px-10"
         >
           <AnimatePresence>
             {displayProducts?.map((product, i) => (

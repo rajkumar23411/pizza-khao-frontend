@@ -21,7 +21,7 @@ const Login = () => {
   };
   const handleLoginUsingOtp = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post(`${baseUrl}/api/login/contact`, {
+    const { data } = await axios.post(`/api/login/contact`, {
       contact: phone,
     });
 

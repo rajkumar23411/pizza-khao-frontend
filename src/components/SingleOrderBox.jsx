@@ -9,7 +9,7 @@ const SingleOrderBox = ({ order }) => {
   };
 
   return (
-    <div className="w-[27rem] h-max border-2 rounded p-6 m-auto">
+    <div className="lg:w-[27rem] md:w-[22rem] h-max border-2 rounded p-6 m-auto">
       <div className="flex items-start justify-between border-b-2 pb-4">
         <div className="flex items-start gap-2">
           <div className="h-20">

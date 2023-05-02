@@ -33,7 +33,7 @@ export const addAddress =
       dispatch({ type: ADD_NEW_ADDRESS_REQUEST });
 
       const { data } = await axios.post(
-        `${baseUrl}/api/address/add`,
+        `/api/address/add`,
         {
           name,
           contact,
@@ -62,7 +62,7 @@ export const addAddress =
 export const myAddresses = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ADDRESS_REQUEST });
-    const { data } = await axios.get(`${baseUrl}/api/address`, config);
+    const { data } = await axios.get(`/api/address`, config);
     dispatch({
       type: GET_ALL_ADDRESS_SUCCESS,
       payload: data,
@@ -80,7 +80,7 @@ export const deleteAddress = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ADDRESS_REQUEST });
     console.log(id);
     const { data } = await axios.delete(
-      `${baseUrl}/api/delete/address/${id}`,
+      `/api/delete/address/${id}`,
       id,
       config
     );
@@ -98,11 +98,7 @@ export const updateAddress = (id, addressData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ADDRESS_REQUEST });
 
-    const { data } = await axios.put(
-      `${baseUrl}/api/address/${id}`,
-      addressData,
-      config
-    );
+    const { data } = await axios.put(`/api/address/${id}`, addressData, config);
 
     dispatch({ type: UPDATE_ADDRESS_SUCCESS, payload: data.success });
   } catch (error) {

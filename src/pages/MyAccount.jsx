@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateName } from "../redux/actions/userAction";
 import { useSnackbar } from "notistack";
 import PageHead from "../components/PageHead";
+import HomeFooter from "../components/HomeFooter";
 const MyAccount = () => {
   const { user, loading } = useSelector((state) => state.user);
   const { error, isUpdated } = useSelector((state) => state.profile);
@@ -49,9 +50,9 @@ const MyAccount = () => {
         </div>
         <PageHead pageName={"My Account"} />
       </section>
-      <section className="flex items-start gap-4 p-20 bg-slate-50 h-screen">
+      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen md:min-h-max">
         <AccountNav />
-        <div className="flex-1 bg-white shadow-md p-10 flex flex-col min-h-full gap-6 rounded-md">
+        <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full lg:gap-6 md:gap-4 rounded-md">
           <h1 className="uppercase text-golden font-semibold tracking-wider text-xl">
             Personal Information
           </h1>
@@ -235,6 +236,7 @@ const MyAccount = () => {
           )}
         </div>
       </section>
+      <HomeFooter />
     </>
   );
 };

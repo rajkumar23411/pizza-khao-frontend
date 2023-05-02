@@ -28,7 +28,7 @@ const Menu = () => {
   const [sort, setSort] = useState("");
   const [isClicked, setIsClicked] = useState(false);
 
-  const handlePriceChange = (newValue) => {
+  const handlePriceChange = (e, newValue) => {
     setPrice(newValue);
   };
   const {

@@ -25,7 +25,7 @@ const OrderedItems = ({ items }) => {
     }
   }, [dispatch, message]);
   return items.map((item) => (
-    <div className="flex items-start gap-8 border-b-[1px] px-8 py-4">
+    <div className="flex items-start gap-8 border-b-[1px] lg:px-8 lg:py-4 md:p-4">
       <div className="flex flex-col items-start justify-start gap-3 w-max">
         <div className="h-24 w-24">
           <img

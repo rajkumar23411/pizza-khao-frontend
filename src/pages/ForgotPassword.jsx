@@ -43,7 +43,7 @@ const ForgotPassword = () => {
       </div>
       <form
         action="#"
-        className="w-[30rem] flex items-center justify-center py-10 rounded flex-col border-2 gap-6 p-10"
+        className="lg:w-[30rem] md:w-[35rem] flex items-center justify-center py-10 rounded flex-col border-2 gap-6 p-10"
         onSubmit={handleSendOTP}
       >
         <div className="flex flex-col items-center justify-center">

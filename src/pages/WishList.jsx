@@ -53,7 +53,7 @@ const WishList = () => {
       </section>
       <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen md:min-h-max">
         <AccountNav />
-        <div className="flex-1 bg-white shadow-md p-10 flex flex-col min-h-full gap-6 rounded-md">
+        <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md">
           <h1 className="uppercase text-golden font-semibold tracking-wider text-xl">
             Favourites ({wishlist?.items?.length})
           </h1>
@@ -62,7 +62,7 @@ const WishList = () => {
           ) : wishlist?.items?.length === 0 ? (
             <EmptyFavs />
           ) : (
-            <div className="grid grid-cols-4 gap-8">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-8 md:gap-4">
               {wishlist?.items?.map((item) => (
                 <SingleWishListItem
                   key={item._id}

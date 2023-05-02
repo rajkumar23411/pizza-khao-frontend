@@ -12,7 +12,7 @@ import {
 export const addRemoveFromWishlist = (id) => async (dispatch) => {
   try {
     dispatch({ type: ADD_TO_FAVORUITE_REQUEST });
-    const { data } = await axios.post(`${baseUrl}/api/wishlist/${id}`);
+    const { data } = await axios.post(`/api/wishlist/${id}`);
     dispatch({ type: ADD_TO_FAVORUITE_SUCCESS, payload: data.message });
   } catch (error) {
     dispatch({
@@ -26,7 +26,7 @@ export const getWishlist = () => async (dispatch) => {
   try {
     dispatch({ type: GET_FAVORUITE_REQUEST });
 
-    const { data } = await axios.get(`${baseUrl}/api/my-wishlist`);
+    const { data } = await axios.get(`/api/my-wishlist`);
 
     dispatch({ type: GET_FAVORUITE_SUCCESS, payload: data.wishlist });
   } catch (error) {

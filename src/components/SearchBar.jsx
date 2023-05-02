@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ onClose }) => {
+const SearchBar = ({ onClose, inputRef }) => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
@@ -14,6 +14,10 @@ const SearchBar = ({ onClose }) => {
       navigate(`/menu/${keyword}`);
     }
   };
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [inputRef]);
+
   return (
     <div className="fixed top-0 left-0 right-0 w-full bg-white z-20">
       <form
@@ -22,11 +26,11 @@ const SearchBar = ({ onClose }) => {
         onSubmit={searchHandler}
       >
         <button type="submit">
-        <SearchIcon
-          className="w-full"
-          fontSize="large"
-          sx={{ color: "rgba(0,0,0,0.6)" }}
-        />
+          <SearchIcon
+            className="w-full"
+            fontSize="large"
+            sx={{ color: "rgba(0,0,0,0.6)" }}
+          />
         </button>
         <input
           type="text"
@@ -34,6 +38,7 @@ const SearchBar = ({ onClose }) => {
           className="h-full w-full placeholder:text-xl text-xl text-gray-700"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          ref={inputRef}
         />
         <div
           onClick={onClose}
