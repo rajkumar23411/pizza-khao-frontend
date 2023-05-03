@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { useLocation, useNavigate } from "react-router-dom";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import MainNav from "../components/MainNav";
-import { baseUrl } from "../utils";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const VerifyOTP = () => {
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
@@ -21,8 +20,10 @@ const VerifyOTP = () => {
   const { contact } = location.state;
   const [message, setMessage] = useState("");
   const [showError, setShowError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleVerifyOTP(otp) {
+    setIsLoading(true);
     try {
       const { data } = await axios.post(`/api/verify/forgot/password/otp`, {
         contact,
@@ -38,75 +39,105 @@ const VerifyOTP = () => {
         setShowError(false);
         setMessage("");
       }, 3000);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   const handleChange = (e, index) => {
-    if (e.target.value.length === 1 && index !== 5) {
-      inputRefs[index + 1].current.focus();
-    }
     const otpCopy = [...otp];
     otpCopy[index] = e.target.value;
     setOTP(otpCopy);
 
+    if (e.target.value === "") {
+      if (index > 0) {
+        const previousInput = document.getElementById(`otp-${index - 1}`);
+        previousInput.focus();
+      }
+    } else if (index < 5) {
+      const nextInput = document.getElementById(`otp-${index + 1}`);
+      nextInput.focus();
+    }
     // check if all otp fields are filled
     if (otpCopy.every((digit) => digit !== "")) {
       // verify otp
       handleVerifyOTP(otpCopy.join(""));
     }
   };
-
+  const handleKeyPress = (e, index) => {
+    if (e.key === "ArrowLeft") {
+      if (index > 0) {
+        inputRefs[index - 1].current.focus();
+      }
+    } else if (e.key === "ArrowRight") {
+      if (index < inputRefs.length - 1) {
+        inputRefs[index + 1].current.focus();
+      }
+    }
+  };
+  useEffect(() => {
+    inputRefs[0].current.focus();
+  }, []);
   return (
-    <div className="h-screen w-screen flex items-center justify-center flex-col relative">
-      <div className="absolute top-0 left-0 right-0">
-        <MainNav />
-      </div>
-      <div className="h-full w-full flex items-center justify-center flex-col">
-        <div className="h-12 w-12 bg-purple-200 flex items-center justify-center rounded-full mb-10">
-          <LockOpenOutlinedIcon fontSize="medium" className="text-purple-500" />
-        </div>
-        <p className="text-2xl font-semibold text-golden uppercase ">
-          Forgot Password?
-        </p>
-        <p className="text-gray-600 font-light">
-          Don't worry! Follow the instructions and reset your password.
-        </p>
-        <p className="mt-8 font-normal text-gray-800 text-lg">
-          Enter the password that has been send to{" "}
-          <span className="text-red-600 font-semibold">{contact}</span>{" "}
-          <Link
-            to="/forgot/password"
-            className="font-normal text-blue-600 cursor-pointer hover:text-blue-700"
-          >
-            Edit
-          </Link>
-        </p>
-        {showError && (
-          <p className="mt-6 bg-red-100 px-10 py-2 rounded border-2 border-red-400 text-red-600">
-            {message}
-          </p>
-        )}
-        <div className="grid grid-cols-6 gap-4 my-6">
-          {otp.map((digit, index) => (
-            <input
-              type="text"
-              key={index}
-              ref={inputRefs[index]}
-              value={digit}
-              onChange={(e) => handleChange(e, index)}
-              maxLength={1}
-              className="border-2 border-gray-400 w-12 h-12 rounded text-center text-xl focus:border-blue-400 focus:shadow focus:shadow-blue-400"
+    <>
+      <MainNav />
+      <div className=" w-full flex items-center justify-center h-[85vh]">
+        <div className="flex flex-col items-center justify-center border-2 py-6 px-10 rounded-md">
+          <div className="h-12 w-12 bg-purple-200 flex items-center justify-center rounded-full">
+            <LockOpenOutlinedIcon
+              fontSize="medium"
+              className="text-purple-500"
             />
-          ))}
+          </div>
+          <p className="mt-8 font-light text-gray-700 text-base w-max">
+            Enter the OTP that has been send to{" "}
+            <span className="text-red-600 font-semibold">{contact}</span>{" "}
+            <span
+              onClick={() => navigate("/forgot/password")}
+              className="font-normal text-blue-600 cursor-pointer hover:text-blue-700 uppercase"
+            >
+              Edit
+            </span>
+          </p>
+          {showError && (
+            <p className="mt-6 bg-red-100 px-10 py-2 rounded border-2 border-red-400 text-red-600">
+              {message}
+            </p>
+          )}
+          <div className="grid grid-cols-6 gap-4 my-6">
+            {otp.map((digit, index) => (
+              <input
+                type="text"
+                key={index}
+                ref={inputRefs[index]}
+                value={digit}
+                onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyPress(e, index)}
+                maxLength={1}
+                id={`otp-${index}`}
+                className="border-2 border-gray-400 w-12 h-12 rounded text-center text-lg focus:border-blue-400 focus:shadow"
+              />
+            ))}
+          </div>
+          {isLoading ? (
+            <LoadingButton
+              loading
+              variant="contained"
+              className="w-max px-10 py-2"
+            >
+              Next
+            </LoadingButton>
+          ) : (
+            <button
+              className={`w-max px-10 py-2 font-normal tracking-wide rounded text-white bg-red-600`}
+              onClick={() => handleVerifyOTP(otp.join(""))}
+            >
+              Verify
+            </button>
+          )}
         </div>
-        <button
-          className="w-max px-10 py-2 text-xl font-normal tracking-wider rounded text-white bg-red-600"
-          onClick={() => handleVerifyOTP(otp.join(""))}
-        >
-          Verify
-        </button>
       </div>
-    </div>
+    </>
   );
 };
 

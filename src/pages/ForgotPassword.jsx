@@ -3,39 +3,33 @@ import MainNav from "../components/MainNav";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useSnackbar } from "notistack";
-import { baseUrl } from "../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../redux/actions/userAction";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { FORGOT_PASSWORD_RESET } from "../redux/constants/userConstant";
 
 const ForgotPassword = () => {
-  const [contact, setContact] = useState();
-  const [message, setMessage] = useState("");
+  const [contact, setContact] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const { loading, error, success } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
-
-  const handleSendOTP = async (e) => {
+  const dispatch = useDispatch();
+  const handleSendOTP = (e) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post(`${baseUrl}/api/forgot/password`, {
-        contact,
-      });
-      if (data.success) {
-        navigate("/verify/otp", { state: { contact } });
-      } else {
-        setMessage(data.message);
-      }
-    } catch (err) {
-      setMessage(err.response.data.message);
-    }
+    dispatch(forgotPassword(Number(contact)));
   };
 
   useEffect(() => {
-    if (message) {
-      enqueueSnackbar(message, { variant: "error" });
-      setMessage("");
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
     }
-  }, [message, enqueueSnackbar]);
+    if (success) {
+      dispatch({ type: FORGOT_PASSWORD_RESET });
+      navigate("/verify/otp", { state: { contact } });
+    }
+  }, [error, success, dispatch, enqueueSnackbar]);
   return (
     <div className="h-screen w-screen flex items-center justify-center flex-col relative">
       <div className="absolute top-0 left-0 right-0">
@@ -69,13 +63,19 @@ const ForgotPassword = () => {
             onChange={(e) => setContact(e.target.value)}
           />
         </div>
-        <div className="w-full h-12 bg-purple-600 rounded cursor-pointer hover:bg-purple-700">
+
+        {loading ? (
+          <LoadingButton loading variant="contained" className="w-full h-12">
+            Next
+          </LoadingButton>
+        ) : (
           <input
             type="submit"
             value="Next"
-            className="h-full w-full pl-2 bg-transparent text-white text-lg tracking-normal cursor-pointer"
+            className="bg-purple-500 text-white rounded w-full h-12 cursor-pointer hover:bg-purple-600 tracking-wider"
           />
-        </div>
+        )}
+
         <Link
           to="/login"
           className="flex items-center justify-center text-purple-500 gap-2 hover:text-purple-700 cursor-pointer font-sans"
