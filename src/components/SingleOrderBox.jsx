@@ -52,12 +52,12 @@ const SingleOrderBox = ({ order }) => {
             items
           </span>
           <div className="flex gap-1 items-center">
-            {order?.items.map((item) => (
-              <>
+            {order?.items.map((item, i) => (
+              <div key={i}>
                 <span className="text-golden font-medium capitalize">
                   {item.quantity} x {item.productId.name},
                 </span>
-              </>
+              </div>
             ))}
           </div>
         </div>
