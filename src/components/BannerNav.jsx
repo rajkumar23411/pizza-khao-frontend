@@ -116,7 +116,7 @@ const BannerNav = () => {
           </Link>
           <Link>
             <img
-              src="/images/logo-light.png"
+              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo-light.png?updatedAt=1683123629193"
               alt="logo"
               className="lg:h-16 md:h-10"
             />

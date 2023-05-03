@@ -9,7 +9,7 @@ const OrderSuccess = () => {
       <MainNav />
       <div className="h-max flex items-center justify-center flex-col md:py-10 lg:py-20">
         <img
-          src="/images/order_success.gif"
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/order_success.gif?updatedAt=1683123629759"
           alt="order success"
           className="lg:h-[50%] md:h-[35%] rounded-full"
         />

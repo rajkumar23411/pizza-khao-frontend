@@ -243,7 +243,11 @@ const CheckOut = () => {
       <PageHead pageName={"Checkout"} />
       {cart?.items?.length === 0 ? (
         <div className="flex justify-center items-center h-full py-10 flex-col">
-          <img src="/images/empty_cart.svg" alt="empty cart" className="h-60" />
+          <img
+            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/empty_cart.svg?updatedAt=1683123625381"
+            alt="empty cart"
+            className="h-60"
+          />
           <h1 className="text-2xl font-medium mt-6 text-gray-700">
             Oops! Nothing here to checkout
           </h1>
@@ -414,7 +418,7 @@ const CheckOut = () => {
                         <p>Online payment</p>
                         (
                         <img
-                          src="/images/razorpay-icon.svg"
+                          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/razorpay-icon.svg?updatedAt=1683123633492"
                           alt="razorpay icon"
                           className="h-4"
                         />

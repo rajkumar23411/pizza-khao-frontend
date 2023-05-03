@@ -24,8 +24,8 @@ input[type="number"] {
 }
 
 .imageDiv {
-  background: url("../public/images/huge-pizza.png") center center,
-    url("../public/images/crust-must.png") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446") center center,
+    url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541") center center/cover;
   background-repeat: no-repeat;
 }
 .pizza-box:hover .btns {
@@ -51,7 +51,7 @@ input[type="number"] {
   opacity: 1;
 }
 .footer-left {
-  background: url("../public/images/footer_background1.jpg") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer_background1.jpg?updatedAt=1683123625810round1.jpg") center center/cover;
 }
 .anim {
   opacity: 0;
@@ -111,7 +111,7 @@ input[type="number"] {
 }
 
 .build-pizza {
-  background: url("../public/images/home-bg-1.jpg") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/home-bg-1.jpg?updatedAt=1683123626535") center center/cover;
   display: table;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -129,7 +129,7 @@ input[type="number"] {
 .signUp {
   height: 100vh;
   width: 100vw;
-  background: url("../public/images/sign-up-bg.jpg") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/sign-up-bg.jpg?updatedAt=1683123635585") center center/cover;
   background-repeat: no-repeat;
   position: relative;
   display: flex;

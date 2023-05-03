@@ -92,7 +92,7 @@ const Events = () => {
         </div>
         <div className="flex-[0.6] flex items-center justify-center md:hidden lg:flex">
           <img
-            src="/images/h1-img-5a.jpg"
+            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/h1-img-5a.jpg?updatedAt=1683123626060"
             alt="man"
             className="h-[90%] object-contain"
           />

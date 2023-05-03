@@ -16,9 +16,9 @@ const AddressBox = ({ address }) => {
   };
 
   return (
-    <div className="w-full flex flex-col border-b-2">
+    <div className={`w-full flex flex-col border-b-2`}>
       <div className="flex items-center justify-between p-4">
-        <p className="flex items-center gap-4">
+        <p className="flex items-center gap-4 font-medium">
           <span className="font-normal text-gray-800">{address.name}</span>
           <span className="font-normal text-gray-800">{address.contact}</span>
         </p>
@@ -48,14 +48,14 @@ const AddressBox = ({ address }) => {
           </div>
         </div>
       </div>
-      <p className="text-gray-700 w-[65%] p-4 font-light">
-        {address.locality} {address.address} {address.city} {address.landMark}{" "}
-        {address.alternatContact} <br />
+      <p className="text-gray-700 p-4 font-light">
+        {address.locality}, {address.address}, {address.city},{" "}
+        {address.landMark},{address.alternatContact} <br />
         {address.state} - {address.pinCode}
       </p>
       {isModelOpen && (
         <div className="h-screen w-screen backdrop-blur-sm backdrop-brightness-50 top-0 left-0 right-0 fixed flex items-center justify-center">
-          <div className="w-1/2 bg-white rounded-md shadow-md">
+          <div className="lg:w-1/2 md:w-[70%] bg-white rounded-md shadow-md">
             <EditAddressForm
               onClose={() => setIsModelOpen(false)}
               address={address && address}

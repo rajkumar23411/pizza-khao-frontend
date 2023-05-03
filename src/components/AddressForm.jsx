@@ -33,7 +33,7 @@ const AddressForm = ({ button, onCancel, bg }) => {
 
   return (
     <form
-      className={`flex flex-col gap-4 p-10 bg-white`}
+      className={`flex flex-col gap-4 lg:p-10 md:p-5 bg-white`}
       onSubmit={handleAddressSubmit}
     >
       <div className="flex w-full gap-4">

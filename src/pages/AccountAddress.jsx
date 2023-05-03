@@ -10,6 +10,7 @@ import { useSnackbar } from "notistack";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import Loader from "../components/Loader";
 import PageHead from "../components/PageHead";
+import HomeFooter from "../components/HomeFooter";
 
 const AccountAddress = () => {
   const [showAddressForm, setShowAddressForm] = useState(false);
@@ -31,15 +32,11 @@ const AccountAddress = () => {
   }, [dispatch, success, error, enqueueSnackbar]);
   return (
     <>
-      <section>
-        <div>
-          <MainNav />
-        </div>
-        <PageHead pageName={"My Account"} />
-      </section>
-      <section className="flex items-start gap-4 p-20 bg-slate-50 h-screen max-h-full">
+      <MainNav />
+      <PageHead pageName={"My Account"} />
+      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen max-h-full md:h-max">
         <AccountNav />
-        <div className="flex-1 bg-white shadow-md p-10 flex flex-col min-h-full gap-6 rounded-md">
+        <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md">
           <h1 className="uppercase text-golden font-normal tracking-wider text-xl">
             Manage Address
           </h1>
@@ -105,6 +102,7 @@ const AccountAddress = () => {
           )}
         </div>
       </section>
+      <HomeFooter />
     </>
   );
 };

@@ -4,21 +4,21 @@ import { Link } from "react-router-dom";
 const Options = () => {
   const assets = [
     {
-      img: "/images/asset1.jpg",
+      img: "https://ik.imagekit.io/zquvvhmdy/pizza_khao/asset1.jpg?updatedAt=1683123622348",
       title: "Order online",
       desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum quis,",
       link: "/menu-light",
       linkName: "Order now",
     },
     {
-      img: "/images/asset2.jpg",
+      img: "https://ik.imagekit.io/zquvvhmdy/pizza_khao/asset2.jpg?updatedAt=1683123622023",
       title: "Our menu",
       desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, maxime.",
       link: "/resturent-menu",
       linkName: "View menu",
     },
     {
-      img: "/images/asset3.jpg",
+      img: "https://ik.imagekit.io/zquvvhmdy/pizza_khao/asset3.jpg?updatedAt=1683123622225",
       title: "explore kitchen",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, sit.",
       link: "/menu",

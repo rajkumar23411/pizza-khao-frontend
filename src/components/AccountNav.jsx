@@ -31,7 +31,10 @@ const AccountNav = () => {
   return (
     <div className="lg:flex-[0.3] md:flex-[0.4] flex flex-col min-h-full bg-white shadow-md rounded-md overflow-hidden">
       <div className="flex items-center lg:gap-6 md:gap-3 p-4 border-b-[1px]">
-        <img src="/images/profile-pic.svg" alt="profile pic" />
+        <img
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/profile-pic.svg?updatedAt=1683123633470"
+          alt="profile pic"
+        />
         <div className="flex flex-col gap-1">
           <span className="text-xs text-gray-800">Hello,</span>
           <span className="text-red-600 font-semibold md:text-sm">

@@ -23,7 +23,7 @@ const VerifyPayment = () => {
       <div className="flex items-center">
         Paid by{" "}
         <img
-          src="/images/razorpay-icon.svg"
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/razorpay-icon.svg?updatedAt=1683123633492"
           alt="razorpay icon"
           className="h-5"
         />

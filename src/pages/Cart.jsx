@@ -66,7 +66,7 @@ const Cart = () => {
           {cart?.items?.length === 0 ? (
             <div className="w-full flex items-center justify-center flex-col py-20">
               <img
-                src="/images/empty_cart.svg"
+                src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/empty_cart.svg?updatedAt=1683123625381"
                 alt="empty_cart"
                 className="h-80"
               />

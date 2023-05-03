@@ -42,15 +42,51 @@ export const getDate = (createdAt) => {
 };
 
 export const menuLightCategories = [
-  { name: "All", image: "/images/pizza-slice.svg" },
-  { name: "Cheese", image: "/images/cheese.png" },
-  { name: "For Kids", image: "/images/kid.png" },
-  { name: "Light", image: "/images/light.png" },
-  { name: "Piquant", image: "/images/piquent.png" },
-  { name: "Savory", image: "/images/savory.png" },
-  { name: "Sea food", image: "/images/sea_food.png" },
-  { name: "Sweet", image: "/images/sweet.png" },
-  { name: "Veggie", image: "/images/veggie.png" },
+  {
+    name: "All",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/pizza-slice.svg?updatedAt=1683123631421",
+  },
+  {
+    name: "Cheese",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/cheese.png?updatedAt=1683123622255",
+  },
+  {
+    name: "For Kids",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/kid.png?updatedAt=1683123628239",
+  },
+  {
+    name: "Light",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/light.png?updatedAt=1683123628501",
+  },
+  {
+    name: "Piquant",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/piquent.png?updatedAt=1683123629965",
+  },
+  {
+    name: "Savory",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/savory.png?updatedAt=1683123634162",
+  },
+  {
+    name: "Sea food",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/sea_food.png?updatedAt=1683123635469",
+  },
+  {
+    name: "Sweet",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/sweet.png?updatedAt=1683123636988",
+  },
+  {
+    name: "Veggie",
+    image:
+      "https://ik.imagekit.io/zquvvhmdy/pizza_khao/veggie.png?updatedAt=1683123637513",
+  },
 ];
 
 export const phrases = [

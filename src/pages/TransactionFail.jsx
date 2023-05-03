@@ -5,7 +5,7 @@ const TransactionFail = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center flex-col">
       <img
-        src="/images/red_cross.png"
+        src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/red_cross.png?updatedAt=1683123633719"
         alt="fail icon"
         className="h-[40%] rounded-full"
       />

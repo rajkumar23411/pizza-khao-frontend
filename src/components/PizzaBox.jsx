@@ -20,25 +20,37 @@ const PizzaBox = () => {
             <p className="font-bold text-yellow-700 uppercase text-sm tracking-wide">
               EORDER PIZZA
             </p>
-            <img src="/images/box-1.png" alt="box-1" draggable="false" />
+            <img
+              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/box-1.png?updatedAt=1683123622067"
+              alt="box-1"
+              draggable="false"
+            />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-bold text-yellow-700 uppercase text-sm tracking-wide">
               Separate box
             </p>
-            <img src="/images/box-2.png" alt="box-2" draggable="false" />
+            <img
+              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/box-2.png?updatedAt=1683123622063"
+              alt="box-2"
+              draggable="false"
+            />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-bold text-yellow-700 uppercase text-sm tracking-wide">
               use as coaster
             </p>
-            <img src="/images/box-3.png" alt="box-3" draggable="false" />
+            <img
+              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/box-3.png?updatedAt=1683123622015"
+              alt="box-3"
+              draggable="false"
+            />
           </div>
         </div>
       </div>
       <div className="lg:flex md:hidden flex-1 h-full items-center justify-end">
         <img
-          src="/images/pizza-box.png"
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/pizza-box.png?updatedAt=1683123630689"
           alt="pizza-box"
           className="h-[23rem]"
           draggable="false"

@@ -48,7 +48,7 @@ const HomeMenu = () => {
       ) : (
         <Slider {...settings} className="overflow-hidden">
           {products?.map((pizza) => (
-            <SinglePizzaCard pizza={pizza} key={pizza.path} />
+            <SinglePizzaCard pizza={pizza} key={pizza._id} />
           ))}
         </Slider>
       )}

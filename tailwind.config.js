@@ -4,9 +4,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "hello-text": "url('../public/images/hello_background.jpg')",
-        "page-head": "url('../public/images/footer_background1.jpg')",
-        "restro-menu": "url('../public/images/restro-menu.jpg')",
+        "hello-text":
+          "url('https://ik.imagekit.io/zquvvhmdy/pizza_khao/hello_background.jpg?updatedAt=1683123625897')",
+        "page-head":
+          "url('https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer_background1.jpg?updatedAt=1683123625810')",
+        "restro-menu":
+          "url('https://ik.imagekit.io/zquvvhmdy/pizza_khao/restro-menu.jpg?updatedAt=1683123633803')",
       },
       textColor: {
         golden: "#B7903C",

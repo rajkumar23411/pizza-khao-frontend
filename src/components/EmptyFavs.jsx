@@ -5,7 +5,7 @@ const EmptyFavs = () => {
   return (
     <div className="flex-1 flex items-center justify-center flex-col gap-4">
       <img
-        src="/images/empty_fav.svg"
+        src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/empty_fav.svg?updatedAt=1683123625460"
         alt="empty favourites"
         className="h-64"
       />

@@ -38,7 +38,7 @@ const MainNav = () => {
           <ul className="flex items-center h-full justify-center">
             <NavLink to="/">
               <img
-                src="/images/logo.png"
+                src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo.png?updatedAt=1683123629188"
                 alt="logo"
                 className="lg:h-14 md:h-10  cursor-pointer"
               />

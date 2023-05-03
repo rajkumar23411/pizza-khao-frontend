@@ -75,7 +75,7 @@ const HomeFooter = () => {
             &copy; 2022 <span className="text-green-700">Rajkumar</span>
           </p>
           <img
-            src="/images/footer-bottom-img.png"
+            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer-bottom-img.png?updatedAt=1683123625702"
             alt="footer-bottom-img"
             draggable="false"
           />
@@ -83,7 +83,7 @@ const HomeFooter = () => {
       </div>
       <div className="footer-right lg:flex-1 lg:flex md:hidden">
         <img
-          src="/images/footer-img-2.jpg"
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer-img-2.jpg?updatedAt=1683123626011"
           alt="footer-img-2"
           className="h-full w-full object-cover"
           draggable="false"

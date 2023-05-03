@@ -89,7 +89,7 @@ const MenuLight = () => {
       ) : filteredProducts?.length === 0 ? (
         <div className="flex items-center justify-center h-[26rem] flex-col gap-4">
           <img
-            src="/images/sad-cry.gif"
+            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/sad-cry.gif?updatedAt=1683123635643"
             alt="no data"
             draggable="false"
             className="h-32"
