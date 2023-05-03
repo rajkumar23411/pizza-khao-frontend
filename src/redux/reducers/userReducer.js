@@ -1,5 +1,9 @@
 import {
   CLEAR_ERRORS,
+  FORGOT_PASSWORD_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_RESET,
+  FORGOT_PASSWORD_SUCCESS,
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -30,6 +34,7 @@ export const userReducer = (state = { user: {} }, action) => {
     case USER_LOAD_REQUEST:
     case LOGIN_USING_OTP_REQUEST:
     case RESET_PASSWORD_REQUEST:
+    case FORGOT_PASSWORD_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
@@ -61,13 +66,27 @@ export const userReducer = (state = { user: {} }, action) => {
         user: null,
         error: action.payload,
       };
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
+      };
     case RESET_PASSWORD_FAIL:
     case LOGIN_USING_OTP_FAIL:
+    case FORGOT_PASSWORD_FAIL:
       return {
         ...state,
         loading: false,
         isAuthenticated: false,
         user: null,
+        success: false,
+        error: action.payload,
+      };
+    case FORGOT_PASSWORD_RESET:
+      return {
+        ...state,
+        loading: false,
         success: false,
         error: action.payload,
       };

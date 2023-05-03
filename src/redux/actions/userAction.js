@@ -2,6 +2,9 @@ import axios from "axios";
 import { baseUrl, config } from "../../utils";
 import {
   CLEAR_ERRORS,
+  FORGOT_PASSWORD_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -88,7 +91,24 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
   }
 };
+export const forgotPassword = (contact) => async (dispatch) => {
+  try {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
+    const { data } = await axios.post(
+      "/api/forgot/password",
+      { contact },
+      config
+    );
+
+    dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 export const verifyLoginOtp = (contact, otp) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_USING_OTP_REQUEST });
