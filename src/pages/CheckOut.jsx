@@ -15,6 +15,7 @@ import AddressForm from "./../components/AddressForm";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import PageHead from "../components/PageHead";
 import Loader from "./../components/Loader";
+import HomeFooter from "../components/HomeFooter";
 
 const CheckoutStep = (props) => {
   return (
@@ -48,11 +49,7 @@ const CheckoutStep = (props) => {
 };
 const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
   return (
-    <div
-      className={`flex flex-col ${
-        address.length > 1 && "border-b-2"
-      } lg:p-6 md:p-0`}
-    >
+    <div className={`flex flex-col ${address.length > 1 && "border-b-2"}`}>
       <div className="flex items-start justify-start lg:gap-6 md:gap-3">
         <Radio onClick={() => selectAddress(address)} />
         <div className="flex flex-col gap-4">
@@ -60,10 +57,9 @@ const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
             <p className="text-gray-800 font-medium">{address.name}</p>
             <p className="text-gray-800 font-medium">{address.contact}</p>
           </div>
-          <div className="text-gray-600 font-normal flex items-center gap-1 md:text-sm">
+          <div className="text-gray-600 font-normal flex items-center gap-1 lg:text-base md:text-sm">
             {address.locality}, {address.address}, {address.landMark},{" "}
-            {address.alternateContact} <br /> {address.state} -{" "}
-            {address.pinCode}
+            {address.alternatContact} <br /> {address.state} - {address.pinCode}
           </div>
           {address.selected && (
             <button
@@ -260,7 +256,7 @@ const CheckOut = () => {
           </Link>
         </div>
       ) : (
-        <div className="min-h-screen w-full bg-slate-50 py-20 lg:px-40 md:px-10 md:py-10 flex gap-4">
+        <div className="lg:min-h-screen md:min-h-max w-full bg-slate-50 py-20 lg:px-40 md:px-10 md:py-10 flex gap-4">
           <div className="flex-1 flex flex-col gap-4">
             <CheckoutStep
               stepNumber={1}
@@ -500,6 +496,7 @@ const CheckOut = () => {
           </div>
         </div>
       )}
+      <HomeFooter />
     </>
   );
 };

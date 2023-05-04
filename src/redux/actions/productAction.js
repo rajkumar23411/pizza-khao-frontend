@@ -66,8 +66,10 @@ export const getAllProducts =
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
 
-      let Link = `/api/products?keyword=${keyword}&prices.regular[gte]=${price[0]}&prices.regular[lte]=${price[1]}`;
-
+      let Link = `/api/products?keyword=${keyword}}`;
+      if (price) {
+        Link = `/api/products?keyword=${keyword}&prices.regular[gte]=${price[0]}&prices.regular[lte]=${price[1]}`;
+      }
       const { data } = await axios.get(Link, config);
 
       dispatch({ type: ALL_PRODUCT_SUCCESS, payload: data });

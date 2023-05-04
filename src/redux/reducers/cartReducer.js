@@ -22,12 +22,14 @@ export const cartReducer = (state = { cart: [] }, action) => {
     case UPDATE_CART_REQUEST:
       return {
         ...state,
+        loading: true,
         success: false,
       };
     case ADD_TO_CART_SUCCESS:
     case UPDATE_CART_SUCCESS:
       return {
         ...state,
+        loading: false,
         cart: action.payload.cart,
         success: action.payload.success,
       };
@@ -35,6 +37,7 @@ export const cartReducer = (state = { cart: [] }, action) => {
     case UPDATE_CART_FAIL:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
     case ADD_TO_CART_RESET:

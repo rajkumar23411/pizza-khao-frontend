@@ -7,7 +7,7 @@ const EmptyFavs = () => {
       <img
         src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/empty_fav.svg?updatedAt=1683123625460"
         alt="empty favourites"
-        className="h-64"
+        className="lg:h-64 md:h-56"
       />
       <h1 className="text-golden font-normal text-xl">
         Oops! No favouite item available

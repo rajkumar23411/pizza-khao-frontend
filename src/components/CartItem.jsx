@@ -22,16 +22,18 @@ const CartItem = ({ item, wishlist }) => {
   };
   return (
     <div
-      className="flex flex-col gap-4 h-max border-2 p-5 rounded"
+      className="flex flex-col gap-4 h-max border-2 lg:p-5 md:p-3 rounded"
       key={item.product._id}
     >
-      <div className="flex items-start gap-6 h-full">
-        <div className="flex items-center justify-center flex-col gap-4 h-full">
-          <img
-            src={item?.product?.image}
-            alt="pizza"
-            className="h-28 w-28 object-cover rounded-md drop-shadow-md"
-          />
+      <div className="flex items-start lg:gap-6 md:gap-3 h-full">
+        <div className="flex flex-col items-center justify-between h-full lg:gap-4 md:gap-7">
+          <div className="lg:h-28 lg:w-28 md:h-24 md:w-24 rounded-md">
+            <img
+              src={item?.product?.image}
+              alt="pizza"
+              className="h-full w-full object-cover drop-shadow-md overflow-hidden"
+            />
+          </div>
           <div className="flex items-center justify-between gap-4">
             <select
               className="capitalize border-[1px] border-gray-500 p-1 text-gray-600 rounded-sm font-light cursor-pointer"
@@ -48,7 +50,7 @@ const CartItem = ({ item, wishlist }) => {
                 <option
                   value={size}
                   key={i}
-                  className="capitalize font-light cursor-pointer"
+                  className="capitalize font-light cursor-pointer md:text-sm lg:text-base"
                 >
                   {size}
                 </option>
@@ -108,7 +110,7 @@ const CartItem = ({ item, wishlist }) => {
                     />
                   </span>
                 ) : (
-                  <span className="text-base flex items-center justify-center gap-1 bg-gray-50 hover:bg-gray-200 text-gray-600 font-normal p-2 rounded cursor-pointer">
+                  <span className="text-base lg:flex md:hidden items-center justify-center gap-1 bg-gray-50 hover:bg-gray-200 text-gray-600 font-normal p-2 rounded cursor-pointer">
                     <FavoriteBorderRoundedIcon fontSize="small" />
                     Add to favourite
                   </span>

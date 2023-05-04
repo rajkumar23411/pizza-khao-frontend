@@ -6,9 +6,9 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 const HomeFooter = () => {
   return (
     <footer className="w-full flex">
-      <div className="footer-left flex-1 flex flex-col box-border p-10">
+      <div className="footer-left flex-1 flex flex-col box-border p-5 sm:p-10">
         <div className="flex justify-between">
-          <div className="flex-1 flex flex-col gap-6 p-6">
+          <div className="flex-1 flex flex-col gap-2 sm:gap-6 p-3 sm:p-6">
             <p className="font-bold text-golden uppercase text-lg tracking-wide">
               Find our resturents
             </p>
@@ -25,7 +25,7 @@ const HomeFooter = () => {
               Corso Itali AA Naples, AZ 85022 (989) 867-1010
             </p>
           </div>
-          <div className="flex-1 flex flex-col gap-6 p-6">
+          <div className="flex-1 flex flex-col gap-2 sm:gap-6 p-3 sm:p-6">
             <p className="font-bold text-golden uppercase text-lg tracking-wide">
               Working Hours
             </p>
@@ -65,7 +65,7 @@ const HomeFooter = () => {
               </span>
             </p>
           </div>
-          <div className="flex-1 font-medium text-white uppercase text-2xl p-6 leading-10 ">
+          <div className="hidden sm:block flex-1 font-medium text-white uppercase text-2xl p-6 leading-10 ">
             THE DON PEPPE CREW FIRST AND FOREMOST VALUES AN AUTHENTIC, WELL
             BAKED SLICE OF PIZZA.
           </div>
@@ -81,7 +81,7 @@ const HomeFooter = () => {
           />
         </div>
       </div>
-      <div className="footer-right lg:flex-1 lg:flex md:hidden">
+      <div className="footer-right lg:flex-1 lg:flex hidden">
         <img
           src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer-img-2.jpg?updatedAt=1683123626011"
           alt="footer-img-2"

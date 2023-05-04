@@ -20,12 +20,14 @@ import { motion, AnimatePresence } from "framer-motion";
 const MenuPizzaCard = ({ pizza }) => {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { success, error } = useSelector((state) => state.myCart);
+  const { loading, success, error } = useSelector((state) => state.myCart);
   const { wishlist, message } = useSelector((state) => state.wishlist);
   const [modelItem, setModelItem] = useState({});
+  const [loadingProductId, setLoadingProductId] = useState(null);
   const dispatch = useDispatch();
 
   const handleAddtoCart = (id, count, size) => {
+    setLoadingProductId(id);
     dispatch(addToCart(id, count, size));
   };
   const handleAddtoFavourite = (id) => {
@@ -111,15 +113,21 @@ const MenuPizzaCard = ({ pizza }) => {
               </div>
             </Link>
             <div className="flex items-center justify-center gap-2 text-sm md:text-xs">
-              <span
-                className="bg-red-600 text-center py-2 px-6 rounded-sm cursor-pointer hover:bg-red-700 font-normal text-white uppercase tracking-widest"
-                onClick={() => handleAddtoCart(item._id, 1, "regular")}
-              >
-                Add to cart
-              </span>
+              {loadingProductId === item._id && loading ? (
+                <span className="flex items-center justify-center gap-2 bg-red-400 px-6 py-3 font-normal tracking-wider text-white uppercase rounded">
+                  <i className="fa fa-spinner fa-spin"></i>Adding...
+                </span>
+              ) : (
+                <span
+                  onClick={() => handleAddtoCart(item._id, 1, "regular")}
+                  className="px-6 py-3 text-center tracking-wider bg-red-600 hover:bg-red-700 cursor-pointer text-white uppercase rounded"
+                >
+                  Add to Cart
+                </span>
+              )}
               <span
                 onClick={() => handleClickOpen(item)}
-                className="bg-slate-200 text-center py-2 px-6 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
+                className="bg-slate-200 text-center py-3 px-6 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
               >
                 Quick View
               </span>

@@ -26,41 +26,45 @@ const Options = () => {
     },
   ];
   return (
-    <div className="lg:h-screen md:h-[60vh] lg:p-20 md:p-14 w-full flex items-center justify-center flex-col">
+    <section className="lg:h-screen md:h-[60vh] lg:p-20 md:p-14 p-10 w-full flex items-center justify-center flex-col">
       <div className="flex flex-col items-center gap-2">
-        <p className="text-red-600 uppercase font-normal text-sm tracking-wider">
+        <p className="text-red-600 uppercase font-normal lg:text-sm md:text-sm text-xs tracking-wider">
           the magic of flavor
         </p>
-        <h1 className="uppercase lg:text-4xl md:text-3xl text-gray-600 font-semibold">
+        <h1 className="uppercase lg:text-4xl md:text-3xl text-2xl text-gray-600 font-semibold">
           स्वागतम् दोस्त
         </h1>
-        <p className="lg:w-1/2 md:w-2/3 text-center lg:text-lg md:text-sm font-light text-gray-500">
+        <p className="lg:w-1/2 md:w-2/3 text-center lg:text-lg md:text-sm font-light text-gray-500 w-full text-xs">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi
           commodi maxime debitis nam aliquid placeat minima excepturi quidem est
           iusto!
         </p>
       </div>
-      <div className="grid grid-cols-3 lg:gap-14 md:gap-10  pt-10">
+      <div className="grid grid-rows-3 gap-10 lg:grid-cols-3 md:grid-cols-3 lg:gap-14 md:gap-10 pt-10">
         {assets.map((asset, i) => (
           <div className="flex flex-col gap-2" key={i}>
             <div className="rounded overflow-hidden">
-              <img src={asset.img} alt={asset.title} />
+              <img
+                src={asset.img}
+                alt={asset.title}
+                className="h-full w-full"
+              />
             </div>
-            <h1 className="uppercase tracking-wide text-gray-800 text-xl font-medium">
+            <h1 className="uppercase tracking-wide text-gray-800 text-base lg:text-xl md:text-xl font-medium">
               {asset.title}
             </h1>
-            <p className="text-gray-500 font-light">
+            <p className="text-gray-500 font-light text-sm lg:text-base md:text-base">
               {asset.desc.length > 65
                 ? `${asset.desc.slice(0, 65)}...`
                 : `${asset.desc}`}
             </p>
-            <span className="text-golden tracking-widest uppercase font-medium text-xs">
+            <span className="text-golden tracking-wider uppercase font-medium text-xs">
               <Link to={asset.link}>{asset.linkName}</Link>
             </span>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

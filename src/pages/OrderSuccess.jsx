@@ -8,16 +8,18 @@ const OrderSuccess = () => {
     <>
       <MainNav />
       <div className="h-max flex items-center justify-center flex-col md:py-10 lg:py-20">
-        <img
-          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/order_success.gif?updatedAt=1683123629759"
-          alt="order success"
-          className="lg:h-[50%] md:h-[35%] rounded-full"
-        />
-        <h1 className="text-2xl font-semibold text-gray-800">
+        <div className="h-96 w-96">
+          <img
+            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/order_success.gif?updatedAt=1683123629759"
+            alt="order success"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <h1 className="lg:text-2xl md:text-xl font-semibold text-golden">
           Woohoo! Your order has been placed successfully
         </h1>
-        <p className="text-base font-medium text-gray-700">
-          and will be delivered shortly to you
+        <p className="text-base font-normal text-gray-600">
+          will reach you in 30 mins
         </p>
         <Link
           to="/my-order"

@@ -25,6 +25,7 @@ import ResetPassword from "./pages/ResetPassword";
 import VerifyOTP from "./pages/VerifyOTP";
 import SearchMenu from "./pages/SearchMenu";
 import MenuLight from "./pages/MenuLight";
+import VerifyLoginOTP from "./pages/VerifyLoginOTP";
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -81,6 +82,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot/password" element={<ForgotPassword />} />
       <Route path="/verify/otp" element={<VerifyOTP />} />
+      <Route path="/verify/login/otp" element={<VerifyLoginOTP />} />
       <Route path="/reset/password" element={<ResetPassword />} />
       <Route
         path="/add/pizza"

@@ -9,48 +9,50 @@ import { getAllProducts } from "../redux/actions/productAction";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import Stack from "@mui/material/Stack";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import PlaceHolderCard from "../components/PlaceHolderCard";
 import NoResultFound from "../components/NoResultFound";
 import SmallSearchBar from "../components/SmallSearchBar";
 import PageHead from "../components/PageHead";
-
+import { ProductFiltering } from "../utils/ProductFiltering";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const SearchMenu = () => {
-  const { loading, products, productsCount, resultPerPage } = useSelector(
+  const { loading, products, productsCount } = useSelector(
     (state) => state.products
   );
-  const [category, setCategory] = useState("");
+  const [selectCategory, setSelectCategory] = useState("");
   const { keyword } = useParams();
   const dispatch = useDispatch();
   const [price, setPrice] = useState([0, 1000]);
   const [sort, setSort] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
+  const [isClicked, setIsClicked] = useState(false);
+  const {
+    setCurrentPageNo,
+    handlePageChange,
+    totalProducts,
+    displayProducts,
+    totalPages,
+    currentPage,
+    resultPerPage,
+    filteredProducts,
+  } = ProductFiltering(products, selectCategory, productsCount);
   const handlePriceChange = (event, newValue) => {
     setPrice(newValue);
   };
-
-  const setCurrentPageNo = (e, page) => {
-    setCurrentPage(page);
-  };
-
   useEffect(() => {
-    dispatch(getAllProducts(keyword, category, price, currentPage));
-  }, [dispatch, keyword, category, price, currentPage]);
+    dispatch(getAllProducts(keyword, price));
+  }, [dispatch, keyword, price]);
 
   const handleSortChange = (e) => {
     setSort(e.target.value);
   };
-  const totalPages = Math.ceil(productsCount / resultPerPage);
 
+  const handleCategoryChange = (category) => {
+    setSelectCategory(category);
+    setCurrentPageNo(1);
+  };
   const sortProducts = () => {
-    const sortedProducts = [...products];
+    const sortedProducts = [...filteredProducts];
 
     if (sort === "Price Low to High") {
       sortedProducts.sort((a, b) => a.prices.regular - b.prices.regular);
@@ -75,7 +77,7 @@ const SearchMenu = () => {
 
   useEffect(() => {
     sortProducts();
-  }, [keyword, category, price, sort]);
+  }, [keyword, price, sort]);
 
   return (
     <>
@@ -87,14 +89,14 @@ const SearchMenu = () => {
         <NoResultFound />
       ) : (
         <>
-          <section className="flex m-20">
-            <div className="flex-[0.2]">
+          <section className="flex lg:m-20 md:m-0">
+            <div className="flex-[0.2] md:m-10 lg:m-0">
               <div className="flex flex-col border-b-2 border-golden border-dashed pb-10">
-                <h1 className="uppercase text-golden text-lg font-roboto font-semibold tracking-wider">
+                <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
                   Products
                 </h1>
                 <div className="flex flex-col gap-4 pt-4">
-                  {products
+                  {filteredProducts
                     .slice(products.length - 3, products.lastIndex)
                     .map((product, i) => (
                       <Link
@@ -105,10 +107,10 @@ const SearchMenu = () => {
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="h-16"
+                          className="h-16 w-16 object-cover rounded"
                         />
                         <div className="flex justify-center flex-col">
-                          <p className="uppercase text-gray-700 font-semibold font-roboto tracking-wider text-sm">
+                          <p className="uppercase text-gray-600 font-medium tracking-wider text-sm">
                             {product.name}
                           </p>
                           <p className="flex gap-2">
@@ -123,7 +125,7 @@ const SearchMenu = () => {
                 </div>
               </div>
               <div className="py-10 border-b-2 border-golden border-dashed">
-                <h1 className="uppercase text-golden text-lg font-roboto font-semibold tracking-wider">
+                <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
                   Product Categories
                 </h1>
                 <div className="flex flex-col gap-1 pt-4">
@@ -131,7 +133,7 @@ const SearchMenu = () => {
                     <span
                       key={i}
                       className="text-gray-500 hover:text-gray-700 cursor-pointer"
-                      onClick={() => setCategory(products && cat)}
+                      onClick={() => handleCategoryChange(cat)}
                     >
                       {cat}
                     </span>
@@ -139,7 +141,7 @@ const SearchMenu = () => {
                 </div>
               </div>
               <div className="flex flex-col border-b-2 border-golden border-dashed py-10">
-                <h1 className="uppercase text-golden text-lg font-roboto font-semibold tracking-wider">
+                <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
                   Filter by price
                 </h1>
                 <div className="pt-4">
@@ -156,7 +158,7 @@ const SearchMenu = () => {
                   />
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="uppercase font-bold text-golden">
+                  <span className="uppercase font-normal text-golden">
                     Price:
                   </span>
                   <span className="text-red-700 font-bold">
@@ -165,15 +167,15 @@ const SearchMenu = () => {
                 </div>
               </div>
               <div className="flex flex-col py-10">
-                <h1 className="uppercase text-golden text-lg font-roboto font-semibold tracking-wider">
+                <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
                   Search
                 </h1>
                 <SmallSearchBar products={products} />
               </div>
             </div>
             {loading ? (
-              <div className="flex-1">
-                <div className="grid grid-cols-3 gap-6 place-items-center place-content-start h-full">
+              <div className="flex-1 md:my-10 lg:m-0">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-6 md:gap-4 place-items-center place-content-start h-full">
                   {Array(8)
                     .fill(null)
                     .map((_, i) => (
@@ -182,45 +184,57 @@ const SearchMenu = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col md:my-10 lg:m-0">
                 <div className="flex w-full justify-between px-10">
-                  <FormControl sx={{ minWidth: 250 }}>
-                    <InputLabel id="demo-simple-select-label">
-                      Sort items
-                    </InputLabel>
-                    <Select
-                      value={sort}
-                      label="Sort items"
+                  <div className="bg-gray-100 w-56 flex items-center justify-between h-12 rounded-sm overflow-hidden">
+                    <select
+                      className="bg-transparent appearance-none w-full text-gray-600 h-full cursor-pointer px-2 capitalize"
                       onChange={handleSortChange}
+                      onClick={() => setIsClicked(!isClicked)}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      {sortingOptions.map((option, i) => (
-                        <MenuItem key={i} value={option}>
+                      <option value="">Sort Items</option>
+                      {sortingOptions.map((option, index) => (
+                        <option
+                          key={index}
+                          value={option}
+                          className="capitalize"
+                        >
                           {option}
-                        </MenuItem>
+                        </option>
                       ))}
-                    </Select>
-                  </FormControl>
+                    </select>
+                    <div className={isClicked ? null : "-rotate-180"}>
+                      <ExpandMoreIcon fontSize="small" sx={{ color: "gray" }} />
+                    </div>
+                  </div>
                   <div className="text-gray-500">
-                    Showing 1-{resultPerPage} out of {productsCount} result
+                    Showing 1-{filteredProducts.length} out of {productsCount}{" "}
+                    result
                   </div>
                 </div>
-                {products && <MenuPizzaCard pizza={products} />}
 
-                {resultPerPage < productsCount && (
-                  <div className="grid place-items-center ">
-                    <Stack>
-                      <Pagination
-                        onChange={setCurrentPageNo}
-                        page={currentPage}
-                        count={totalPages}
-                        shape="rounded"
-                        size="large"
-                      />
-                    </Stack>
-                  </div>
+                {products && products.length === 0 ? (
+                  <NoResultFound />
+                ) : (
+                  <>
+                    {displayProducts && (
+                      <MenuPizzaCard pizza={displayProducts} />
+                    )}
+
+                    {totalProducts > resultPerPage && (
+                      <div className="grid place-items-center text-red-600 font-medium">
+                        <Stack>
+                          <Pagination
+                            onChange={handlePageChange}
+                            page={currentPage}
+                            count={totalPages}
+                            shape="rounded"
+                            size="large"
+                          />
+                        </Stack>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
