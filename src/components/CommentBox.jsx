@@ -42,12 +42,12 @@ const CommentBox = ({ onClose, pizza }) => {
     <div
       className={`h-screen w-full fixed top-0 left-0 right-0 z-20 flex items-center justify-center backdrop-blur-sm backdrop-brightness-50`}
     >
-      <div className="flex bg-white rounded-md relative overflow-hidden p-10 shadow-lg flex-col">
+      <div className="flex bg-white rounded-md relative overflow-hidden p-5 sm:p-10 shadow-lg flex-col w-80 sm:w-max">
         <div>
-          <h1 className="text-golden uppercase font-medium text-lg tracking-wide text-center">
+          <h1 className="text-golden uppercase font-medium text-base sm:text-lg tracking-wide text-center">
             Add your review
           </h1>
-          <p className="w-full text-center text-gray-800 font-light">
+          <p className="w-full text-center text-gray-800 font-light text-sm sm:text-base">
             Share your valuable feedback with us!
           </p>
         </div>
@@ -56,7 +56,7 @@ const CommentBox = ({ onClose, pizza }) => {
           onSubmit={reviewSubmitHandler}
         >
           <div className="flex flex-col">
-            <label className="text-gray-700 text-base font-light">
+            <label className="text-gray-700 text-sm sm:text-base font-light">
               Your rating*
             </label>
             <span>
@@ -70,7 +70,7 @@ const CommentBox = ({ onClose, pizza }) => {
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-gray-700 text-base font-light">
+            <label className="text-gray-700 text-sm sm:text-base font-light">
               Your review*
             </label>
             <textarea

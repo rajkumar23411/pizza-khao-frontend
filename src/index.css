@@ -205,6 +205,8 @@ input[type="number"] {
 .slick-arrow.slick-next {
   width: 36px;
   height: 60px;
+  backdrop-filter: blur(0px);
+  background-color: white;
 }
 }
 .slick-prev {
@@ -221,7 +223,7 @@ input[type="number"] {
 }
 .slick-arrow.slick-prev:hover,
 .slick-arrow.slick-next:hover {
-  color: #000 !important;
+  color: #8888 !important;
 }
 
 .menu-light-category-box:hover p {
@@ -345,4 +347,14 @@ input[type="number"] {
   60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+.mobile-nav{
+  display: none;
+  transition:0.3s ease-in;
+}
+.mobile-nav.active{
+  display: flex;
+  flex-direction: column;
+  gap: 4;
+  transition:0.3s ease-in;
 }

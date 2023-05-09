@@ -13,7 +13,7 @@ import {
   getRelatedProducts,
 } from "../redux/actions/productAction";
 import { pizzaSize } from "../utils";
-import { Rating } from "@mui/material";
+import { Rating, useMediaQuery } from "@mui/material";
 import SinglePizzaLoader from "../components/SinglePizzaLoader";
 import {
   addToCart,
@@ -30,17 +30,25 @@ import PageHead from "../components/PageHead";
 const SinglePizza = () => {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetails);
-  const { success, error, cart } = useSelector((state) => state.myCart);
+
+  const {
+    success,
+    error,
+    cart,
+    loading: cartLoading,
+  } = useSelector((state) => state.myCart);
   const { loading: relatedProductLoading, relatedProducts } = useSelector(
     (state) => state.relatedProducts
   );
+
   const [price, setPrice] = useState();
   const [size, setSize] = useState(product ? "regular" : "");
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
+  const [loadingProductId, setLoadingProductId] = useState(null);
   const handleSelectSize = (e) => {
     setSize(e.target.value);
     if (e.target.value === "regular") {
@@ -63,6 +71,7 @@ const SinglePizza = () => {
   };
 
   const handleAddToCart = (id, quantity, size) => {
+    setLoadingProductId(id);
     dispatch(addToCart(id, quantity, size));
   };
 
@@ -71,10 +80,12 @@ const SinglePizza = () => {
       enqueueSnackbar("Pizza added to cart", { variant: "success" });
       dispatch({ type: ADD_TO_CART_RESET });
       dispatch(getCartItems());
+      setLoadingProductId(null);
     }
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearError());
+      setLoadingProductId(null);
     }
   }, [dispatch, success, error, enqueueSnackbar]);
 
@@ -98,12 +109,12 @@ const SinglePizza = () => {
           <SinglePizzaLoader />
         ) : (
           <>
-            <section className="h-max flex gap-10 md:flex-col lg:p-20 md:p-10">
+            <section className="h-max flex gap-10 flex-col lg:flex-row lg:p-20 md:p-10">
               <div className="flex-1 flex bg-gray-50 h-max py-20 rounded-md items-center justify-center relative">
                 <span className="h-20 w-20 bg-yellow-400 absolute top-4 left-4 text-lg text-white font-bold rounded-full flex items-center justify-center">
                   -14%
                 </span>
-                <div className="lg:h-96 lg:w-96 md:h-[30rem] md:w-[30rem] rounded overflow-hidden drop-shadow-xl">
+                <div className="h-80 w-80 lg:h-96 lg:w-96 md:h-[30rem] md:w-[30rem] rounded overflow-hidden drop-shadow-xl">
                   <img
                     src={product && product.image}
                     alt="pizza"
@@ -112,32 +123,34 @@ const SinglePizza = () => {
                   />
                 </div>
               </div>
-              <div className="flex-1 flex flex-col gap-4">
-                <p className="font-semibold text-gray-700 uppercase text-2xl tracking-wider">
+              <div className="flex-1 flex flex-col gap-4 p-5 sm:p-0">
+                <p className="font-semibold text-gray-700 uppercase text-xl sm:text-2xl tracking-wider">
                   {product && product.name}
                 </p>
                 <div className="flex items-center gap-2">
                   <Rating
-                    size="medium"
+                    size={isSmallScreen ? "small" : "medium"}
                     precision={0.5}
                     value={product && product.ratings ? product.ratings : 0}
                     name="controlled-rating"
                     readOnly
                   />
                   {product && product.numOfReviews === 0 ? (
-                    <div className="font-light">No reviews yet</div>
+                    <div className="font-light text-xs sm:text-base">
+                      No reviews yet
+                    </div>
                   ) : (
-                    <div className="text-gray-700 font-light">
+                    <div className="text-gray-700 font-light text-xs sm:text-base">
                       ({product && product.numOfReviews} Customer review)
                     </div>
                   )}
                 </div>
                 {product?.prices && (
-                  <div className="text-2xl font-medium text-golden">
+                  <div className="text-xl sm:text-2xl font-medium text-golden">
                     ₹{product.prices.regular} - ₹{product.prices.extralarge}
                   </div>
                 )}
-                <p className=" text-gray-500 pt-2 font-light">
+                <p className=" text-gray-500 pt-1 sm:pt-2 font-light text-xs sm:text-base">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                   Minima ipsum rerum, voluptatum earum provident recusandae
                   fugit dignissimos rem sint sit facere neque nesciunt porro
@@ -147,7 +160,7 @@ const SinglePizza = () => {
                   <h1 className="uppercase text-golden pt-4 font-medium tracking-wide">
                     Nutritional value per 100g:
                   </h1>
-                  <div className="flex w-[40%] justify-between mt-4">
+                  <div className="flex w-[70%] sm:w-[40%] justify-between mt-4">
                     <div className="flex flex-col gap-2">
                       <span className="text-gray-600 font-light">Calories</span>
                       <span className="text-gray-600 font-light">Calories</span>
@@ -162,10 +175,10 @@ const SinglePizza = () => {
                     </div>
                   </div>
                   <div className="pt-6 flex items-center gap-2">
-                    <span className="text-golden uppercase font-medium tracking-wide">
+                    <span className="text-golden uppercase font-medium tracking-wide text-sm sm:text-base">
                       Pick Size:
                     </span>
-                    <div className="bg-gray-100 w-40 flex items-center justify-between h-12 rounded-sm">
+                    <div className="bg-gray-100 w-40 flex items-center justify-between h-10 sm:h-12 rounded-sm">
                       <select
                         className="bg-transparent appearance-none w-full text-gray-600 h-full cursor-pointer px-2"
                         onChange={handleSelectSize}
@@ -185,12 +198,12 @@ const SinglePizza = () => {
                     </div>
                   </div>
                   <div className="flex items-center mt-6 gap-1">
-                    <span className="text-golden font-medium uppercase">
+                    <span className="text-golden font-medium uppercase text-sm sm:text-base">
                       Categories:
                     </span>
                     {product?.category?.map((cat, index) => (
                       <span
-                        className="text-gray-500 font-normal tracking-wide"
+                        className="text-gray-500 font-normal tracking-wide text-sm sm:text-base"
                         key={index}
                       >
                         {cat}
@@ -200,12 +213,12 @@ const SinglePizza = () => {
                   </div>
                   {price && (
                     <div className="pt-6 flex items-center gap-2">
-                      <span className="text-red-700 font-medium text-3xl">
+                      <span className="text-red-700 font-medium text-xl sm:text-3xl">
                         {`₹${price}`}
                       </span>
                     </div>
                   )}
-                  <div className="mt-6 flex items-center gap-6 w-max justify-center h-12 overflow-hidden">
+                  <div className="mt-6 flex items-center gap-6 w-max justify-center h-10 sm:h-12 overflow-hidden">
                     <div className="h-full flex items-center justify-between w-20 border-[1px] border-gray-400 rounded-sm overflow-hidden">
                       <input
                         type="number"
@@ -217,10 +230,12 @@ const SinglePizza = () => {
                         <KeyboardArrowUpIcon
                           className="cursor-pointer text-gray-500"
                           onClick={handleIncrement}
+                          fontSize={isSmallScreen ? "small" : "medium"}
                         />
                         <KeyboardArrowDownIcon
                           className="cursor-pointer text-gray-500"
                           onClick={handleDecrement}
+                          fontSize={isSmallScreen ? "small" : "medium"}
                         />
                       </div>
                     </div>
@@ -229,7 +244,7 @@ const SinglePizza = () => {
                         isItemPresetInCart === -1
                           ? "bg-red-600 hover:bg-red-700"
                           : "bg-yellow-600 hover:bg-yellow-700"
-                      } text-white uppercase tracking-wide font-medium rounded h-full flex items-center justify-center lg:px-6 md:px-10  cursor-pointer`}
+                      } text-white uppercase tracking-wide text-sm sm:text-base font-normal rounded h-full flex items-center justify-center px-4 lg:px-6 md:px-10 cursor-pointer`}
                       onClick={
                         isItemPresetInCart === -1
                           ? () => handleAddToCart(product._id, quantity, size)
@@ -246,11 +261,13 @@ const SinglePizza = () => {
           </>
         )}
 
-        {relatedProductLoading ? (
-          <ItemSkeleton />
+        {loading && relatedProductLoading ? (
+          <div className="mb-10">
+            <ItemSkeleton />
+          </div>
         ) : (
-          <section className="flex flex-col gap-10 lg:py-20 md:py-10">
-            <h1 className="font-medium text-golden text-2xl tracking-wider uppercase lg:mx-20 md:mx-10">
+          <section className="flex flex-col gap-3 sm:gap-10 lg:py-20 md:py-10 my-8">
+            <h1 className="font-medium text-golden mx-5 text-base sm:text-2xl tracking-wider uppercase lg:mx-20 md:mx-10">
               Related products
             </h1>
             <Slider {...settings} className="overflow-hidden md:pr-10">
@@ -259,6 +276,8 @@ const SinglePizza = () => {
                   product={prod}
                   key={prod._id}
                   addToCart={handleAddToCart}
+                  loadingProductId={loadingProductId}
+                  cartLoading={cartLoading}
                 />
               ))}
             </Slider>

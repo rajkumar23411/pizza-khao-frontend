@@ -16,9 +16,9 @@ const AddressBox = ({ address }) => {
   };
 
   return (
-    <div className={`w-full flex flex-col border-b-2`}>
-      <div className="flex items-center justify-between p-4">
-        <p className="flex items-center gap-4 font-medium">
+    <div className={`w-full flex flex-col border-b-2 py-4 sm:py-0`}>
+      <div className="flex items-center justify-between sm:p-4">
+        <p className="flex items-center gap-4 font-medium text-sm sm:text-base">
           <span className="font-normal text-gray-800">{address.name}</span>
           <span className="font-normal text-gray-800">{address.contact}</span>
         </p>
@@ -48,7 +48,7 @@ const AddressBox = ({ address }) => {
           </div>
         </div>
       </div>
-      <p className="text-gray-700 p-4 font-light">
+      <p className="text-gray-700 p-0 pt-4 sm:p-4 font-light text-sm sm:text-base">
         {address.locality}, {address.address}, {address.city},{" "}
         {address.landMark},{address.alternatContact} <br />
         {address.state} - {address.pinCode}

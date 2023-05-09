@@ -15,11 +15,13 @@ import PageHead from "../components/PageHead";
 import Loader from "../components/Loader";
 import EmptyFavs from "../components/EmptyFavs";
 import HomeFooter from "./../components/HomeFooter";
+import { useMediaQuery } from "@mui/material";
 
 const WishList = () => {
   const { loading, wishlist, message } = useSelector((state) => state.wishlist);
   const { success, error } = useSelector((state) => state.myCart);
   const dispatch = useDispatch();
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const { enqueueSnackbar } = useSnackbar();
   const handleRemoveFromWishlist = (id) => {
     dispatch(addRemoveFromWishlist(id));
@@ -51,9 +53,9 @@ const WishList = () => {
         </div>
         <PageHead pageName={"My Account / Favourites"} />
       </section>
-      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen md:min-h-max">
-        <AccountNav />
-        <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md">
+      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 h-max lg:min-h-screen md:min-h-max">
+        <AccountNav isSmallScreen={isSmallScreen} />
+        <div className="flex-1 bg-white shadow-md md:p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md p-4">
           <h1 className="uppercase text-golden font-semibold tracking-wider text-xl">
             Favourites ({wishlist?.items?.length})
           </h1>
@@ -62,7 +64,7 @@ const WishList = () => {
           ) : wishlist?.items?.length === 0 ? (
             <EmptyFavs />
           ) : (
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-8 md:gap-4">
+            <div className="grid lg:grid-cols-4 grid-cols-3 sm:grid-cols-2 gap-y-6 lg:gap-8 md:gap-4 w-full place-content-center justify-items-center">
               {wishlist?.items?.map((item) => (
                 <SingleWishListItem
                   key={item._id}

@@ -2,18 +2,35 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
 import SinglePizzaCard from "./SinglePizzaCard";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { settings } from "../utils/Arrows";
 import ItemSkeleton from "./ItemSkeleton";
+import { useSnackbar } from "notistack";
+import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
+import { clearError } from "../redux/actions/cartActions";
 
 const HomeMenu = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
-
+  const { success, error } = useSelector((state) => state.myCart);
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+  useEffect(() => {
+    if (success) {
+      enqueueSnackbar("Item added to cart", { variant: "success" });
+      dispatch({ type: ADD_TO_CART_RESET });
+    }
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
+      dispatch(clearError());
+    }
+  }, [dispatch, success, error, enqueueSnackbar]);
   return (
-    <div className="lg:h-screen md:h-[60vh] lg:pt-20 md:pt-20 pt-10">
+    <div className="lg:h-[76vh] md:h-[60vh] lg:pt-20 md:pt-20 pt-10">
       <div className="w-full flex items-center justify-center flex-col gap-1 pb-10">
         <h3 className="text-xs lg:text-base md:text-base uppercase tracking-wider text-[#D1411E] font-light">
           Choose your flavor
@@ -30,7 +47,13 @@ const HomeMenu = () => {
       {loading ? (
         <ItemSkeleton />
       ) : (
-        products && <SinglePizzaCard products={products} />
+        products && (
+          <Slider {...settings}>
+            {products?.map((pizza) => (
+              <SinglePizzaCard key={pizza._id} pizza={pizza} />
+            ))}
+          </Slider>
+        )
       )}
     </div>
   );

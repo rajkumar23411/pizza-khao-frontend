@@ -26,7 +26,7 @@ const Options = () => {
     },
   ];
   return (
-    <section className="lg:h-screen md:h-[60vh] lg:p-20 md:p-14 p-10 w-full flex items-center justify-center flex-col">
+    <section className="h-max lg:h-screen md:h-[60vh] lg:p-20 md:p-14 p-5 w-full flex items-center justify-center flex-col gap-6 sm:gap-10">
       <div className="flex flex-col items-center gap-2">
         <p className="text-red-600 uppercase font-normal lg:text-sm md:text-sm text-xs tracking-wider">
           the magic of flavor
@@ -40,20 +40,20 @@ const Options = () => {
           iusto!
         </p>
       </div>
-      <div className="grid grid-rows-3 gap-10 lg:grid-cols-3 md:grid-cols-3 lg:gap-14 md:gap-10 pt-10">
+      <div className="flex flex-col gap-y-10 sm:flex-row sm:gap-x-10">
         {assets.map((asset, i) => (
           <div className="flex flex-col gap-2" key={i}>
-            <div className="rounded overflow-hidden">
+            <div className="rounded overflow-hidden h-56 w-full">
               <img
                 src={asset.img}
                 alt={asset.title}
-                className="h-full w-full"
+                className="h-full w-full rounded object-cover drop-shadow-lg"
               />
             </div>
-            <h1 className="uppercase tracking-wide text-gray-800 text-base lg:text-xl md:text-xl font-medium">
+            <h1 className="uppercase tracking-wide text-gray-800 text-sm lg:text-xl md:text-xl font-medium">
               {asset.title}
             </h1>
-            <p className="text-gray-500 font-light text-sm lg:text-base md:text-base">
+            <p className="text-gray-500 font-light text-xs lg:text-base md:text-base">
               {asset.desc.length > 65
                 ? `${asset.desc.slice(0, 65)}...`
                 : `${asset.desc}`}

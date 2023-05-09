@@ -28,7 +28,7 @@ const MyOrder = () => {
         ) : orders?.length === 0 ? (
           <EmptyOrder />
         ) : (
-          <div className="px-10 lg:py-20 md:py-10 grid lg:grid-cols-3 md:grid-cols-2 gap-4 w-max place-items-center justify-items-center m-auto">
+          <div className="py-10 sm:px-10 lg:py-20 md:py-10 grid lg:grid-cols-3 md:grid-cols-2 gap-4 w-max place-items-center justify-items-center m-auto">
             {orders?.map((order) => (
               <SingleOrderBox order={order} key={order._id} />
             ))}

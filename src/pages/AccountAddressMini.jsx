@@ -1,18 +1,17 @@
-import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AccountNav from "../components/AccountNav";
-import AddressBox from "../components/AddressBox";
-import AddressForm from "../components/AddressForm";
 import MainNav from "../components/MainNav";
-import { myAddresses } from "../redux/actions/addressAction";
+import Loader from "../components/Loader";
+import { Add } from "@mui/icons-material";
+import AddressBox from "../components/AddressBox";
+import HomeFooter from "../components/HomeFooter";
+import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
-import Loader from "../components/Loader";
+import { myAddresses } from "../redux/actions/addressAction";
 import PageHead from "../components/PageHead";
-import HomeFooter from "../components/HomeFooter";
+import AddressForm from "../components/AddressForm";
 
-const AccountAddress = () => {
+const AccountAddressMini = () => {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const { loading, addresses } = useSelector((state) => state.myAddresses);
   const { success, error } = useSelector((state) => state.newAddress);
@@ -34,17 +33,16 @@ const AccountAddress = () => {
     <>
       <MainNav />
       <PageHead pageName={"My Account"} />
-      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 h-full">
-        <AccountNav />
-        <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md">
-          <div className="flex items-center justify-between w-full">
-            <h1 className="uppercase text-golden font-medium tracking-wide text-xl">
+      <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 min-h-[20rem] sm:h-full p-2">
+        <div className="flex-1 bg-white shadow-md p-5 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-6 rounded-md">
+          <div className="flex items-center justify-between">
+            <h1 className="uppercase text-golden font-medium tracking-wider">
               Manage Address
             </h1>
             <div
-              className={` ${
+              className={`text-red-600 font-medium w-max text-xs ${
                 showAddressForm ? "hidden" : "flex"
-              } items-center justify-center w-max uppercase tracking-wider gap-1 cursor-pointer text-red-600 font-medium`}
+              } items-center justify-center uppercase`}
               onClick={() => setShowAddressForm(true)}
             >
               <Add fontSize="small" />
@@ -67,7 +65,7 @@ const AccountAddress = () => {
                     showAddressForm ? "hidden" : "flex"
                   } items-center justify-center`}
                 >
-                  <p className="text-gray-600 text-lg">
+                  <p className="text-gray-600 text- base">
                     You have not any addresses to show yet
                   </p>
                 </div>
@@ -75,7 +73,11 @@ const AccountAddress = () => {
                 <div className="flex flex-col items-center gap-4 border-gray-300 w-full">
                   {addresses &&
                     addresses.map((address) => (
-                      <AddressBox key={address._id} address={address} />
+                      <AddressBox
+                        key={address._id}
+                        address={address}
+                        onClose={() => setShowAddressForm(false)}
+                      />
                     ))}
                 </div>
               )}
@@ -88,4 +90,4 @@ const AccountAddress = () => {
   );
 };
 
-export default AccountAddress;
+export default AccountAddressMini;

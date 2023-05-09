@@ -25,9 +25,9 @@ const OrderedItems = ({ items }) => {
     }
   }, [dispatch, message]);
   return items.map((item) => (
-    <div className="flex items-start gap-8 border-b-[1px] lg:px-8 lg:py-4 md:p-4">
+    <div className="flex items-start gap-4 sm:gap-8 border-b-[1px] py-2 lg:px-8 lg:py-4 md:p-4">
       <div className="flex flex-col items-start justify-start gap-3 w-max">
-        <div className="h-24 w-24">
+        <div className="h-16 w-16 sm:h-24 sm:w-24 flex items-center justify-center">
           <img
             src={item.product.image}
             alt={item.product.name}
@@ -37,17 +37,19 @@ const OrderedItems = ({ items }) => {
       </div>
       <div className="w-full flex justify-between items-start">
         <div className="flex flex-col">
-          <p className="uppercase font-medium text-golden tracking-wide">
+          <p className="uppercase font-medium text-golden tracking-wide text-sm sm:text-base">
             {item.product.name}
           </p>
-          <p className="text-sm text-gray-600 capitalize">{item.size}</p>
-          <p className="text-sm text-gray-600"> {item.quantity}</p>
-          <p className="text-red-600 font-semibold text-lg">
+          <p className="text-xs sm:text-sm text-gray-600 capitalize">
+            {item.size}
+          </p>
+          <p className="text-xs sm:text-sm text-gray-600"> {item.quantity}</p>
+          <p className="text-red-600 font-semibold text-base sm:text-lg">
             ₹{item.quantity * item.product.prices[item.size]}
           </p>
         </div>
         <div
-          className="text-blue-500 font-normal cursor-pointer mt-2 uppercase hover:text-blue-700"
+          className="text-blue-500 font-normal cursor-pointer sm:mt-2 uppercase hover:text-blue-700 text-xs sm:text-base"
           onClick={() => handleDeleteItem(item.product._id)}
         >
           Remove

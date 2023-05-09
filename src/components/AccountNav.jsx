@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/userAction";
 import { useSnackbar } from "notistack";
 
-const AccountNav = () => {
+const AccountNav = ({ isSmallScreen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -29,7 +29,11 @@ const AccountNav = () => {
     enqueueSnackbar("Logged out successfully", { variant: "success" });
   };
   return (
-    <div className="lg:flex-[0.3] md:flex-[0.4] flex flex-col min-h-full bg-white shadow-md rounded-md overflow-hidden">
+    <div
+      className={`lg:flex-[0.3] md:flex-[0.4] ${
+        isSmallScreen ? "hidden" : "flex"
+      } flex-col min-h-full bg-white shadow-md rounded-md overflow-hidden`}
+    >
       <div className="flex items-center lg:gap-6 md:gap-3 p-4 border-b-[1px]">
         <img
           src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/profile-pic.svg?updatedAt=1683123633470"

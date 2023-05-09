@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import MopedOutlinedIcon from "@mui/icons-material/MopedOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -6,14 +6,15 @@ import SearchBar from "./SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/actions/cartActions";
 import { PagesSubMenu, shopSubMenu } from "../utils";
-
+import { useMediaQuery } from "@mui/material";
+import MobileMenu from "./MobileMenu";
 const MainNav = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState(0);
   const { cart } = useSelector((state) => state.myCart);
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
 
   const toggleMenu = (index) => {
     setIsModelOpen(index);
@@ -31,7 +32,9 @@ const MainNav = () => {
     dispatch(getCartItems());
     window.addEventListener("scroll", handleScroll);
   }, [dispatch]);
-  return (
+  return isSmallScreen ? (
+    isSmallScreen && <MobileMenu cart={cart} />
+  ) : (
     <>
       <nav className="w-full flex items-center justify-between lg:px-10 md:px-5 h-20">
         <div className="h-full">
@@ -147,12 +150,7 @@ const MainNav = () => {
           </div>
         </div>
       </nav>
-      {showSearchBar && (
-        <SearchBar
-          onClose={() => setShowSearchBar(false)}
-          inputRef={inputRef}
-        />
-      )}
+      {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
     </>
   );
 };

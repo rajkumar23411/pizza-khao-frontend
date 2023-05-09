@@ -33,21 +33,32 @@ const AddressForm = ({ button, onCancel, bg }) => {
 
   return (
     <form
-      className={`flex flex-col gap-4 lg:p-10 md:p-5 bg-white`}
+      className={`flex flex-col gap-2 lg:p-5 md:p-5 bg-white`}
       onSubmit={handleAddressSubmit}
     >
-      <div className="flex w-full gap-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-sm sm:text-xl text-golden uppercase tracking-wider font-normal">
+          Add your address
+        </h1>
+        <span
+          onClick={onCancel}
+          className="text-red-600 font-medium uppercase text-sm tracking-wider cursor-pointer"
+        >
+          Close
+        </span>
+      </div>
+      <div className="flex w-full gap-4 mt-4">
         <input
           type="text"
           placeholder="Full Name*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
         <input
           type="number"
           placeholder="Phone number*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setContact(e.target.value)}
           value={contact}
         />
@@ -56,14 +67,14 @@ const AddressForm = ({ button, onCancel, bg }) => {
         <input
           type="text"
           placeholder="Pincode*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setPincode(e.target.value)}
           value={pincode}
         />
         <input
           type="text"
           placeholder="Locality*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setLocality(e.target.value)}
           value={locality}
         />
@@ -72,7 +83,7 @@ const AddressForm = ({ button, onCancel, bg }) => {
         <textarea
           cols="30"
           rows="3"
-          className="resize-none w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="resize-none w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           placeholder="Address (area and street)*"
           onChange={(e) => setAddress(e.target.value)}
           value={address}
@@ -82,14 +93,14 @@ const AddressForm = ({ button, onCancel, bg }) => {
         <input
           type="text"
           placeholder="City/District/Town*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setCity(e.target.value)}
           value={city}
         />
         <input
           type="text"
           placeholder="State*"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setState(e.target.value)}
           value={state}
         />
@@ -98,14 +109,14 @@ const AddressForm = ({ button, onCancel, bg }) => {
         <input
           type="text"
           placeholder="Landmark (Optional)"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setLandmark(e.target.value)}
           value={landmark}
         />
         <input
           type="number"
           placeholder="Alternate Phone (optional)"
-          className="w-full border-[1px] border-gray-400 p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
+          className="w-full border-[1px] border-gray-400 p-2 placeholder:font-light placeholder:text-sm sm:p-3 bg-transparent focus:border-red-600 focus:placeholder:text-red-400 rounded"
           onChange={(e) => setAltContact(e.target.value)}
           value={altContact}
         />
@@ -114,17 +125,9 @@ const AddressForm = ({ button, onCancel, bg }) => {
         <input
           type="submit"
           value={button}
-          className="uppercase bg-red-600 text-white w-max px-6 py-2 font-normal tracking-wider hover:bg-red-700 cursor-pointer rounded"
+          className="uppercase bg-red-600 text-white w-max px-6 text-sm sm:text-base py-2 font-normal tracking-wider hover:bg-red-700 cursor-pointer rounded"
         />
       </div>
-      {onCancel && (
-        <div
-          onClick={onCancel}
-          className="text-center text-red-600 font-semibold cursor-pointer hover:text-red-700"
-        >
-          Cancel
-        </div>
-      )}
     </form>
   );
 };

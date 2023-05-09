@@ -4,7 +4,7 @@ import OrderedItems from "../components/OrderedItems";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutLoginForm from "../components/CheckoutLoginForm";
 import { clearError, myAddresses } from "../redux/actions/addressAction";
-import { Radio } from "@mui/material";
+import { Radio, useMediaQuery } from "@mui/material";
 import { clearErrors, createOrder } from "../redux/actions/orderAction";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -19,21 +19,21 @@ import HomeFooter from "../components/HomeFooter";
 
 const CheckoutStep = (props) => {
   return (
-    <div className="bg-white shadow-sm w-full rounded-md">
+    <div className="bg-white shadow-sm w-full rounded-md overflow-hidden">
       <div
         onClick={props.onClick}
         className={`w-full ${props.active && "bg-red-600"}`}
       >
-        <div className="flex items-center lg:gap-6 md:gap-3 lg:px-10 md:px-5 py-3 ">
+        <div className="flex items-center lg:gap-6 gap-3 lg:px-10 px-5 sm:py-3 py-2">
           <p
-            className={`h-6 w-6 flex items-center justify-center font-semibold ${
+            className={`h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center font-semibold ${
               props.active ? "text-red-700" : "text-gray-600"
-            }  rounded bg-slate-100`}
+            }  rounded bg-slate-100 sm:text-base text-xs`}
           >
             {props.stepNumber}
           </p>
           <p
-            className={`uppercase tracking-wider text-gray-800 font-normal ${
+            className={`uppercase sm:text-base text-sm tracking-wider text-gray-800 font-normal ${
               props.active && "text-white"
             }`}
           >
@@ -41,29 +41,37 @@ const CheckoutStep = (props) => {
           </p>
         </div>
       </div>
-      <div className={props.body && "lg:px-10 lg:py-3 md:p-5"}>
+      <div className={props.body && "lg:px-10 lg:py-3 md:p-5 px-5 py-3"}>
         {props.body && props.body}
       </div>
     </div>
   );
 };
 const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   return (
     <div className={`flex flex-col ${address.length > 1 && "border-b-2"}`}>
-      <div className="flex items-start justify-start lg:gap-6 md:gap-3">
-        <Radio onClick={() => selectAddress(address)} />
+      <div className="flex items-start justify-start lg:gap-6 gap-3">
+        <Radio
+          onClick={() => selectAddress(address)}
+          size={isSmallScreen ? "small" : "medium"}
+        />
         <div className="flex flex-col gap-4">
           <div className="flex gap-5">
-            <p className="text-gray-800 font-medium">{address.name}</p>
-            <p className="text-gray-800 font-medium">{address.contact}</p>
+            <p className="text-gray-800 font-medium text-sm sm:text-base">
+              {address.name}
+            </p>
+            <p className="text-gray-800 font-medium text-sm sm:text-base">
+              {address.contact}
+            </p>
           </div>
-          <div className="text-gray-600 font-normal flex items-center gap-1 lg:text-base md:text-sm">
+          <div className="text-gray-600 font-normal flex items-center gap-1 lg:text-base md:text-sm text-xs">
             {address.locality}, {address.address}, {address.landMark},{" "}
             {address.alternatContact} <br /> {address.state} - {address.pinCode}
           </div>
           {address.selected && (
             <button
-              className="text-red-500 border-2 border-red-500 font-medium hover:bg-red-500 hover:text-white cursor-pointer w-max px-4 py-1 rounded-sm"
+              className="bg-blue-600 rounded text-white uppercase font-normal text-xs px-4 py-2 w-max sm:text-base tracking-wider"
               onClick={() => confirmDeliveryAddress(address)}
             >
               Deliver here
@@ -197,6 +205,9 @@ const CheckOut = () => {
           notes: {
             address: "Pizza-Khao Pvt. Ltd.",
           },
+          theme: {
+            color: "#c0392b",
+          },
         };
         const razorpay = new Razorpay(options);
         razorpay.open();
@@ -214,7 +225,7 @@ const CheckOut = () => {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
-  }, [success, error, navigate, enqueueSnackbar]);
+  }, [success, error, navigate, enqueueSnackbar, dispatch]);
 
   useEffect(() => {
     if (addAddressSuccess) {
@@ -256,7 +267,7 @@ const CheckOut = () => {
           </Link>
         </div>
       ) : (
-        <div className="lg:min-h-screen md:min-h-max w-full bg-slate-50 py-20 lg:px-40 md:px-10 md:py-10 flex gap-4">
+        <div className="lg:min-h-screen md:min-h-max w-full bg-slate-50 p-3 sm:py-20 lg:px-40 md:px-10 md:py-10 flex flex-col sm:flex-row gap-4">
           <div className="flex-1 flex flex-col gap-4">
             <CheckoutStep
               stepNumber={1}
@@ -266,7 +277,7 @@ const CheckOut = () => {
                 userLoading ? (
                   <Loader />
                 ) : isAuthenticated ? (
-                  <div className="flex items-center gap-4 font-medium lg:pl-12 md:pl-4 text-gray-700">
+                  <div className="flex items-center gap-4 text-sm sm:text-base font-medium lg:pl-12 md:pl-4 text-gray-700">
                     <span className="capitalize">
                       {user.firstname} {user.lastname}
                     </span>
@@ -292,11 +303,11 @@ const CheckOut = () => {
                 ) : confirmAddress ? (
                   selectedAddress && (
                     <div className="flex flex-col gap-2 lg:pl-12 md:pl-4">
-                      <p className="text-gray-700 font-semibold">
+                      <p className="text-gray-700 font-medium text-sm sm:text-base">
                         {selectedAddress.name} - {selectedAddress.contact}
                       </p>
                       {selectedAddress && (
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 font-normal sm:text-base text-sm">
                           {selectedAddress.locality}, {selectedAddress.address},{" "}
                           {selectedAddress.landMark},{" "}
                           {selectedAddress.alternateContact} <br />{" "}
@@ -318,7 +329,10 @@ const CheckOut = () => {
             />
             {address?.length !== 0 &&
               (confirmAddress ? null : newAddress ? (
-                <AddressForm button={"Save and Deliver here"} />
+                <AddressForm
+                  button={"Save and Deliver here"}
+                  onClose={() => setNewAddress(false)}
+                />
               ) : isAuthenticated ? (
                 <CheckoutStep
                   stepNumber={"+"}
@@ -337,9 +351,9 @@ const CheckOut = () => {
                   {orderSummary ? (
                     <>
                       <OrderedItems items={cart.items} />
-                      <div className="mt-4 flex items-center justify-end">
+                      <div className="mt-4 w-full">
                         <button
-                          className="text-white bg-red-600 font-light tracking-wider capitalize hover:bg-green-700 cursor-pointer w-max px-4 py-2 rounded-sm"
+                          className="text-white bg-blue-600 uppercase rounded font-normal px-4 py-2 text-sm sm:text-base tracking-wider hover:bg-blue-700"
                           onClick={proceedNext}
                         >
                           Continue
@@ -348,13 +362,13 @@ const CheckOut = () => {
                     </>
                   ) : null}
                   {showOrderSummary && (
-                    <div className="flex-col gap-6 flex">
+                    <div className="flex-col gap-3 sm:gap-6 flex">
                       {cart.items.map((item) => (
                         <div
                           key={item._id}
-                          className="flex items-center gap-6 lg:px-10 md:px-5"
+                          className="flex items-center gap-4 sm:gap-6 lg:px-10 md:px-5"
                         >
-                          <div className="h-24 w-24">
+                          <div className="h-16 w-16 sm:h-24 sm:w-24">
                             <img
                               src={item.product.image}
                               alt={item.product.image}
@@ -362,16 +376,16 @@ const CheckOut = () => {
                             />
                           </div>
                           <div className="leading-5">
-                            <p className="text-gray-800 font-normal uppercase tracking-wide">
+                            <p className="text-gray-700 font-medium uppercase tracking-wide text-sm sm:text-base">
                               {item.product.name}
                             </p>
-                            <p className="capitalize text-gray-600 font-light text-sm">
+                            <p className="capitalize text-gray-600 font-light text-xs sm:text-sm">
                               {item.size}
                             </p>
-                            <p className="text-gray-600 font-light text-sm">
+                            <p className="text-gray-600 font-light text-xs sm:text-sm">
                               {item.quantity}
                             </p>
-                            <p className="font-semibold text-red-600 text-lg">
+                            <p className="font-semibold text-red-600 text-sm sm:text-lg">
                               ₹{item.quantity * item.product.prices[item.size]}
                             </p>
                           </div>
@@ -388,7 +402,7 @@ const CheckOut = () => {
               active={paymentOption}
               body={
                 paymentOption ? (
-                  <div className="flex flex-col gap-4 pl-12">
+                  <div className="flex flex-col gap-4  sm:pl-12">
                     <div className="flex items-center gap-4">
                       <input
                         type="radio"
@@ -397,7 +411,12 @@ const CheckOut = () => {
                         className="h-4 w-4 cursor-pointer bg-red-700"
                         onChange={(e) => setSelectPaymentOption(e.target.value)}
                       />
-                      <label htmlFor="cod">Cash on Delivery</label>
+                      <label
+                        htmlFor="cod"
+                        className="text-gray-800 sm:text-base text-sm"
+                      >
+                        Cash on Delivery
+                      </label>
                     </div>
                     <div className="flex items-center gap-4 w-full">
                       <input
@@ -409,14 +428,14 @@ const CheckOut = () => {
                       />
                       <label
                         htmlFor="online"
-                        className="flex w-full items-center  gap-2"
+                        className="flex w-full items-center gap-2 text-gray-800 sm:text-base text-sm"
                       >
                         <p>Online payment</p>
                         (
                         <img
                           src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/razorpay-icon.svg?updatedAt=1683123633492"
                           alt="razorpay icon"
-                          className="h-4"
+                          className="h-3 sm:h-4"
                         />
                         )
                       </label>
@@ -430,7 +449,10 @@ const CheckOut = () => {
                         onChange={(e) => setSelectPaymentOption(e.target.value)}
                         disabled
                       />
-                      <label htmlFor="wallet" className="text-gray-500">
+                      <label
+                        htmlFor="wallet"
+                        className="text-gray-500 sm:text-base text-sm"
+                      >
                         Wallet{" "}
                         <span className="font-light text-gray-500">
                           (Coming Soon)
@@ -439,7 +461,7 @@ const CheckOut = () => {
                     </div>
                     {selectPaymentOption !== "" && (
                       <button
-                        className="bg-red-600 font-light text-white  py-2 rounded-sm w-max px-4 mt-4 tracking-wider hover:bg-red-700"
+                        className="bg-blue-600 font-normal mx-auto text-white uppercase text-xs sm:text-sm py-2 rounded-sm w-max px-4 mt-4 tracking-wider hover:bg-blue-700"
                         onClick={confirmOrder}
                       >
                         {selectPaymentOption === "cod"
@@ -457,7 +479,7 @@ const CheckOut = () => {
               !isAuthenticated ? "hidden" : "flex-[0.5]"
             } bg-white h-max shadow-md rounded-md`}
           >
-            <h1 className="uppercase font-semibold tracking-wide text-golden w-full border-b-2 border-golden border-dashed px-4 py-2">
+            <h1 className="uppercase font-medium tracking-wide text-golden w-full border-b-2 border-golden border-dashed px-4 py-2">
               Price Details
             </h1>
             <div className="flex flex-col gap-2 border-b-[1px] p-4">
@@ -465,33 +487,33 @@ const CheckOut = () => {
                 <span className="text-gray-600">
                   Price ({cart?.items?.length})
                 </span>
-                <span className="text-gray-800 font-semibold">
+                <span className="text-gray-700 font-normal">
                   ₹{totalPrice?.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Delivery Charge</span>
-                <span className="text-gray-800 font-semibold">
+                <span className="text-gray-700 font-normal">
                   ₹{shipping?.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Tax</span>
-                <span className="text-gray-800 font-semibold">
+                <span className="text-gray-700 font-normal">
                   ₹{tax?.toFixed(2)}
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center p-4 border-b-[1px]">
-              <span className="text-lg font-semibold text-gray-800">
+              <span className="text-base sm:text-lg font-medium text-gray-800">
                 Total Payable:
               </span>
-              <span className="text-red-600 font-semibold text-lg">
+              <span className="text-red-600 font-medium text-base sm:text-lg">
                 ₹{total}
               </span>
             </div>
-            <div className="flex justify-between items-center p-4 text-golden font-semibold">
-              *Your total savings in this order is $45.98
+            <div className="flex justify-between items-center p-4 text-green-600 font-medium sm:text-base text-sm">
+              *Your total savings in this order is {shipping === 0 ? "₹50" : 0}
             </div>
           </div>
         </div>

@@ -26,7 +26,11 @@ import VerifyOTP from "./pages/VerifyOTP";
 import SearchMenu from "./pages/SearchMenu";
 import MenuLight from "./pages/MenuLight";
 import VerifyLoginOTP from "./pages/VerifyLoginOTP";
+import { useMediaQuery } from "@mui/material";
+import MyAccountMini from "./pages/MyAccountMini";
+import AccountAddressMini from "./pages/AccountAddressMini";
 const App = () => {
+  const isSmallScreen = useMediaQuery("(max-width:650px)");
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
@@ -58,7 +62,7 @@ const App = () => {
         path="/account/settings"
         element={
           <ProtectedRoute>
-            <MyAccount />
+            {isSmallScreen ? <MyAccountMini /> : <MyAccount />}
           </ProtectedRoute>
         }
       />
@@ -66,7 +70,7 @@ const App = () => {
         path="/account/address"
         element={
           <ProtectedRoute>
-            <AccountAddress />
+            {isSmallScreen ? <AccountAddressMini /> : <AccountAddress />}
           </ProtectedRoute>
         }
       />

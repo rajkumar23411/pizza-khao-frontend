@@ -7,13 +7,13 @@ const EmptyFavs = () => {
       <img
         src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/empty_fav.svg?updatedAt=1683123625460"
         alt="empty favourites"
-        className="lg:h-64 md:h-56"
+        className="h-44 w-44 lg:h-64 md:h-56 object-cover"
       />
-      <h1 className="text-golden font-normal text-xl">
-        Oops! No favouite item available
+      <h1 className="text-golden font-normal text-base sm:text-xl">
+        Oops! No favouite items in your bucket
       </h1>
       <Link to="/menu">
-        <p className="bg-red-500 text-white uppercase font-semibold tracking-wider px-4 py-2 rounded-sm text-sm hover:bg-red-600 cursor-pointer">
+        <p className="bg-red-500 text-white uppercase text-sm sm:text-base font-medium tracking-wider px-4 py-2 rounded-sm hover:bg-red-600 cursor-pointer">
           Add items
         </p>
       </Link>

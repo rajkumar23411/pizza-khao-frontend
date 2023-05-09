@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import AccountNav from "../components/AccountNav";
 import MainNav from "../components/MainNav";
-import PromptModel from "../components/PromptModel";
-import { useDispatch, useSelector } from "react-redux";
-import { updateName } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
 import PageHead from "../components/PageHead";
-import HomeFooter from "../components/HomeFooter";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
+import { updateName } from "../redux/actions/userAction";
 import Loader from "../components/Loader";
-const MyAccount = () => {
+import PromptModel from "../components/PromptModel";
+import HomeFooter from "../components/HomeFooter";
+
+const MyAccountMini = () => {
   const { user, loading } = useSelector((state) => state.user);
   const { error, isUpdated } = useSelector((state) => state.profile);
   const [readOnly, setReadOnly] = useState({
@@ -52,73 +52,74 @@ const MyAccount = () => {
         <PageHead pageName={"My Account"} />
       </section>
       <section className="flex items-start gap-4 lg:p-20 md:px-5 md:py-10 bg-slate-50 lg:h-screen md:min-h-max">
-        <AccountNav />
         {loading ? (
           <Loader />
         ) : (
-          <div className="flex-1 bg-white shadow-md p-10 flex flex-col md:min-h-[33.3rem] lg:min-h-full lg:gap-6 md:gap-4 rounded-md">
+          <div className="flex-1 bg-white shadow-md p-6 flex flex-col md:min-h-[33.3rem] lg:min-h-full gap-4 rounded-md">
             <h1 className="uppercase text-golden font-semibold tracking-wider text-xl">
               Personal Information
             </h1>
-            <div className="max-w-xl flex flex-col gap-4">
-              <div className="flex flex-col gap-4 w-full">
+            <div className="max-w-xl flex flex-col">
+              <div className="flex flex-col gap-1 w-full">
                 <div className="flex w-full items-center justify-between">
-                  <label className="text-gray-500 text-base">Name</label>
+                  <label className="text-gray-500 text-sm">Name</label>
                   {readOnly.name ? (
                     <div
                       onClick={() => handleEditClick("name")}
-                      className={`uppercase text-base text-blue-500 font-semibold cursor-pointer`}
+                      className={`uppercase text-base text-blue-500 font-normal cursor-pointer`}
                     >
                       Edit
                     </div>
                   ) : (
                     <div
                       onClick={() => handleCancelClick("name")}
-                      className={`uppercase text-base text-red-500 font-semibold cursor-pointer`}
+                      className={`uppercase text-base text-red-500 font-normal cursor-pointer`}
                     >
                       Cancel
                     </div>
                   )}
                 </div>
                 <form
-                  className="flex w-full items-center justify-between gap-6"
+                  className="flex w-full items-center justify-between gap-2 flex-col"
                   onSubmit={handleNameChange}
                 >
-                  <div
-                    className={`flex items-center w-full justify-center h-12 rounded border-2 ${
-                      readOnly.name ? "border-blue-100" : "border-blue-300"
-                    } overflow-hidden`}
-                  >
-                    <input
-                      type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      readOnly={readOnly.name}
-                      className={`h-full ${
-                        readOnly.name
-                          ? "bg-slate-100 text-gray-600"
-                          : "bg-transparent text-gray-700"
-                      } w-full px-4`}
-                      placeholder="Your first and middle name here*"
-                    />
-                  </div>
-                  <div
-                    className={`flex items-center w-full justify-center h-12 rounded border-2 ${
-                      readOnly.name ? "border-blue-100" : "border-blue-300"
-                    } overflow-hidden`}
-                  >
-                    <input
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      readOnly={readOnly.name}
-                      className={`h-full ${
-                        readOnly.name
-                          ? "bg-slate-100 text-gray-600"
-                          : "bg-transparent text-gray-700"
-                      } w-full px-4`}
-                      placeholder="Your last name here*"
-                    />
+                  <div className="flex items-center justify-between gap-3">
+                    <div
+                      className={`flex items-center w-full justify-center h-10 rounded border-2 ${
+                        readOnly.name ? "border-blue-100" : "border-blue-300"
+                      } overflow-hidden`}
+                    >
+                      <input
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        readOnly={readOnly.name}
+                        className={`h-full ${
+                          readOnly.name
+                            ? "bg-slate-100 text-gray-600"
+                            : "bg-transparent text-gray-700"
+                        } w-full px-2`}
+                        placeholder="Your first and middle name here*"
+                      />
+                    </div>
+                    <div
+                      className={`flex items-center w-full justify-center h-10 rounded border-2 ${
+                        readOnly.name ? "border-blue-100" : "border-blue-300"
+                      } overflow-hidden`}
+                    >
+                      <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        readOnly={readOnly.name}
+                        className={`h-full ${
+                          readOnly.name
+                            ? "bg-slate-100 text-gray-600"
+                            : "bg-transparent text-gray-700"
+                        } w-full px-2`}
+                        placeholder="Your last name here*"
+                      />
+                    </div>
                   </div>
                   {readOnly.name === false && (
                     <div>
@@ -132,10 +133,10 @@ const MyAccount = () => {
                 </form>
               </div>
             </div>
-            <div className="max-w-xl flex flex-col gap-4">
-              <div className="flex flex-col gap-4 w-full">
+            <div className="max-w-xl flex flex-col">
+              <div className="flex flex-col gap-1 w-full">
                 <div className="flex w-full items-center justify-between">
-                  <label className="text-gray-500 text-base">Email</label>
+                  <label className="text-gray-500 text-sm">Email</label>
                   {/* {readOnly.email ? (
                   <div
                     onClick={() => handleEditClick("email")}
@@ -153,7 +154,7 @@ const MyAccount = () => {
                 )} */}
                 </div>
                 <div
-                  className={`flex items-center w-full justify-center h-12 rounded border-2 ${
+                  className={`flex items-center w-full justify-center h-10 rounded border-2 ${
                     readOnly.email ? "border-blue-100" : "border-blue-300"
                   } overflow-hidden`}
                 >
@@ -166,16 +167,16 @@ const MyAccount = () => {
                       readOnly.email
                         ? "bg-slate-100 text-gray-600"
                         : "bg-transparent text-gray-700"
-                    } w-full px-4`}
+                    } w-full px-2`}
                     placeholder="Your email id here*"
                   />
                 </div>
               </div>
             </div>
-            <div className="max-w-xl flex flex-col gap-4">
-              <div className="flex flex-col gap-4 w-full">
+            <div className="max-w-xl flex flex-col">
+              <div className="flex flex-col gap-1 w-full">
                 <div className="flex w-full items-center justify-between">
-                  <label className="text-gray-500 text-base">
+                  <label className="text-gray-500 text-sm">
                     Contact number
                   </label>
                   {/* {readOnly.contact ? (
@@ -195,7 +196,7 @@ const MyAccount = () => {
                 )} */}
                 </div>
                 <div
-                  className={`flex items-center w-full justify-center h-12 rounded border-2 ${
+                  className={`flex items-center w-full justify-center h-10 rounded border-2 ${
                     readOnly.contact ? "border-blue-100" : "border-blue-300"
                   } overflow-hidden`}
                 >
@@ -208,16 +209,16 @@ const MyAccount = () => {
                       readOnly.contact
                         ? "bg-slate-100 text-gray-600"
                         : "bg-transparent text-gray-700"
-                    } w-full px-4`}
+                    } w-full px-2`}
                     placeholder="Your phone number here*"
                   />
                 </div>
               </div>
             </div>
-            <div className="max-w-xl flex flex-col gap-4">
-              <label className="text-gray-500 text-base">Joined on</label>
+            <div className="max-w-xl flex flex-col">
+              <label className="text-gray-500 text-sm">Joined on</label>
               <span
-                className={`flex items-center w-full px-4 h-12 rounded border-2 border-blue-100" overflow-hidden bg-slate-50 text-gray-600`}
+                className={`flex items-center w-full px-2 h-10 rounded border-2 border-blue-100" overflow-hidden bg-slate-50 text-gray-600`}
               >
                 28 July 2001
               </span>
@@ -246,4 +247,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default MyAccountMini;

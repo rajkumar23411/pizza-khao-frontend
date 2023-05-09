@@ -90,7 +90,7 @@ const Menu = () => {
       </div>
       <PageHead pageName={"Menu"} />
       <section className="flex lg:m-20 md:m-0">
-        <div className="flex-[0.2] md:m-10 lg:m-0">
+        <div className="hidden sm:block flex-[0.2] md:m-10 lg:m-0">
           <div className="flex flex-col border-b-2 border-golden border-dashed pb-10">
             <h1 className="uppercase text-golden text-lg font-normal tracking-wider">
               Products
@@ -172,7 +172,7 @@ const Menu = () => {
         </div>
         {loading ? (
           <div className="flex-1 md:my-10 lg:m-0">
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-6 md:gap-4 place-items-center place-content-start h-full">
+            <div className="grid lg:grid-cols-3 gap-y-4 sm:gap-y-0 py-6 sm:py-0 grid-cols-2 lg:gap-6 md:gap-4 place-items-center place-content-start h-full">
               {Array(8)
                 .fill(null)
                 .map((_, i) => (
@@ -181,9 +181,9 @@ const Menu = () => {
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex flex-col md:my-10 lg:m-0">
-            <div className="flex w-full justify-between px-10">
-              <div className="bg-gray-100 w-56 flex items-center justify-between h-12 rounded-sm overflow-hidden">
+          <div className="flex-1 flex flex-col md:my-10 lg:m-0 py-5">
+            <div className="flex w-full justify-between px-5 sm:px-10 items-center">
+              <div className="bg-gray-100 w-44 sm:w-56 flex items-center justify-between h-10 sm:h-12 rounded overflow-hidden">
                 <select
                   className="bg-transparent appearance-none w-full text-gray-600 h-full cursor-pointer px-2 capitalize"
                   onChange={handleSortChange}
@@ -200,9 +200,9 @@ const Menu = () => {
                   <ExpandMoreIcon fontSize="small" sx={{ color: "gray" }} />
                 </div>
               </div>
-              <div className="text-gray-500">
-                Showing 1-{filteredProducts.length} out of {productsCount}{" "}
-                result
+              <div className="text-gray-500 text-xs sm:text-base">
+                Showing {resultPerPage}-{filteredProducts.length} out of{" "}
+                {productsCount} result
               </div>
             </div>
 

@@ -64,7 +64,7 @@ const MenuPizzaCard = ({ pizza }) => {
   return (
     <motion.div
       layout
-      className="grid lg:grid-cols-3 md:grid-cols-2 place-items-center place-content-start h-full md:mt-5 lg:m-0"
+      className="grid  lg:grid-cols-3 grid-cols-2 place-items-center place-content-start h-full md:mt-5 lg:m-0"
     >
       <AnimatePresence>
         {pizza?.map((item) => (
@@ -83,18 +83,18 @@ const MenuPizzaCard = ({ pizza }) => {
               {isItemInWishlist(item._id) ? (
                 <FavoriteRoundedIcon
                   className="text-red-500"
-                  fontSize="medium"
+                  fontSize="small"
                 />
               ) : (
                 <FavoriteBorderRoundedIcon
                   className="text-gray-400"
-                  fontSize="medium"
+                  fontSize="small"
                 />
               )}
             </div>
             <Link to={`/pizza/${item._id}`}>
               <div className="pizza-image w-full flex items-center justify-center">
-                <div className="lg:w-60 md:h-48 lg:h-60 md:w-48">
+                <div className="h-24 w-24 lg:w-60 md:h-48 lg:h-60 md:w-48">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -103,31 +103,31 @@ const MenuPizzaCard = ({ pizza }) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center gap-2">
-                <p className="text-yellow-700 uppercase font-medium tracking-wider text-base">
+              <div className="flex flex-col items-center justify-center sm:gap-2">
+                <p className="text-yellow-700 uppercase font-medium tracking-wider text-sm sm:text-base">
                   {item.name}
                 </p>
-                <p className="text-xl font-medium text-[#D2401E]">
+                <p className="text-base md:text-xl font-medium text-[#D2401E]">
                   ₹{item.prices.regular} - ₹{item.prices.extralarge}
                 </p>
               </div>
             </Link>
-            <div className="flex items-center justify-center gap-2 text-sm md:text-xs">
+            <div className="flex sm:flex-row items-center justify-center gap-2 text-sm md:text-xs mt-2 sm:mt-0">
               {loadingProductId === item._id && loading ? (
-                <span className="flex items-center justify-center gap-2 bg-red-400 px-6 py-3 font-normal tracking-wider text-white uppercase rounded">
+                <span className="text-xs sm:text-base flex items-center justify-center gap-2 bg-red-400 px-2 sm:px-6 py-2 sm:py-3 font-normal tracking-wider text-white uppercase rounded">
                   <i className="fa fa-spinner fa-spin"></i>Adding...
                 </span>
               ) : (
                 <span
                   onClick={() => handleAddtoCart(item._id, 1, "regular")}
-                  className="px-6 py-3 text-center tracking-wider bg-red-600 hover:bg-red-700 cursor-pointer text-white uppercase rounded"
+                  className="text-xs sm:text-base px-2 sm:px-6 py-2 sm:py-3 text-center tracking-wider bg-red-600 hover:bg-red-700 cursor-pointer text-white uppercase rounded"
                 >
                   Add to Cart
                 </span>
               )}
               <span
                 onClick={() => handleClickOpen(item)}
-                className="bg-slate-200 text-center py-3 px-6 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
+                className="bg-slate-200 text-center text-xs sm:text-base px-2 sm:px-6 py-2 sm:py-3 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
               >
                 Quick View
               </span>

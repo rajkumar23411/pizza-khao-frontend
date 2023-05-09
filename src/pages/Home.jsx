@@ -7,10 +7,16 @@ import HomeMenu from "../components/HomeMenu";
 import Options from "../components/Options";
 import PizzaBox from "../components/PizzaBox";
 import Quotes from "../components/Quotes";
+import { useMediaQuery } from "@mui/material";
+import MobileMenu from "../components/MobileMenu";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const { cart } = useSelector((state) => state.myCart);
   return (
     <>
+      {isSmallScreen && <MobileMenu cart={cart} />}
       <Banner />
       <Options />
       <BuildPizza />

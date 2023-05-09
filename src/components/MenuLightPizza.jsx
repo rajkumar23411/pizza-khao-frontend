@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { addToCart } from "../redux/actions/cartActions";
 import DialogBoxData from "./DialogBoxData";
-import { Dialog } from "@mui/material";
+import { Dialog, useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-const MenuLightPizza = ({ product }) => {
+const MenuLightPizza = ({ product, loading }) => {
   const [open, setOpen] = React.useState(false);
+  const [loadingProductId, setLoadingProductId] = useState(null);
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   const dispatch = useDispatch();
   const handleAddtoCart = (id, count, size) => {
+    setLoadingProductId(id);
     dispatch(addToCart(id, count, size));
   };
   const handleClickOpen = () => {
@@ -23,14 +26,14 @@ const MenuLightPizza = ({ product }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col lg:w-80 md:w-60 py-6 gap-2 pizza-box overflow-hidden relative lg:h-[22rem]  md:h-[18rem]"
+      className="flex flex-col w-48lg:w-80 md:w-60 sm:py-6 gap-2 pizza-box overflow-hidden relative lg:h-[23rem] md:h-[18rem]"
     >
       <Link to={`/pizza/${product._id}`}>
         <div className="pizza-image w-full flex flex-col gap-2 items-center justify-center">
           <img
             src={product.image}
             alt={product.name}
-            className="lg:h-56 md:h-40 lg:w-56 md:w-40 object-cover"
+            className="h-24 w-24 lg:h-56 md:h-40 lg:w-56 md:w-40 object-cover"
             draggable="false"
           />
           <p className=" text-yellow-700 uppercase font-medium tracking-wider text-sm">
@@ -43,16 +46,26 @@ const MenuLightPizza = ({ product }) => {
           </p>
         </div>
       </Link>
-      <div className="w-full flex items-center justify-center gap-2 button-box">
+      <div
+        className={`flex sm:flex-row items-center justify-center gap-2 text-sm md:text-xs mt-2 sm:mt-0 ${
+          isSmallScreen === false && "button-box"
+        }`}
+      >
+        {loadingProductId === product._id && loading ? (
+          <span className="flex items-center justify-center gap-2 bg-red-400 px-6 py-1 lg:py-3 md:py-3 font-normal tracking-wider text-white uppercase rounded">
+            <i className="fa fa-spinner fa-spin"></i>Adding...
+          </span>
+        ) : (
+          <span
+            onClick={() => handleAddtoCart(product._id, 1, "regular")}
+            className="py-1 lg:py-0 md:py-0 lg:h-full md:h-full bg-[#d2401e] flex items-center cursor-pointer justify-center px-1 sm:px-3 uppercase  font-normal rounded-sm text-xs lg:text-sm md:text-sm tracking-wider sm:tracking-widest text-white hover:bg-[#b9381b]"
+          >
+            Add to cart
+          </span>
+        )}
         <span
-          onClick={() => handleAddtoCart(product._id, 1, "regular")}
-          className="py-2 px-3 bg-[#d2401e] flex items-center cursor-pointer justify-center uppercase font-normal  text-sm tracking-widest text-white hover:bg-[#b9381b] rounded-sm"
-        >
-          Add to cart
-        </span>
-        <span
-          onClick={handleClickOpen}
-          className="py-2 px-3 bg-slate-100 flex items-center cursor-pointer justify-center uppercase font-normal text-gray-800 text-sm tracking-widest hover:bg-slate-200 rounded-sm"
+          className="py-1 lg:py-0 md:py-0 lg:h-full md:h-full bg-slate-100 sm:flex md:flex lg:flex items-center cursor-pointer justify-center px-1 sm:px-3 uppercase font-normal rounded-sm text-gray-800 text-xs lg:text-sm md:text-sm tracking-wider sm:tracking-widest hover:bg-slate-200"
+          onClick={() => handleClickOpen(product)}
         >
           Quick view
         </span>

@@ -25,19 +25,19 @@ const PromptModel = ({ displayText, buttonText, onClose, caneclText, id }) => {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearError());
     }
-  }, [isDeleted, error, dispatch, enqueueSnackbar]);
+  }, [isDeleted, error, dispatch, enqueueSnackbar, onClose]);
   return (
-    <div className="bg-white rounded-md shadow-lg p-8 flex flex-col gap-10">
-      <p className="text-gray-700 font-semibold text-lg">{displayText}</p>
+    <div className="bg-white rounded-md shadow-lg px-10 p-4 sm:p-8 flex flex-col gap-10">
+      <p className="text-gray-700 font-normal text-lg">{displayText}</p>
       <div className="flex items-center flex-col gap-3">
         <span
-          className="bg-red-500 text-white px-4 py-2 rounded-sm font-medium cursor-pointer hover:bg-red-600"
+          className="bg-red-500 text-white text-sm font-normal sm:text-base px-4 py-1 sm:py-2 rounded-sm cursor-pointer hover:bg-red-600"
           onClick={handleDelete}
         >
           {buttonText}
         </span>
         <span
-          className="text-blue-600 font-semibold cursor-pointer"
+          className="text-blue-600 font-normal cursor-pointer text-sm sm:text-base"
           onClick={onClose}
         >
           {caneclText}

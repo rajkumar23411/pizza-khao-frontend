@@ -116,10 +116,18 @@ export const PagesSubMenu = [
   "Coming Soon",
 ];
 
+export const SubMenu = [
+  { name: "Our popular pizzas", link: "/menu" },
+  { name: "Menu filter light", link: "/menu-light" },
+  { name: "Resturent menu", link: "/resturent-menu" },
+];
+
 export const shopSubMenu = [
   { name: "Favourites", link: "/account/favourites" },
   { name: "My orders", link: "/my-order" },
   { name: "Cart", link: "/cart" },
   { name: "Checkout", link: "/checkout" },
   { name: "My Account", link: "/account/settings" },
+  { name: "Favourites", link: "/account/favourites" },
+  { name: "Manage Address", link: "/account/address" },
 ];
