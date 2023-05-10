@@ -41,9 +41,9 @@ const MainNav = () => {
           <ul className="flex items-center h-full justify-center">
             <NavLink to="/">
               <img
-                src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo.png?updatedAt=1683123629188"
+                src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/pngwing.com.png?updatedAt=1683699672976"
                 alt="logo"
-                className="lg:h-14 md:h-10  cursor-pointer"
+                className="lg:h-28 md:h-24 cursor-pointer"
               />
             </NavLink>
             <NavLink

@@ -62,17 +62,17 @@ const MobileMenu = ({ cart }) => {
     <nav className="flex items-center justify-between h-14 px-3">
       <NavLink to="/">
         <img
-          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo.png?updatedAt=1683123629188"
+          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/pngwing.com.png?updatedAt=1683699672976"
           alt="logo"
-          className="h-8 lg:h-14 md:h-10  cursor-pointer"
+          className="h-20 cursor-pointer"
         />
       </NavLink>
 
       <div className="flex items-center justify-center gap-3">
         <Link to="/cart" className="relative">
-          <i className="fa-regular fa-cart-shopping text-gray-600 text-lg"></i>
+          <i className="fa-regular fa-moped text-lg text-red-800"></i>
           {isAuthenticated && (
-            <span className="absolute -left-1 -top-1 h-4 w-4 bg-red-700 rounded-full flex items-center justify-center text-xs text-white">
+            <span className="absolute -left-2 -top-1 h-4 w-4 bg-red-700 rounded-full flex items-center justify-center text-xs text-white">
               {cart?.items?.length}
             </span>
           )}
@@ -84,7 +84,7 @@ const MobileMenu = ({ cart }) => {
           onClick={() => setIsMenuOpen(true)}
           className="h-8 w-8 bg-sky-50 flex items-center justify-center rounded"
         >
-          <i className="fa-regular fa-bars text-xl text-red-800"></i>
+          <i className="fa-regular fa-bars text-xl text-gray-700"></i>
         </div>
       </div>
       <AnimatePresence>

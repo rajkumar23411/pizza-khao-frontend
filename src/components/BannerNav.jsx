@@ -48,7 +48,7 @@ const BannerNav = () => {
 
   return (
     <>
-      <nav className="hidden md:flex items-center justify-evenly absolute w-full top-6 z-10">
+      <nav className="hidden md:flex items-center justify-evenly absolute w-full -top-3 z-10">
         <div className="flex items-center justify-center gap-4 md:gap-2">
           <div className="bg-white rounded-full p-3 md:p-2">
             <PhoneEnabledOutlinedIcon className="text-lg text-red-600" />
@@ -116,9 +116,9 @@ const BannerNav = () => {
           </Link>
           <Link>
             <img
-              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo-light.png?updatedAt=1683123629193"
+              src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/pngwing.com.png?updatedAt=1683699672976"
               alt="logo"
-              className="lg:h-16 md:h-10"
+              className="lg:h-32 md:h-28  object-cover"
             />
           </Link>
           <Link className="uppercase tracking-widest text-white font-medium text-sm">
