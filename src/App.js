@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Cart from "./pages/Cart";
 import Menu from "./pages/Menu";
 import SinglePizza from "./pages/SinglePizza";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Blog from "./pages/Blog";
 import ResturentMenu from "./pages/ResturentMenu";
 import MyOrder from "./pages/MyOrder";
@@ -11,7 +11,7 @@ import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
 import AccountAddress from "./pages/AccountAddress";
 import store from "./redux/store";
-import { clearError, loadUser } from "./redux/actions/userAction";
+import { loadUser } from "./redux/actions/userAction";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AddPizza from "./pages/AddPizza";
@@ -29,10 +29,8 @@ import VerifyLoginOTP from "./pages/VerifyLoginOTP";
 import { useMediaQuery } from "@mui/material";
 import MyAccountMini from "./pages/MyAccountMini";
 import AccountAddressMini from "./pages/AccountAddressMini";
-import { motion } from "framer-motion";
 const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
-  const [isWindowLoading, setIsWindowLoading] = useState(true);
   const { pathname } = useLocation();
   window.addEventListener("contextmenu", (e) => e.preventDefault());
   window.addEventListener("keydown", (e) => {
@@ -41,9 +39,6 @@ const App = () => {
     if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
   });
   useEffect(() => {
-    window.addEventListener("load", () => {
-      setIsWindowLoading(false);
-    });
     store.dispatch(loadUser());
   }, []);
   useEffect(() => {
@@ -53,27 +48,7 @@ const App = () => {
       behavior: "smooth",
     });
   }, [pathname]);
-  return isWindowLoading ? (
-    <section className="overflow-hidden">
-      <motion.div
-        className="w-screen h-screen flex items-center justify-center"
-        initial={{ opacity: 0, scale: 10 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, repeat: 0, delay: 0.5 }}
-      >
-        <div className="flex items-center justify-center flex-col">
-          <img
-            src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/logo_C0ZhYDynQ?updatedAt=1683731113359"
-            alt="Logo"
-            className="sm:h-52"
-          />
-          <span className="uppercase font-light tracking-widest text-3xl text-red-500">
-            Slice of heaven
-          </span>
-        </div>
-      </motion.div>
-    </section>
-  ) : (
+  return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route
