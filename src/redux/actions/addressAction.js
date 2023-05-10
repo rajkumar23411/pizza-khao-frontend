@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl, config } from "../../utils/index";
+import { config } from "../../utils/index";
 import {
   ADD_NEW_ADDRESS_FAIL,
   ADD_NEW_ADDRESS_REQUEST,
