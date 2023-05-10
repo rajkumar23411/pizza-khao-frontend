@@ -8,17 +8,20 @@ import axios from "axios";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, isAuthenticated } = useSelector((state) => state.user);
+  const { loading, error, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState("");
   const { enqueueSnackbar } = useSnackbar();
-
+  const [otpLoader, setOtpLoader] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(phone, password));
   };
   const handleLoginUsingOtp = async (e) => {
     e.preventDefault();
+    setOtpLoader(true);
     const { data } = await axios.post(`/api/login/contact`, {
       contact: phone,
     });
@@ -26,6 +29,7 @@ const Login = () => {
     if (data.success) {
       navigate(`/verify/login/otp`, { state: { phone } });
     }
+    setOtpLoader(false);
   };
 
   useEffect(() => {
@@ -67,21 +71,35 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="w-full h-10 sm:h-12 bg-red-700 cursor-pointer rounded-md overflow-hidden hover:bg-red-800 shadow-inner shadow-red-800">
-            <input
-              type="submit"
-              value="Login"
-              className="h-full w-full uppercase text-white font-medium tracking-wider cursor-pointer sm:text-base text-sm"
-            />
-          </div>
-          <div className="w-full h-10 sm:h-12 bg-blue-600 cursor-pointer rounded-md overflow-hidden hover:bg-blue-800 shadow-inner shadow-blue-800">
-            <input
-              type="submit"
-              value="Request OTP"
-              className="w-full h-full text-white uppercase tracking-wider font-medium cursor-pointer text-sm sm:text-base"
-              onClick={handleLoginUsingOtp}
-            />
-          </div>
+          {loading ? (
+            <div className="w-full h-10 sm:h-12 bg-red-500 text-white cursor-pointer rounded-md text-sm uppercase flex items-center justify-center gap-2 overflow-hidden shadow-inner">
+              <i className="fa-duotone fa-loader fa-spin-pulse text-xl"></i>
+              Logging in...
+            </div>
+          ) : (
+            <div className="w-full h-10 sm:h-12 bg-red-700 cursor-pointer rounded text-xs sm:text-base overflow-hidden hover:bg-red-800 shadow-inner shadow-red-800">
+              <input
+                type="submit"
+                value="Login"
+                className="h-full w-full uppercase text-white font-medium tracking-wider cursor-pointer sm:text-base text-sm"
+              />
+            </div>
+          )}
+          {otpLoader ? (
+            <div className="w-full h-10 sm:h-12 bg-red-500 text-white cursor-pointer rounded-md text-sm uppercase flex items-center justify-center gap-2 overflow-hidden shadow-inner">
+              <i className="fa-duotone fa-loader fa-spin-pulse text-xl"></i>
+              Loading...
+            </div>
+          ) : (
+            <div className="w-full h-10 sm:h-12 bg-blue-600 cursor-pointer rounded overflow-hidden hover:bg-blue-800 shadow-inner shadow-blue-800">
+              <input
+                type="submit"
+                value="Request OTP"
+                className="w-full h-full text-white uppercase tracking-wider font-medium cursor-pointer text-sm sm:text-base"
+                onClick={handleLoginUsingOtp}
+              />
+            </div>
+          )}
           <div className="w-full text-center text-white">
             <span className="font-light">Don't have an account? </span>
             <Link

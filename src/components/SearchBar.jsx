@@ -19,7 +19,6 @@ const SearchBar = ({ onClose, showSearchBar }) => {
   useEffect(() => {
     inputRef.current.focus();
   }, [inputRef]);
-
   return (
     <motion.div
       initial={{ height: 0, width: "100%", opacity: 0 }}
@@ -29,7 +28,7 @@ const SearchBar = ({ onClose, showSearchBar }) => {
         width: showSearchBar ? "100%" : "0%",
       }}
       transition={{ duration: 0.1 }}
-      className="fixed top-0 left-0 right-0 w-full bg-white z-20"
+      className="fixed top-0 left-0 right-0 w-full bg-white z-40"
     >
       <form
         action="#"

@@ -45,7 +45,6 @@ const BannerNav = () => {
     dispatch(getCartItems());
     window.addEventListener("scroll", handleScroll);
   }, [dispatch]);
-
   return (
     <>
       <nav className="hidden md:flex items-center justify-evenly absolute w-full -top-3 z-10">
@@ -169,7 +168,12 @@ const BannerNav = () => {
           </div>
         </div>
       </nav>
-      {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
+      {showSearchBar && (
+        <SearchBar
+          onClose={() => setShowSearchBar(false)}
+          showSearchBar={showSearchBar}
+        />
+      )}
     </>
   );
 };
