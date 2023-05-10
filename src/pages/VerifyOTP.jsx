@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import MainNav from "../components/MainNav";
 import LoadingButton from "@mui/lab/LoadingButton";
-
 const VerifyOTP = () => {
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const inputRefs = [
@@ -43,7 +42,6 @@ const VerifyOTP = () => {
       setIsLoading(false);
     }
   }
-
   const handleChange = (e, index) => {
     const otpCopy = [...otp];
     otpCopy[index] = e.target.value;
@@ -74,7 +72,15 @@ const VerifyOTP = () => {
         inputRefs[index + 1].current.focus();
       }
     }
+    if (e.key === "Backspace" && inputRefs[index].current.value === "") {
+      e.preventDefault();
+      if (index > 0) {
+        inputRefs[index - 1].current.focus();
+        inputRefs[index - 1].current.value = "";
+      }
+    }
   };
+
   useEffect(() => {
     inputRefs[0].current.focus();
   }, []);
@@ -82,8 +88,8 @@ const VerifyOTP = () => {
     <>
       <MainNav />
       <div className=" w-full flex items-center justify-center h-[85vh]">
-        <div className="flex flex-col items-center justify-center border-2 py-6 px-10 rounded-md">
-          <div className="h-12 w-12 bg-purple-200 flex items-center justify-center rounded-full">
+        <div className="flex flex-col items-center justify-center border-2 sm:py-6 p-4 sm:px-10 rounded-md">
+          <div className="h-10 w-10 sm:h-12 sm:w-12 bg-purple-200 flex items-center justify-center rounded-full">
             <LockOpenOutlinedIcon
               fontSize="medium"
               className="text-purple-500"
@@ -115,7 +121,7 @@ const VerifyOTP = () => {
                 onKeyDown={(e) => handleKeyPress(e, index)}
                 maxLength={1}
                 id={`otp-${index}`}
-                className="border-2 border-gray-400 w-12 h-12 rounded text-center text-lg focus:border-blue-400 focus:shadow"
+                className="border-2 border-gray-400 h-9 w-9 sm:w-12 sm:h-12 rounded text-center sm:text-lg focus:border-blue-400 focus:shadow"
               />
             ))}
           </div>
@@ -130,6 +136,7 @@ const VerifyOTP = () => {
           ) : (
             <button
               className={`w-max px-10 py-2 font-normal tracking-wide rounded text-white bg-red-600`}
+              disabled={otp.some((digit) => digit === "")}
               onClick={() => handleVerifyOTP(otp.join(""))}
             >
               Verify

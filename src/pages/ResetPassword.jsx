@@ -52,19 +52,19 @@ const ResetPassword = () => {
       <div className="h-[88vh] w-full flex items-center justify-center flex-col">
         <LockOpenOutlinedIcon fontSize="large" className="text-red-600" />
         <form
-          className="lg:w-[40%] md:w-[70%] flex items-center justify-center p-10 flex-col "
+          className="w-full lg:w-[40%] md:w-[70%] flex items-center justify-center sm:p-10 flex-col "
           onSubmit={handleResetPassword}
         >
-          <h1 className="text-2xl font-semibold text-gray-700">
+          <h1 className="text-2xl font-medium text-gray-700 uppercase tracking-wider">
             Reset Password
           </h1>
-          <div className="flex items-center justify-center gap-2 mb-8 mt-2">
+          <div className="flex items-center justify-center gap-2 mb-8 mt-1 sm:mt-2 text-xs sm:text-base">
             <p className="text-gray-600">
               All set! Your can now set up a new password for your account.
             </p>
           </div>
-          <div className="w-[75%] gap-6 flex items-center justify-center flex-col">
-            <div className="w-full h-12 border-[1px] border-gray-500 rounded focus:bg-purple-600">
+          <div className="w-[85%] sm:w-[75%] gap-6 flex items-center justify-center flex-col">
+            <div className="w-full h-10 sm:h-12 border-[1px] border-gray-500 rounded focus:bg-purple-600">
               <input
                 type="password"
                 placeholder="Enter your new password*"
@@ -73,7 +73,7 @@ const ResetPassword = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="w-full h-12 border-[1px] border-gray-500 rounded focus:bg-purple-600">
+            <div className="w-full h-10 sm:h-12 border-[1px] border-gray-500 rounded focus:bg-purple-600">
               <input
                 type="password"
                 placeholder="Confirm password*"
@@ -86,7 +86,7 @@ const ResetPassword = () => {
               <LoadingButton
                 loading
                 variant="contained"
-                className="h-12 w-full"
+                className="h-10 sm:h-12 w-full"
               >
                 Reset Password
               </LoadingButton>
@@ -95,7 +95,7 @@ const ResetPassword = () => {
                 type="submit"
                 value="Reset password"
                 ref={buttonRef}
-                className={`h-12 w-full pl-2 text-white text-base font-semibold tracking-wide cursor-pointer rounded ${
+                className={`h-10 sm:h-12 w-full pl-2 text-white text-base font-normal tracking-wide cursor-pointer rounded ${
                   isDisbaled ? "bg-red-400" : "bg-red-600 hover:bg-red-700"
                 }`}
               />
