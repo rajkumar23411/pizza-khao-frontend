@@ -73,7 +73,7 @@ const Login = () => {
           </div>
           {loading ? (
             <div className="w-full h-10 sm:h-12 bg-red-500 text-white cursor-pointer rounded-md text-sm uppercase flex items-center justify-center gap-2 overflow-hidden shadow-inner">
-              <i className="fa-duotone fa-loader fa-spin-pulse text-xl"></i>
+              <i className="fas fa-spinner fa-spin text-xl"></i>
               Logging in...
             </div>
           ) : (

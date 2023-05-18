@@ -16,8 +16,7 @@ const AddPizza = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const dispatch = useDispatch();
-  const { success, error } = useSelector((state) => state.newProduct);
-  const loading = true;
+  const { loading, success, error } = useSelector((state) => state.newProduct);
   const { enqueueSnackbar } = useSnackbar();
   const nevigate = useNavigate();
   const handleCategoryChange = (e) => {
@@ -200,12 +199,13 @@ const AddPizza = () => {
         </div>
         {image && <img src={image} alt="pizza" className="h-16 w-16" />}
         {loading ? (
-          <button type="button" class="bg-indigo-500 ..." disabled>
-            <svg
-              className="animate-spin h-5 w-5 mr-3 ..."
-              viewBox="0 0 24 24"
-            ></svg>
-            Processing...
+          <button
+            type="button"
+            class="bg-red-500 text-white py-2 rounded-sm uppercase flex items-center justify-center gap-2"
+            disabled
+          >
+            <i className="fas fa-spinner fa-spin text-xl"></i>
+            Adding...
           </button>
         ) : (
           <input

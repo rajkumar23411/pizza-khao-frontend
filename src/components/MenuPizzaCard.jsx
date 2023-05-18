@@ -115,7 +115,7 @@ const MenuPizzaCard = ({ pizza }) => {
             <div className="flex sm:flex-row items-center justify-center gap-2 text-sm md:text-xs mt-2 sm:mt-0">
               {loadingProductId === item._id && loading ? (
                 <span className="text-xs sm:text-base flex items-center justify-center gap-2 bg-red-400 px-2 sm:px-6 py-2 sm:py-3 font-normal tracking-wider text-white uppercase rounded">
-                  <i className="fa fa-spinner fa-spin"></i>Adding...
+                  <i className="fas fa-spinner fa-spin text-xl"></i>Adding...
                 </span>
               ) : (
                 <span

@@ -112,7 +112,7 @@ const VerifyLoginOTP = () => {
         </div>
         {loading ? (
           <span className="flex items-center justify-center gap-2 bg-red-400 px-6 py-3 font-normal tracking-wider text-white uppercase rounded">
-            <i className="fa fa-spinner fa-spin"></i>Verifying...
+            <i className="fas fa-spinner fa-spin"></i>Verifying...
           </span>
         ) : (
           <input

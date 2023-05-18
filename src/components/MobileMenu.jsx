@@ -70,7 +70,7 @@ const MobileMenu = ({ cart }) => {
 
       <div className="flex items-center justify-center gap-3">
         <Link to="/cart" className="relative">
-          <i className="fa-regular fa-moped text-lg text-red-800"></i>
+          <i className="far fa-motorcycle text-xl text-gray-800"></i>
           {isAuthenticated && (
             <span className="absolute -left-2 -top-1 h-4 w-4 bg-red-700 rounded-full flex items-center justify-center text-xs text-white">
               {cart?.items?.length}
@@ -78,13 +78,13 @@ const MobileMenu = ({ cart }) => {
           )}
         </Link>
         <div onClick={handleShowSearchBar}>
-          <i className="fa-regular fa-magnifying-glass text-gray-800 text-lg"></i>
+          <i className="far fa-search text-gray-800 text-lg"></i>
         </div>
         <div
           onClick={() => setIsMenuOpen(true)}
           className="h-8 w-8 bg-sky-50 flex items-center justify-center rounded"
         >
-          <i className="fa-regular fa-bars text-xl text-gray-700"></i>
+          <i className="far fa-bars text-xl text-gray-700"></i>
         </div>
       </div>
       <AnimatePresence>
@@ -112,7 +112,7 @@ const MobileMenu = ({ cart }) => {
                       Home
                     </span>
                     <i
-                      className="fa fa-angle-right text-lg font-semibold text-gray-700"
+                      className="fal fa-angle-right text-lg font-normal text-gray-700"
                       aria-hidden="true"
                     ></i>
                   </NavLink>
@@ -126,7 +126,7 @@ const MobileMenu = ({ cart }) => {
                       Pages
                     </span>
                     <div
-                      className={`fa fa-angle-right text-lg font-semibold ${
+                      className={`fal fa-angle-right text-lg font-normal ${
                         openSubmenuId === "pages" && "rotate-90"
                       }`}
                       aria-hidden="true"
@@ -162,7 +162,7 @@ const MobileMenu = ({ cart }) => {
                       Menu
                     </span>
                     <div
-                      className={`fa fa-angle-right text-lg font-semibold ${
+                      className={`fal fa-angle-right text-lg font-normal ${
                         openSubmenuId === "menu" && "rotate-90"
                       }`}
                       aria-hidden="true"
@@ -196,7 +196,7 @@ const MobileMenu = ({ cart }) => {
                       Shop
                     </span>
                     <div
-                      className={`fa fa-angle-right text-lg font-semibold ${
+                      className={`fal fa-angle-right text-lg font-normal ${
                         openSubmenuId === "shop" && "rotate-90"
                       }`}
                       aria-hidden="true"
@@ -240,7 +240,7 @@ const MobileMenu = ({ cart }) => {
                           Login/Sign up
                         </span>
                         <div
-                          className={`fa fa-angle-right text-lg font-semibold`}
+                          className={`fal fa-angle-right text-lg font-normal`}
                           aria-hidden="true"
                         ></div>
                       </Link>
@@ -253,7 +253,7 @@ const MobileMenu = ({ cart }) => {
                       Blog
                     </span>
                     <i
-                      className="fa fa-angle-right text-lg font-semibold text-gray-700"
+                      className="fal fa-angle-right text-lg font-normal text-gray-700"
                       aria-hidden="true"
                     ></i>
                   </div>
