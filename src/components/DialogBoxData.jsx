@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { pizzaSize } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import {
   addRemoveFromWishlist,
   getWishlist,
@@ -17,7 +17,6 @@ const DialogBoxData = ({ pizza, onClose }) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.myCart);
   const { wishlist, message } = useSelector((state) => state.wishlist);
-  const { enqueueSnackbar } = useSnackbar();
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const handleSizeChange = (event) => {
     setSize(event.target.value);
@@ -36,11 +35,11 @@ const DialogBoxData = ({ pizza, onClose }) => {
       onClose();
     }
     if (message) {
-      enqueueSnackbar(message, { variant: "success" });
+      toaster.success(message);
       dispatch({ type: RESET_ADD_TO_FAVOURITE });
     }
     dispatch(getWishlist());
-  }, [success, dispatch, enqueueSnackbar, message, onClose]);
+  }, [success, dispatch, toaster, message, onClose]);
   return (
     <div className="flex flex-col sm:flex-row">
       <div className="flex-1 flex items-center justify-center m-4 sm:m-10">

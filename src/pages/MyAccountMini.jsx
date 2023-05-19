@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MainNav from "../components/MainNav";
 import PageHead from "../components/PageHead";
 import { useDispatch, useSelector } from "react-redux";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { updateName } from "../redux/actions/userAction";
 import Loader from "../components/Loader";
 import PromptModel from "../components/PromptModel";
@@ -23,7 +23,6 @@ const MyAccountMini = () => {
   const [email, setEmail] = useState(user && user.email);
 
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleEditClick = (filed) => {
     setReadOnly({ ...readOnly, [filed]: false });
@@ -37,10 +36,10 @@ const MyAccountMini = () => {
     setReadOnly({ ...readOnly, name: true });
 
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
     }
     if (isUpdated) {
-      enqueueSnackbar("Name has been updated", { variant: "success" });
+      toaster.success("Name has been updated");
     }
   };
   return (

@@ -6,10 +6,9 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import SearchBar from "./SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/actions/cartActions";
-import { useSnackbar } from "notistack";
 import { logout } from "../redux/actions/userAction";
 import { PagesSubMenu } from "../utils";
-
+import toaster from "react-hot-toast";
 export const MenuSubTags = [
   { name: "Our popular pizzas", link: "/menu" },
   { name: "Menu filter light", link: "/menu-light" },
@@ -23,7 +22,6 @@ const BannerNav = () => {
   const { cart } = useSelector((state) => state.myCart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
@@ -34,7 +32,7 @@ const BannerNav = () => {
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
-    enqueueSnackbar("Logged out successfully", { variant: "success" });
+    toaster.success("Logged out successfully");
   };
   useEffect(() => {
     const handleScroll = () => {

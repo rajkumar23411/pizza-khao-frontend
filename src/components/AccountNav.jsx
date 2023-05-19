@@ -7,12 +7,10 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
-
+import toaster from "react-hot-toast";
 const AccountNav = ({ isSmallScreen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const settingsOption = [
     { name: "Personal Information", link: "/account/settings" },
     { name: "Manage Address", link: "/account/address" },
@@ -26,7 +24,7 @@ const AccountNav = ({ isSmallScreen }) => {
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
-    enqueueSnackbar("Logged out successfully", { variant: "success" });
+    toaster.success("Logged out successfully");
   };
   return (
     <div

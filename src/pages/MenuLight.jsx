@@ -5,7 +5,7 @@ import HomeFooter from "./../components/HomeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
 import { menuLightCategories } from "../utils";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { useMediaQuery } from "@mui/material";
 import { clearError } from "../redux/actions/cartActions";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,6 @@ const MenuLight = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const [isClicked, setIsClicked] = useState(false);
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleCategoryClick = (name) => {
     if (name === "All") {
@@ -34,10 +33,10 @@ const MenuLight = () => {
     : products;
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
-  }, [error, enqueueSnackbar, dispatch]);
+  }, [error, toaster, dispatch]);
 
   useEffect(() => {
     dispatch(getAllProducts());

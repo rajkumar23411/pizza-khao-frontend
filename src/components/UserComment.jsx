@@ -1,7 +1,6 @@
 import React from "react";
 import { Rating, useMediaQuery } from "@mui/material";
-import moment from "moment";
-
+import { getDate } from "../utils";
 const UserComment = ({ review }) => {
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const options = {
@@ -32,7 +31,7 @@ const UserComment = ({ review }) => {
             {review.name}
           </span>
           <span className="text-gray-600 font-normal text-xs">
-            - {moment(review.addedAt).format("Do MMMM YYYY, h:mm a")}
+            - {getDate(review.addedAt)}
           </span>
         </div>
         <div className="text-gray-700 pt-1 font-light text-sm sm:text-base">

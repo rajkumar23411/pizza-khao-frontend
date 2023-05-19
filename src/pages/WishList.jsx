@@ -7,7 +7,7 @@ import {
   addRemoveFromWishlist,
   getWishlist,
 } from "../redux/actions/wishListAction";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { RESET_ADD_TO_FAVOURITE } from "../redux/constants/wishListConstant";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { addToCart, clearError } from "../redux/actions/cartActions";
@@ -22,7 +22,6 @@ const WishList = () => {
   const { success, error } = useSelector((state) => state.myCart);
   const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
-  const { enqueueSnackbar } = useSnackbar();
   const handleRemoveFromWishlist = (id) => {
     dispatch(addRemoveFromWishlist(id));
   };
@@ -31,19 +30,19 @@ const WishList = () => {
   };
   useEffect(() => {
     if (message) {
-      enqueueSnackbar(message, { variant: "success" });
+      toaster.success(message);
       dispatch({ type: RESET_ADD_TO_FAVOURITE });
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
     if (success) {
-      enqueueSnackbar("Item added to cart", { variant: "success" });
+      toaster.success("Item added to cart");
       dispatch({ type: ADD_TO_CART_RESET });
     }
     dispatch(getWishlist());
-  }, [dispatch, message, error, success, enqueueSnackbar]);
+  }, [dispatch, message, error, success, toaster]);
 
   return (
     <>

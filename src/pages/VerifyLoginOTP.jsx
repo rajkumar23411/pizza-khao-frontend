@@ -4,7 +4,7 @@ import MainNav from "../components/MainNav";
 import HomeFooter from "../components/HomeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, verifyLoginOtp } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 
 const VerifyLoginOTP = () => {
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
@@ -23,7 +23,6 @@ const VerifyLoginOTP = () => {
     (state) => state.user
   );
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const [isDisabled, setIsdisabled] = useState(true);
 
   const handleVerifyOTP = (otp) => {
@@ -73,14 +72,14 @@ const VerifyLoginOTP = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
 
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [dispatch, error, navigate, isAuthenticated, enqueueSnackbar]);
+  }, [dispatch, error, navigate, isAuthenticated, toaster]);
   return (
     <>
       <MainNav />

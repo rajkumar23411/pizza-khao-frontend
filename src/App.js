@@ -33,11 +33,11 @@ const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
   const { pathname } = useLocation();
   window.addEventListener("contextmenu", (e) => e.preventDefault());
-  window.addEventListener("keydown", (e) => {
-    if (e.keyCode === 123) e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
-  });
+  // window.addEventListener("keydown", (e) => {
+  //   if (e.keyCode === 123) e.preventDefault();
+  //   if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
+  //   if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
+  // });
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);

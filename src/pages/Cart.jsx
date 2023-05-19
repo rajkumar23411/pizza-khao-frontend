@@ -5,7 +5,7 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, getCartItems } from "../redux/actions/cartActions";
 import HomeFooter from "../components/HomeFooter";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import {
   REMOVE_CART_ITEM_RESET,
   UPDATE_CART_RESET,
@@ -24,31 +24,30 @@ const Cart = () => {
     (state) => state.wishlist
   );
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (wishListMessage) {
-      enqueueSnackbar(wishListMessage, { variant: "success" });
+      toaster.success(wishListMessage);
       dispatch({ type: RESET_ADD_TO_FAVOURITE });
     }
     dispatch(getWishlist());
-  }, [wishListMessage, enqueueSnackbar, dispatch]);
+  }, [wishListMessage, toaster, dispatch]);
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       clearError();
     }
     if (success) {
-      enqueueSnackbar("Cart updated", { variant: "success" });
+      toaster.success("Cart updated");
       dispatch({ type: UPDATE_CART_RESET });
     }
     if (message) {
-      enqueueSnackbar(message, { variant: "success" });
+      toaster.success(message);
       dispatch({ type: REMOVE_CART_ITEM_RESET });
     }
     dispatch(getCartItems());
-  }, [dispatch, error, message, wishListMessage, success, enqueueSnackbar]);
+  }, [dispatch, error, message, wishListMessage, success, toaster]);
 
   const totalPrice = cart && cart.totalPrice;
   const tax = cart && Number((cart.totalPrice / 100) * 5);

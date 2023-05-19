@@ -3,7 +3,7 @@ import MainNav from "../components/MainNav";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { Link, useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../redux/actions/userAction";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -16,8 +16,8 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const { loading, error, success } = useSelector((state) => state.user);
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
-  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+
   const handleSendOTP = (e) => {
     e.preventDefault();
     dispatch(forgotPassword(Number(contact)));
@@ -25,13 +25,13 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
     }
     if (success) {
       dispatch({ type: FORGOT_PASSWORD_RESET });
       navigate("/verify/otp", { state: { contact } });
     }
-  }, [error, success, dispatch, enqueueSnackbar, navigate]);
+  }, [error, success, dispatch, toaster, navigate]);
   return (
     <div className="h-screen w-screen flex items-center justify-center flex-col relative">
       <div className="absolute top-0 left-0 right-0">

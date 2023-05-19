@@ -6,9 +6,8 @@ import {
   updateAddress,
   clearError,
 } from "../redux/actions/addressAction";
-import { useSnackbar } from "notistack";
 import { UPDATE_ADDRESS_RESET } from "../redux/constants/addressConstant";
-
+import toaster from "react-hot-toast";
 const EditAddressForm = ({ onClose, address }) => {
   const { error, isUpdated } = useSelector((state) => state.updateAddress);
   const [name, setName] = useState(address.name);
@@ -22,7 +21,6 @@ const EditAddressForm = ({ onClose, address }) => {
   const [altContact, setAltContact] = useState(address.alternatContact);
 
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const updateAddressSubmit = (e) => {
     e.preventDefault();
@@ -42,16 +40,16 @@ const EditAddressForm = ({ onClose, address }) => {
   };
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
     if (isUpdated) {
       onClose();
-      enqueueSnackbar("Address updated successfully", { variant: "success" });
+      toaster.success("Address updated successfully");
       dispatch({ type: UPDATE_ADDRESS_RESET });
       dispatch(myAddresses());
     }
-  }, [address, dispatch, isUpdated, onClose, enqueueSnackbar]);
+  }, [address, dispatch, isUpdated, onClose, toaster]);
   return (
     <form className="flex flex-col gap-4 p-10" onSubmit={updateAddressSubmit}>
       <h1 className="uppercase text-golden font-semibold text-lg">

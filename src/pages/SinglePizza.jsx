@@ -20,13 +20,12 @@ import {
   clearError,
   getCartItems,
 } from "../redux/actions/cartActions";
-import { useSnackbar } from "notistack";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import SingleRelatedPizza from "./../components/SingleRelatedPizza";
 import Slider from "react-slick";
 import { settings } from "../utils/Arrows";
 import PageHead from "../components/PageHead";
-
+import toaster from "react-hot-toast";
 const SinglePizza = () => {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetails);
@@ -45,7 +44,6 @@ const SinglePizza = () => {
   const [size, setSize] = useState(product ? "regular" : "");
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const [loadingProductId, setLoadingProductId] = useState(null);
@@ -77,17 +75,17 @@ const SinglePizza = () => {
 
   useEffect(() => {
     if (success) {
-      enqueueSnackbar("Pizza added to cart", { variant: "success" });
+      toaster.success("Pizza added to cart");
       dispatch({ type: ADD_TO_CART_RESET });
       dispatch(getCartItems());
       setLoadingProductId(null);
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
       setLoadingProductId(null);
     }
-  }, [dispatch, success, error, enqueueSnackbar]);
+  }, [dispatch, success, error, toaster]);
 
   useEffect(() => {
     dispatch(getProductDetails(id));

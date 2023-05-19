@@ -1,4 +1,4 @@
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
 const PromptModel = ({ displayText, buttonText, onClose, caneclText, id }) => {
   const dispatch = useDispatch();
   const { isDeleted, error } = useSelector((state) => state.deleteAddress);
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleDelete = () => {
     dispatch(deleteAddress(id));
@@ -18,14 +17,14 @@ const PromptModel = ({ displayText, buttonText, onClose, caneclText, id }) => {
   useEffect(() => {
     if (isDeleted) {
       onClose();
-      enqueueSnackbar("Address deleted successfully", { variant: "success" });
+      toaster.success("Address deleted successfully");
       dispatch(myAddresses());
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
-  }, [isDeleted, error, dispatch, enqueueSnackbar, onClose]);
+  }, [isDeleted, error, dispatch, toaster, onClose]);
   return (
     <div className="bg-white rounded-md shadow-lg px-10 p-4 sm:p-8 flex flex-col gap-10">
       <p className="text-gray-700 font-normal text-lg">{displayText}</p>

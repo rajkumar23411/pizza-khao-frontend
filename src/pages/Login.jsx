@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearError, login } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
 import axios from "axios";
-
+import toaster from "react-hot-toast";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,7 +12,6 @@ const Login = () => {
   );
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
   const [otpLoader, setOtpLoader] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,13 +32,14 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
     if (isAuthenticated) {
       navigate("/");
+      toaster.success("Logged in successfully");
     }
-  }, [dispatch, error, navigate, isAuthenticated, enqueueSnackbar]);
+  }, [dispatch, error, navigate, isAuthenticated, toaster]);
   return (
     <section className="signUp">
       <div className="backdrop-blur-md w-max form flex items-center justify-center flex-col gap-10 rounded-lg p-5 sm:p-10">

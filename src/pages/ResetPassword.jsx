@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import MainNav from "../components/MainNav";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "./../redux/actions/userAction";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
@@ -13,7 +13,6 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
   const { contact } = loacation.state;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const ResetPassword = () => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      enqueueSnackbar("Password doesn't match", { variant: "error" });
+      toaster.error("Password doesn't match");
     } else {
       dispatch(resetPassword(Number(contact), password));
     }
@@ -40,12 +39,12 @@ const ResetPassword = () => {
   useEffect(() => {
     if (success) {
       navigate("/");
-      enqueueSnackbar("Password reset successfully", { variant: "success" });
+      toaster.success("Password reset successfully");
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
     }
-  }, [success, error, enqueueSnackbar, navigate]);
+  }, [success, error, toaster, navigate]);
   return (
     <>
       <MainNav />

@@ -22,7 +22,6 @@ const MainNav = () => {
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
   };
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 500) {
@@ -150,7 +149,12 @@ const MainNav = () => {
           </div>
         </div>
       </nav>
-      {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
+      {showSearchBar && (
+        <SearchBar
+          onClose={() => setShowSearchBar(false)}
+          showSearchBar={showSearchBar}
+        />
+      )}
     </>
   );
 };

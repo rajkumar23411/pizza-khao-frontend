@@ -7,28 +7,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { settings } from "../utils/Arrows";
 import ItemSkeleton from "./ItemSkeleton";
-import { useSnackbar } from "notistack";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { clearError } from "../redux/actions/cartActions";
+import toaster from "react-hot-toast";
 
 const HomeMenu = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
   const { success, error } = useSelector((state) => state.myCart);
-  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
   useEffect(() => {
     if (success) {
-      enqueueSnackbar("Item added to cart", { variant: "success" });
+      toaster.success("Item added to cart");
       dispatch({ type: ADD_TO_CART_RESET });
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, success, error, enqueueSnackbar]);
+  }, [dispatch, success, error, toaster]);
   return (
     <div className="lg:h-[76vh] md:h-[60vh] lg:pt-20 md:pt-20 pt-10">
       <div className="w-full flex items-center justify-center flex-col gap-1 pb-10">

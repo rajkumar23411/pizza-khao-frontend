@@ -1,4 +1,4 @@
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,6 @@ const AddPizza = () => {
   const [image, setImage] = useState("");
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.newProduct);
-  const { enqueueSnackbar } = useSnackbar();
   const nevigate = useNavigate();
   const handleCategoryChange = (e) => {
     const selectedcategory = e.target.value;
@@ -28,15 +27,15 @@ const AddPizza = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
     if (success) {
-      enqueueSnackbar("Product added successfully", { variant: "success" });
+      toaster.success("Item added successfully");
       nevigate("/");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, error, success, enqueueSnackbar, nevigate]);
+  }, [dispatch, error, success, toaster, nevigate]);
 
   const productImageChnage = async (e) => {
     const file = e.target.files[0];

@@ -6,7 +6,7 @@ import AddressBox from "../components/AddressBox";
 import AddressForm from "../components/AddressForm";
 import MainNav from "../components/MainNav";
 import { myAddresses } from "../redux/actions/addressAction";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import Loader from "../components/Loader";
 import PageHead from "../components/PageHead";
@@ -17,19 +17,18 @@ const AccountAddress = () => {
   const { loading, addresses } = useSelector((state) => state.myAddresses);
   const { success, error } = useSelector((state) => state.newAddress);
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (success) {
-      enqueueSnackbar("Address added successfully", { variant: "success" });
+      toaster.success("Address added successfully");
       setShowAddressForm(false);
       dispatch({ type: ADD_NEW_ADDRESS_RESET });
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
     }
     dispatch(myAddresses());
-  }, [dispatch, success, error, enqueueSnackbar]);
+  }, [dispatch, success, error, toaster]);
   return (
     <>
       <MainNav />

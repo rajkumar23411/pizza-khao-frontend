@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Rating } from "@mui/material";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import {
   addNewReview,
   clearError,
@@ -17,7 +17,6 @@ const CommentBox = ({ onClose, pizza }) => {
   const dispatch = useDispatch();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
 
   const reviewSubmitHandler = (e) => {
     e.preventDefault();
@@ -26,18 +25,18 @@ const CommentBox = ({ onClose, pizza }) => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
 
     if (success) {
-      enqueueSnackbar("Review has been submitted", { variant: "success" });
+      toaster.success("Your review is submitted");
       onClose();
       dispatch({ type: ADD_REVIEW_RESET });
       dispatch(getProductDetails(pizza._id));
       dispatch(getProductReviews(pizza._id));
     }
-  }, [dispatch, error, enqueueSnackbar, success, pizza]);
+  }, [dispatch, error, toaster, success, pizza]);
   return (
     <div
       className={`h-screen w-full fixed top-0 left-0 right-0 z-20 flex items-center justify-center backdrop-blur-sm backdrop-brightness-50`}

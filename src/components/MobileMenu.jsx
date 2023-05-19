@@ -5,7 +5,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useDispatch, useSelector } from "react-redux";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import { logout } from "../redux/actions/userAction";
 import { motion, AnimatePresence } from "framer-motion";
 const MobileMenu = ({ cart }) => {
@@ -15,7 +15,6 @@ const MobileMenu = ({ cart }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const variants = {
     hidden: {
       x: "100%",
@@ -56,7 +55,7 @@ const MobileMenu = ({ cart }) => {
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
-    enqueueSnackbar("Logged out successfully", { variant: "success" });
+    toaster.success("Logged out successfully");
   };
   return (
     <nav className="flex items-center justify-between h-14 px-3">

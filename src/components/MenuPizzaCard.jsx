@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import QuickViewModel from "../components/QuickViewModel";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addRemoveFromWishlist,
@@ -17,9 +16,10 @@ import {
   getCartItems,
 } from "../redux/actions/cartActions";
 import { motion, AnimatePresence } from "framer-motion";
+import toaster from "react-hot-toast";
+
 const MenuPizzaCard = ({ pizza }) => {
   const [open, setOpen] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
   const { loading, success, error } = useSelector((state) => state.myCart);
   const { wishlist, message } = useSelector((state) => state.wishlist);
   const [modelItem, setModelItem] = useState({});
@@ -44,23 +44,23 @@ const MenuPizzaCard = ({ pizza }) => {
 
   useEffect(() => {
     if (success) {
-      enqueueSnackbar("Pizza added to cart", { variant: "success" });
+      toaster.success("Item added to cart");
       dispatch({ type: ADD_TO_CART_RESET });
       setOpen(false);
       dispatch(getCartItems());
     }
 
     if (message) {
-      enqueueSnackbar(message, { variant: "success" });
+      toaster.success(message);
       dispatch({ type: RESET_ADD_TO_FAVOURITE });
     }
 
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
     dispatch(getWishlist());
-  }, [success, dispatch, error, message, enqueueSnackbar]);
+  }, [success, dispatch, error, message, toaster]);
   return (
     <motion.div
       layout

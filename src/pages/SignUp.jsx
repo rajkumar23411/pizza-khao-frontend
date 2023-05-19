@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearError, register } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -11,7 +11,6 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const { error, isAuthenticated } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
@@ -22,14 +21,14 @@ const SignUp = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
 
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
+  }, [dispatch, error, isAuthenticated, navigate, toaster]);
 
   return (
     <section className="signUp">

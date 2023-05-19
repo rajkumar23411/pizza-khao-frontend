@@ -4,7 +4,7 @@ import MainNav from "../components/MainNav";
 import PromptModel from "../components/PromptModel";
 import { useDispatch, useSelector } from "react-redux";
 import { updateName } from "../redux/actions/userAction";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import PageHead from "../components/PageHead";
 import HomeFooter from "../components/HomeFooter";
 import Loader from "../components/Loader";
@@ -23,7 +23,6 @@ const MyAccount = () => {
   const [email, setEmail] = useState(user && user.email);
 
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleEditClick = (filed) => {
     setReadOnly({ ...readOnly, [filed]: false });
@@ -37,10 +36,10 @@ const MyAccount = () => {
     setReadOnly({ ...readOnly, name: true });
 
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
     }
     if (isUpdated) {
-      enqueueSnackbar("Name has been updated", { variant: "success" });
+      toaster.success("Name has been updated");
     }
   };
   return (

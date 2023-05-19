@@ -7,7 +7,7 @@ import { clearError, myAddresses } from "../redux/actions/addressAction";
 import { Radio, useMediaQuery } from "@mui/material";
 import { clearErrors, createOrder } from "../redux/actions/orderAction";
 import { Link, useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import toaster from "react-hot-toast";
 import axios from "axios";
 import useRazorpay from "react-razorpay";
 import { NEW_ORDER_RESET } from "../redux/constants/orderConstant";
@@ -108,7 +108,6 @@ const CheckOut = () => {
   const [selectPaymentOption, setSelectPaymentOption] = useState("");
   const navigate = useNavigate();
   const { success, error } = useSelector((state) => state.newOrder);
-  const { enqueueSnackbar } = useSnackbar();
   const totalPrice = cart?.totalPrice;
   const tax = Math.round((cart?.totalPrice / 100) * 5);
   const shipping = cart && Number(cart.totalPrice <= 300 ? 50 : 0);
@@ -222,23 +221,23 @@ const CheckOut = () => {
       dispatch({ type: NEW_ORDER_RESET });
     }
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearErrors());
     }
-  }, [success, error, navigate, enqueueSnackbar, dispatch]);
+  }, [success, error, navigate, toaster, dispatch]);
 
   useEffect(() => {
     if (addAddressSuccess) {
       setNewAddress(false);
-      enqueueSnackbar("Address added successfully", { variant: "success" });
+      toaster.success("Address added successfully");
       dispatch({ type: ADD_NEW_ADDRESS_RESET });
     }
     if (addAddressError) {
-      enqueueSnackbar(addAddressError, { variant: "error" });
+      toaster.error(addAddressError);
       dispatch(clearError());
     }
     dispatch(myAddresses());
-  }, [dispatch, addAddressSuccess, addAddressError, enqueueSnackbar]);
+  }, [dispatch, addAddressSuccess, addAddressError, toaster]);
 
   useEffect(() => {
     const address = addresses?.map((adr) => ({ ...adr, selected: false }));

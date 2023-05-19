@@ -1,13 +1,12 @@
-import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../redux/actions/userAction";
 import { login } from "../redux/actions/userAction";
+import toaster from "react-hot-toast";
 
 const CheckoutLoginForm = () => {
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.user);
-  const { enqueueSnackbar } = useSnackbar();
   const [contact, setContact] = useState();
   const [password, setPassword] = useState("");
   const handleLoginSubmit = (e) => {
@@ -16,10 +15,10 @@ const CheckoutLoginForm = () => {
   };
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      toaster.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, error, enqueueSnackbar]);
+  }, [dispatch, error, toaster]);
   return (
     <form
       className="checkout_login_form w-[70%] mt-4 flex flex-col gap-4"
