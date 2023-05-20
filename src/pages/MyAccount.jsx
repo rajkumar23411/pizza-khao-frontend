@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AccountNav from "../components/AccountNav";
 import MainNav from "../components/MainNav";
 import PromptModel from "../components/PromptModel";
@@ -34,14 +34,15 @@ const MyAccount = () => {
     e.preventDefault();
     dispatch(updateName(firstName, lastName));
     setReadOnly({ ...readOnly, name: true });
-
+  };
+  useEffect(() => {
     if (error) {
       toaster.error(error);
     }
     if (isUpdated) {
       toaster.success("Name has been updated");
     }
-  };
+  }, [toaster, error, isUpdated]);
   return (
     <>
       <section>
