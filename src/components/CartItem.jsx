@@ -38,7 +38,7 @@ const CartItem = ({ item, wishlist }) => {
           </div>
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             <select
-              className="capitalize border-[1px] border-gray-500 sm:p-1 text-gray-600 rounded-sm font-light cursor-pointer text-xs sm:text-base"
+              className="capitalize border-[1px] border-gray-500 sm:p-1 text-gray-600 rounded-sm font-light cursor-pointer text-xs sm:text-base bg-transparent"
               value={item.size}
               onChange={(e) =>
                 handleSizeChange(
@@ -58,7 +58,7 @@ const CartItem = ({ item, wishlist }) => {
                 </option>
               ))}
             </select>
-            <div className="flex gap-1 border-[1px] border-gray-500 rounded-sm sm:py-1 overflow-hidden">
+            <div className="flex gap-1 border-[1px] border-gray-500 rounded-sm sm:py-1 overflow-hidden bg-transparent">
               <select
                 value={item.quantity}
                 onChange={(e) =>
@@ -136,13 +136,13 @@ const CartItem = ({ item, wishlist }) => {
                   </span>
                 )}
               </span>
-              <span
+              <button
                 className="text-xs sm:text-base flex items-center justify-center gap-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-normal p-1 sm:p-2 rounded cursor-pointer"
                 onClick={() => handleRemoveProduct(item.product._id)}
               >
                 <DeleteOutlineOutlinedIcon fontSize="small" />
                 Remove
-              </span>
+              </button>
             </div>
           </div>
         </div>
