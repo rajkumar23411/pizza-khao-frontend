@@ -82,35 +82,6 @@ input[type="number"] {
   display: block;
   transition: 0.3s;
 }
-
-.nav-links {
-  position: absolute;
-  width: 18rem;
-  background: white;
-  top: 100%;
-  left: 0;
-  height: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: height 0.3s ease-in-out;
-  overflow: hidden;
-}
-
-.nav-links li {
-  padding: 0.8rem 0px 0.8rem 2rem;
-  text-transform: capitalize;
-}
-.nav-links li:hover {
-  cursor: pointer;
-}
-.nav-links.active {
-  height: max-content;
-  transition: 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-
 @media screen and (min-width: 768px) {
   .nav-links{
     width: 14rem;

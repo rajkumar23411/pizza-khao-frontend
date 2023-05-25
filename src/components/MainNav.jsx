@@ -5,9 +5,10 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import SearchBar from "./SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../redux/actions/cartActions";
-import { PagesSubMenu, shopSubMenu } from "../utils";
+import { PagesSubMenu, SubMenu, shopSubMenu } from "../utils";
 import { useMediaQuery } from "@mui/material";
 import MobileMenu from "./MobileMenu";
+import { motion } from "framer-motion";
 const MainNav = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState(0);
@@ -57,25 +58,25 @@ const MainNav = () => {
               onMouseLeave={() => toggleMenu(0)}
             >
               Pages
-              <ul
+              <motion.ul
                 className={`${
-                  isModelOpen === 1 ? "nav-links active" : "nav-links"
-                }`}
+                  isModelOpen === 1 ? "scale-100 h-max" : "scale-0 h-0"
+                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
               >
                 {PagesSubMenu.map((item, index) => (
                   <li
-                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600"
+                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                     key={index}
                   >
                     {item}
                   </li>
                 ))}
                 {isAuthenticated && user?.role === "admin" && (
-                  <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600">
+                  <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     <NavLink to="/add/pizza">Add a pizza</NavLink>
                   </li>
                 )}
-              </ul>
+              </motion.ul>
             </li>
             <li
               className="uppercase text-gray-600 font-medium tracking-widest relative cursor-pointer h-full grid place-items-center text-xs px-5"
@@ -85,18 +86,17 @@ const MainNav = () => {
               Menu
               <ul
                 className={`${
-                  isModelOpen === 2 ? "nav-links active" : "nav-links"
-                } h-12`}
+                  isModelOpen === 2 ? "scale-100 h-max" : "scale-0 h-0"
+                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
               >
-                <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600">
-                  <NavLink to="/menu">Our popular pizzas</NavLink>
-                </li>
-                <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600">
-                  <NavLink to="/menu-light">Menu filter light</NavLink>
-                </li>
-                <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600">
-                  <NavLink to="/resturent-menu">Resturent Menu</NavLink>
-                </li>
+                {SubMenu.map((item, index) => (
+                  <li
+                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
+                    key={index}
+                  >
+                    <Link to={item.link}>{item.name}</Link>
+                  </li>
+                ))}
               </ul>
             </li>
             <li
@@ -107,13 +107,13 @@ const MainNav = () => {
               Shop
               <ul
                 className={`${
-                  isModelOpen === 3 ? "nav-links active" : "nav-links"
-                } h-12`}
+                  isModelOpen === 3 ? "scale-100 h-max" : "scale-0 h-0"
+                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
               >
                 {shopSubMenu.map((item, index) => (
                   <li
                     key={index}
-                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600"
+                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                   >
                     <Link to={item.link}>{item.name}</Link>
                   </li>

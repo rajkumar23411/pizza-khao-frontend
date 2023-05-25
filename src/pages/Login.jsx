@@ -87,7 +87,7 @@ const Login = () => {
           </div>
           {loading ? (
             <div className="w-full h-10 sm:h-12 bg-red-500 text-white cursor-pointer rounded-md text-sm uppercase flex items-center justify-center gap-2 overflow-hidden shadow-inner">
-              <i className="fas fa-spinner fa-spin text-xl"></i>
+              <i className="fas fa-spinner fa-spin text-xl text-white"></i>
               Logging in...
             </div>
           ) : (
@@ -110,7 +110,7 @@ const Login = () => {
             <div
               className={`w-full h-10 sm:h-12 bg-blue-500 text-white cursor-pointer rounded-md text-sm uppercase flex items-center justify-center gap-2 overflow-hidden shadow-inner`}
             >
-              <i className="fas fa-spinner fa-spin text-xl"></i>
+              <i className="fas fa-spinner fa-spin text-xl text-white"></i>
               Loading...
             </div>
           ) : (

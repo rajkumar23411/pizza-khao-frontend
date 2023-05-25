@@ -71,12 +71,12 @@ const BannerNav = () => {
             Pages
             <ul
               className={`${
-                isModelOpen === 1 ? "nav-links active" : "nav-links"
-              } bg-white`}
+                isModelOpen === 1 ? "scale-100 h-max" : "scale-0 h-0"
+              }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
             >
               {PagesSubMenu.map((item, index) => (
                 <li
-                  className="tracking-wide lg:font-medium md:font-normal text-gray-600 text-sm hover:bg-red-50 hover:text-red-600"
+                  className="tracking-wide text-gray-800 font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                   key={index}
                 >
                   {item}
@@ -84,7 +84,7 @@ const BannerNav = () => {
               ))}
               {isAuthenticated && user && user.role === "admin" && (
                 <NavLink to="/add/pizza">
-                  <li className="tracking-wide font-medium text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 hover:font-semibold">
+                  <li className="tracking-wide text-gray-800 font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     Add a pizza
                   </li>
                 </NavLink>
@@ -99,12 +99,12 @@ const BannerNav = () => {
             Menu
             <ul
               className={`${
-                isModelOpen === 2 ? "nav-links active" : "nav-links"
-              } h-12`}
+                isModelOpen === 2 ? "scale-100 h-max" : "scale-0 h-0"
+              }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
             >
               {MenuSubTags.map((item, index) => (
                 <NavLink to={item.link} key={index}>
-                  <li className="tracking-wide font-medium text-sm hover:bg-red-50  hover:text-red-600 text-gray-700">
+                  <li className="tracking-wide font-medium text-gray-800 text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     {item.name}
                   </li>
                 </NavLink>
