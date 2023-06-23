@@ -6,9 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import toaster from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../redux/actions/userAction";
-import LoadingButton from "@mui/lab/LoadingButton";
+
 import { FORGOT_PASSWORD_RESET } from "../redux/constants/userConstant";
 import { useMediaQuery } from "@mui/material";
+import LoadingButton from "../components/LoadingButton";
 
 const ForgotPassword = () => {
   const [contact, setContact] = useState("");

@@ -23,9 +23,9 @@ import {
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import SingleRelatedPizza from "./../components/SingleRelatedPizza";
 import Slider from "react-slick";
-import { settings } from "../utils/Arrows";
 import PageHead from "../components/PageHead";
 import toaster from "react-hot-toast";
+import { settings } from "../components/Arrows";
 const SinglePizza = () => {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetails);
@@ -85,7 +85,7 @@ const SinglePizza = () => {
       dispatch(clearError());
       setLoadingProductId(null);
     }
-  }, [dispatch, success, error, toaster]);
+  }, [dispatch, success, error]);
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -101,7 +101,9 @@ const SinglePizza = () => {
   return (
     <>
       <MainNav />
-      <PageHead pageName={`Shop / ${product?.name}`} />
+      {
+        product?.name && (<PageHead pageName={`Shop / ${product?.name}`} />)
+      }
       <section className="flex flex-col">
         {loading ? (
           <SinglePizzaLoader />
@@ -237,7 +239,7 @@ const SinglePizza = () => {
                         />
                       </div>
                     </div>
-                    <div
+                    <button
                       className={`${
                         isItemPresetInCart === -1
                           ? "bg-red-600 hover:bg-red-700"
@@ -250,7 +252,7 @@ const SinglePizza = () => {
                       }
                     >
                       {isItemPresetInCart === -1 ? "Add to cart" : "Go to cart"}
-                    </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -264,7 +266,8 @@ const SinglePizza = () => {
             <ItemSkeleton />
           </div>
         ) : (
-          <section className="flex flex-col gap-3 sm:gap-10 lg:py-20 md:py-10 my-8">
+          relatedProducts.length > 0 && (
+            <section className="flex flex-col gap-3 sm:gap-10 lg:py-20 md:py-10 my-8">
             <h1 className="font-medium text-golden mx-5 text-base sm:text-2xl tracking-wider uppercase lg:mx-20 md:mx-10">
               Related products
             </h1>
@@ -280,6 +283,7 @@ const SinglePizza = () => {
               ))}
             </Slider>
           </section>
+          )
         )}
       </section>
       <HomeFooter />

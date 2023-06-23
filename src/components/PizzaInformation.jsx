@@ -21,10 +21,10 @@ const PizzaInformation = ({ id, pizza }) => {
 
   useEffect(() => {
     dispatch(getProductReviews(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
-    <section className="relative py-10 lg:px-20 lg:py-0 md:p-10">
+    <section className="relative py-10 lg:px-20  md:p-10">
       <div className="lg:w-4/5 px-4 w-full">
         <div className="w-full border-b-2 border-dashed border-golden flex justify-between sm:justify-start sm:gap-20">
           <p

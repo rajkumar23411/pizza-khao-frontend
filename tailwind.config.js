@@ -20,7 +20,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["sans-serif"],
-      roboto: ["Lato"],
+      roboto: ["Roboto", "sans-serif"],
     },
   },
   plugins: [],

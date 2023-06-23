@@ -11,7 +11,7 @@ import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
 import AccountAddress from "./pages/AccountAddress";
 import store from "./redux/store";
-import { loadUser } from "./redux/actions/userAction";
+import { clearError, loadUser } from "./redux/actions/userAction";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AddPizza from "./pages/AddPizza";
@@ -29,10 +29,15 @@ import VerifyLoginOTP from "./pages/VerifyLoginOTP";
 import { useMediaQuery } from "@mui/material";
 import MyAccountMini from "./pages/MyAccountMini";
 import AccountAddressMini from "./pages/AccountAddressMini";
+import { useSelector } from "react-redux";
+import Dashboard from "./admin/pages/Dashboard";
+import DashboardProducts from "./admin/pages/DashboardProducts";
+
 const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
   const { pathname } = useLocation();
   window.addEventListener("contextmenu", (e) => e.preventDefault());
+  const { error } = useSelector((state) => state.user);
   // window.addEventListener("keydown", (e) => {
   //   if (e.keyCode === 123) e.preventDefault();
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
@@ -41,6 +46,9 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+  useEffect(() => {
+    if (error) store.dispatch(clearError());
+  }, [error]);
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -137,6 +145,23 @@ const App = () => {
         }
       />
       <Route path="/menu-light" element={<MenuLight />} />
+      {/* -------------------------ADMIN------------------------- */}
+      <Route
+        path="/admin/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/products"
+        element={
+          <ProtectedRoute>
+            <DashboardProducts />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

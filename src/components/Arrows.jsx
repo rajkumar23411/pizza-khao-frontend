@@ -16,6 +16,7 @@ export const NextBtn = ({ className, onClick }) => {
     </div>
   );
 };
+
 export const settings = {
   dots: false,
   infinite: true,

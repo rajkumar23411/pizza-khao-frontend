@@ -6,7 +6,7 @@ import MainNav from "../components/MainNav";
 import toaster from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "./../redux/actions/userAction";
-import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 const ResetPassword = () => {
   const { loading, success, error } = useSelector((state) => state.user);
   const loacation = useLocation();

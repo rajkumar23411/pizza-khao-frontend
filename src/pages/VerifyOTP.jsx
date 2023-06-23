@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import MainNav from "../components/MainNav";
-import LoadingButton from "@mui/lab/LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 const VerifyOTP = () => {
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const inputRefs = [

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { clearError, register } from "../redux/actions/userAction";
 import toaster from "react-hot-toast";
 import LoadingButton from "../components/LoadingButton";
+
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

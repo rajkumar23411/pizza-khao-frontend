@@ -61,18 +61,18 @@ const MainNav = () => {
               <motion.ul
                 className={`${
                   isModelOpen === 1 ? "scale-100 h-max" : "scale-0 h-0"
-                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
+                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded-sm`}
               >
                 {PagesSubMenu.map((item, index) => (
                   <li
-                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
+                    className="tracking-wide font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                     key={index}
                   >
                     {item}
                   </li>
                 ))}
                 {isAuthenticated && user?.role === "admin" && (
-                  <li className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
+                  <li className="tracking-wide font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     <NavLink to="/add/pizza">Add a pizza</NavLink>
                   </li>
                 )}
@@ -87,11 +87,11 @@ const MainNav = () => {
               <ul
                 className={`${
                   isModelOpen === 2 ? "scale-100 h-max" : "scale-0 h-0"
-                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
+                } absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded-sm`}
               >
                 {SubMenu.map((item, index) => (
                   <li
-                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
+                    className="tracking-wide font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                     key={index}
                   >
                     <Link to={item.link}>{item.name}</Link>
@@ -108,12 +108,12 @@ const MainNav = () => {
               <ul
                 className={`${
                   isModelOpen === 3 ? "scale-100 h-max" : "scale-0 h-0"
-                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
+                }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded-sm`}
               >
                 {shopSubMenu.map((item, index) => (
                   <li
                     key={index}
-                    className="tracking-wide font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
+                    className="tracking-wide font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                   >
                     <Link to={item.link}>{item.name}</Link>
                   </li>
@@ -129,6 +129,15 @@ const MainNav = () => {
           </ul>
         </div>
         <div className="flex items-center justify-center lg:gap-12 md:gap-8">
+          {isAuthenticated && user?.role === "admin" && (
+            <Link
+              to="/admin/dashboard"
+              className="cursor-pointer uppercase text-xs text-gray-600 font-medium tracking-wide flex items-center justify-center gap-1"
+            >
+              <i className="far fa-user-lock text-lg"></i>
+              <span className="">Admin</span>
+            </Link>
+          )}
           <Link to="/cart">
             <div className="cursor-pointer uppercase text-xs text-gray-600 font-medium tracking-wide flex items-center justify-center gap-1 relative">
               {cart && cart.items && (

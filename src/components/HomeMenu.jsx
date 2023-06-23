@@ -5,12 +5,11 @@ import SinglePizzaCard from "./SinglePizzaCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { settings } from "../utils/Arrows";
 import ItemSkeleton from "./ItemSkeleton";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { clearError } from "../redux/actions/cartActions";
 import toaster from "react-hot-toast";
-
+import { settings } from "./Arrows";
 const HomeMenu = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);

@@ -71,7 +71,7 @@ const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
           </div>
           {address.selected && (
             <button
-              className="bg-blue-600 rounded text-white uppercase font-normal text-xs px-4 py-2 w-max sm:text-base tracking-wider"
+              className="bg-[#d2401e] rounded text-white uppercase font-normal text-xs px-4 py-2 w-max sm:text-base tracking-wider"
               onClick={() => confirmDeliveryAddress(address)}
             >
               Deliver here
@@ -224,7 +224,7 @@ const CheckOut = () => {
       toaster.error(error);
       dispatch(clearErrors());
     }
-  }, [success, error, navigate, toaster, dispatch]);
+  }, [success, error, navigate, dispatch]);
 
   useEffect(() => {
     if (addAddressSuccess) {
@@ -237,7 +237,7 @@ const CheckOut = () => {
       dispatch(clearError());
     }
     dispatch(myAddresses());
-  }, [dispatch, addAddressSuccess, addAddressError, toaster]);
+  }, [dispatch, addAddressSuccess, addAddressError]);
 
   useEffect(() => {
     const address = addresses?.map((adr) => ({ ...adr, selected: false }));
@@ -352,7 +352,7 @@ const CheckOut = () => {
                       <OrderedItems items={cart.items} />
                       <div className="mt-4 w-full">
                         <button
-                          className="text-white bg-blue-600 uppercase rounded font-normal px-4 py-2 text-sm sm:text-base tracking-wider hover:bg-blue-700"
+                          className="text-white bg-[#d2401e] uppercase rounded font-normal px-4 py-2 text-sm sm:text-base tracking-wider hover:bg-[#b9381b]"
                           onClick={proceedNext}
                         >
                           Continue
@@ -460,7 +460,7 @@ const CheckOut = () => {
                     </div>
                     {selectPaymentOption !== "" && (
                       <button
-                        className="bg-blue-600 font-normal mx-auto text-white uppercase text-xs sm:text-sm py-2 rounded-sm w-max px-4 mt-4 tracking-wider hover:bg-blue-700"
+                        className="bg-[#d2401e] font-normal mx-auto text-white uppercase text-xs sm:text-sm py-2 rounded-sm w-max px-4 mt-4 tracking-wider hover:bg-[#b9381b]"
                         onClick={confirmOrder}
                       >
                         {selectPaymentOption === "cod"
@@ -511,9 +511,12 @@ const CheckOut = () => {
                 ₹{total}
               </span>
             </div>
-            <div className="flex justify-between items-center p-4 text-green-600 font-medium sm:text-base text-sm">
-              *Your total savings in this order is {shipping === 0 ? "₹50" : 0}
-            </div>
+            {shipping === 0 && (
+              <div className="flex justify-between items-center p-4 text-green-600 font-medium sm:text-base text-sm">
+                *Your total savings in this order is{" "}
+                {shipping === 0 ? "₹50" : 0}
+              </div>
+            )}
           </div>
         </div>
       )}

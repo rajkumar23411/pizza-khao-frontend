@@ -17,6 +17,8 @@ import {
 } from "../redux/actions/cartActions";
 import { motion, AnimatePresence } from "framer-motion";
 import toaster from "react-hot-toast";
+import QuickViewBtn from './Buttons/QuickViewBtn';
+import AddToCartBtn from './Buttons/AddToCartBtn';
 
 const MenuPizzaCard = ({ pizza }) => {
   const [open, setOpen] = useState(false);
@@ -60,7 +62,7 @@ const MenuPizzaCard = ({ pizza }) => {
       dispatch(clearError());
     }
     dispatch(getWishlist());
-  }, [success, dispatch, error, message, toaster]);
+  }, [success, dispatch, error, message]);
   return (
     <motion.div
       layout
@@ -114,23 +116,13 @@ const MenuPizzaCard = ({ pizza }) => {
             </Link>
             <div className="flex sm:flex-row items-center justify-center gap-2 text-sm md:text-xs mt-2 sm:mt-0">
               {loadingProductId === item._id && loading ? (
-                <span className="text-xs sm:text-base flex items-center justify-center gap-2 bg-red-400 px-2 sm:px-6 py-2 sm:py-3 font-normal tracking-wider text-white uppercase rounded">
+                <button disabled={true} className="text-xs sm:text-base flex items-center justify-center gap-2 bg-red-400 px-2 sm:px-6 py-2 sm:py-3 font-normal tracking-wider text-white uppercase rounded">
                   <i className="fas fa-spinner fa-spin text-xl"></i>Adding...
-                </span>
+                </button>
               ) : (
-                <span
-                  onClick={() => handleAddtoCart(item._id, 1, "regular")}
-                  className="text-xs sm:text-base px-2 sm:px-6 py-2 sm:py-3 text-center tracking-wider bg-red-600 hover:bg-red-700 cursor-pointer text-white uppercase rounded"
-                >
-                  Add to Cart
-                </span>
+                <AddToCartBtn handleClick={() => handleAddtoCart(item._id, 1, "regular")} main={true} />
               )}
-              <span
-                onClick={() => handleClickOpen(item)}
-                className="bg-slate-200 text-center text-xs sm:text-base px-2 sm:px-6 py-2 sm:py-3 cursor-pointer rounded hover:bg-slate-300 font-normal tracking-widest text-gray-800 uppercase"
-              >
-                Quick View
-              </span>
+              <QuickViewBtn handleClick={() => handleClickOpen(item)}/>
             </div>
             {open && (
               <QuickViewModel
