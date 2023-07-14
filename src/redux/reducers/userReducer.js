@@ -1,4 +1,7 @@
 import {
+  ALL_USERS_FAIL,
+  ALL_USERS_REQUEST,
+  ALL_USERS_SUCCESS,
   CLEAR_ERRORS,
   FORGOT_PASSWORD_FAIL,
   FORGOT_PASSWORD_REQUEST,
@@ -148,6 +151,34 @@ export const profileReducer = (state = {}, action) => {
         ...state,
         error: null,
       };
+    default:
+      return state;
+  }
+};
+
+export const userReducerAdmin = (state = {}, action) => {
+  switch (action.type) {
+    case ALL_USERS_REQUEST:
+      return {
+        loading: true,
+      };
+    case ALL_USERS_SUCCESS:
+      return {
+        loading: false,
+        users: action.payload.users,
+        usersCount: action.payload.usersCount,
+      };
+    case ALL_USERS_FAIL:
+      return {
+        loading: false,
+        ...state,
+      };
+    case CLEAR_ERRORS: {
+      return {
+        ...state,
+        error: null,
+      };
+    }
     default:
       return state;
   }

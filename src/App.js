@@ -32,6 +32,10 @@ import AccountAddressMini from "./pages/AccountAddressMini";
 import { useSelector } from "react-redux";
 import Dashboard from "./admin/pages/Dashboard";
 import DashboardProducts from "./admin/pages/DashboardProducts";
+import Orders from "./admin/pages/Orders";
+import Coupon from "./admin/pages/Coupon";
+import CouponUpdate from "./admin/pages/CouponUpdate";
+import SingleOrderView from "./admin/pages/SingleOrderView";
 
 const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
@@ -159,6 +163,38 @@ const App = () => {
         element={
           <ProtectedRoute>
             <DashboardProducts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/orders"
+        element={
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/coupons"
+        element={
+          <ProtectedRoute>
+            <Coupon />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/coupon/:id"
+        element={
+          <ProtectedRoute>
+            <CouponUpdate />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/order/:id"
+        element={
+          <ProtectedRoute>
+            <SingleOrderView />
           </ProtectedRoute>
         }
       />

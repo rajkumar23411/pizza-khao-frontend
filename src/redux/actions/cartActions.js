@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl, config } from "../../utils";
+import { config } from "../../utils";
 import {
   ADD_TO_CART_FAIL,
   ADD_TO_CART_REQUEST,

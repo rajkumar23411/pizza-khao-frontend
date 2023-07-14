@@ -1,6 +1,7 @@
 import React from "react";
+import ProductActionBtn from "./ProductActionBtn";
 
-const FormData = () => {
+const ProductFormData = () => {
   return (
     <div className="flex bg-white items-center justify-center my-2 rounded-md shadow-md shadow-slate-200 py-2">
       <div className="flex-1 flex items-center justify-center">
@@ -14,17 +15,12 @@ const FormData = () => {
       <div className="flex-1 text-center text-green-700">Active</div>
       <div className="flex-1 text-center text-gray-500">200</div>
       <div className="flex-1 flex items-center justify-center gap-4 border-l">
-        <div className="flex items-center justify-center gap-1 text-blue-600 cursor-pointer hover:text-blue-700">
-          <i className="fal fa-edit"></i>
-          <span>Edit</span>
-        </div>
-        <div className="flex items-center justify-center gap-1 text-red-600 cursor-pointer hover:text-red-700">
-          <i className="fal fa-trash-alt"></i>
-          <span>Delete</span>
-        </div>
+        <ProductActionBtn type={"Edit"} />
+        <ProductActionBtn type={"Deactive"} />
+        <ProductActionBtn type={"Delete"} />
       </div>
     </div>
   );
 };
 
-export default FormData;
+export default ProductFormData;

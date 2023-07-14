@@ -1,16 +1,9 @@
 import React from "react";
 import DataFormHeaderTitle from "./DataFormHeaderTitle";
-const DataFormHeaderTags = [
-  "Image",
-  "Product name",
-  "Status",
-  "Total Orders",
-  "Action",
-];
-const DataFormHeader = () => {
+const DataFormHeader = ({ headerTitles }) => {
   return (
-    <div className="w-full flex items-center">
-      {DataFormHeaderTags.map((tag, index) => (
+    <div className="w-full flex items-center py-2 font-medium text-gray-700">
+      {headerTitles.map((tag, index) => (
         <DataFormHeaderTitle key={index} title={tag} />
       ))}
     </div>
