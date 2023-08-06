@@ -1,11 +1,51 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DashboardSectionHeader from "./DashboardSectionHeader";
-import DataFormHeader from "./DataFormHeader";
 import PageHeader from "./PageHeader";
 import ProductFormData from "./ProductFormData";
 import SearchBar from "./SearchBar";
+import Loader from "./Loader";
+import NoResultFound from "./NoResultsFound";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProductsAdmin } from "./../../redux/actions/productAction";
 
 const DashBoardProductDetails = () => {
+  const { loading, products, productsCount } = useSelector(
+    (state) => state.products
+  );
+  const [skip, setSkip] = useState(0);
+  const [data, setData] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSearch = (keyword) => {
+    setSkip(0);
+    setKeyword(keyword);
+    dispatch(getAllProductsAdmin(keyword, skip));
+  };
+
+  const handleLoadMore = () => {
+    setSkip(skip + 4);
+    dispatch(getAllProductsAdmin(keyword, skip));
+  };
+
+  useEffect(() => {
+    if (products) {
+      setData((prevData) => {
+        const newData = [...prevData];
+        products.forEach((product) => {
+          if (!newData.some((data) => data._id === product._id)) {
+            newData.push(product);
+          }
+        });
+        return newData;
+      });
+    }
+  }, [products]);
+
+  useEffect(() => {
+    dispatch(getAllProductsAdmin());
+  }, [dispatch]);
+
   return (
     <section className="flex-1 bg-slate-100 flex flex-col">
       <PageHeader pagetitle={"Products"} />
@@ -24,23 +64,34 @@ const DashBoardProductDetails = () => {
             Showing 1 to 10 of 150 entries
           </div>
           <div className="flex-1 flex items-center justify-end">
-            <SearchBar />
+            <SearchBar onSearch={handleSearch} />
           </div>
         </section>
         <section>
-          <DataFormHeader
-            headerTitles={[
-              "Image",
-              "Product name",
-              "Status",
-              "Total Orders",
-              "Action",
-            ]}
-          />
-          <ProductFormData />
-          <ProductFormData />
-          <ProductFormData />
-          <ProductFormData />
+          <div className="flex">
+            <span className="flex-[0.5] text-center">Image</span>
+            <span className="flex-1 text-center">Product Name</span>
+            <span className="flex-1 text-center">Price</span>
+            <span className="flex-1 text-center">Category</span>
+            <span className="flex-1 text-center">Action</span>
+          </div>
+          {products.length === 0 ? (
+            <NoResultFound />
+          ) : (
+            data?.map((product) => (
+              <ProductFormData key={product._id} product={product} />
+            ))
+          )}
+          {productsCount > data?.length && (
+            <div className="flex items-center justify-center w-full mt-4">
+              <button
+                onClick={handleLoadMore}
+                className="border-2 border-red-500 text-red-600 uppercase px-4 py-1 rounded-2xl hover:bg-red-500 hover:text-white transition-all drop-shadow-md"
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </section>
       </section>
     </section>

@@ -24,14 +24,18 @@ input[type="number"] {
 }
 
 .imageDiv {
-  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446") center center,
-    url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446")
+      center center,
+    url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541")
+      center center/cover;
   background-repeat: no-repeat;
 }
-@media only screen and (max-width: 600px ) {
-  .imageDiv{
-    background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446") center center/contain,
-    url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541") center center/contain;
+@media only screen and (max-width: 600px) {
+  .imageDiv {
+    background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446")
+        center center/contain,
+      url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541")
+        center center/contain;
     background-repeat: no-repeat;
   }
 }
@@ -58,7 +62,8 @@ input[type="number"] {
   opacity: 1;
 }
 .footer-left {
-  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer_background1.jpg?updatedAt=1683123625810round1.jpg") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/footer_background1.jpg?updatedAt=1683123625810round1.jpg")
+    center center/cover;
 }
 .anim {
   opacity: 0;
@@ -83,14 +88,14 @@ input[type="number"] {
   transition: 0.3s;
 }
 @media screen and (min-width: 768px) {
-  .nav-links{
+  .nav-links {
     width: 14rem;
   }
 }
 
-
 .build-pizza {
-  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/home-bg-1.jpg?updatedAt=1683123626535") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/home-bg-1.jpg?updatedAt=1683123626535")
+    center center/cover;
   display: table;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -108,7 +113,8 @@ input[type="number"] {
 .signUp {
   height: 100vh;
   width: 100vw;
-  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/sign-up-bg.jpg?updatedAt=1683123635585") center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/sign-up-bg.jpg?updatedAt=1683123635585")
+    center center/cover;
   background-repeat: no-repeat;
   position: relative;
   display: flex;
@@ -171,14 +177,14 @@ input[type="number"] {
   color: #8888;
   z-index: 1;
 }
-@media only screen and (max-width: 450px){
+@media only screen and (max-width: 450px) {
   .slick-arrow.slick-prev,
-.slick-arrow.slick-next {
-  width: 36px;
-  height: 60px;
-  backdrop-filter: blur(0px);
-  background-color: white;
-}
+  .slick-arrow.slick-next {
+    width: 36px;
+    height: 60px;
+    backdrop-filter: blur(0px);
+    background-color: white;
+  }
 }
 .slick-prev {
   left: 0 !important;
@@ -319,13 +325,101 @@ input[type="number"] {
     transform: translate3d(4px, 0, 0);
   }
 }
-.mobile-nav{
+.mobile-nav {
   display: none;
-  transition:0.3s ease-in;
+  transition: 0.3s ease-in;
 }
-.mobile-nav.active{
+.mobile-nav.active {
   display: flex;
   flex-direction: column;
   gap: 4;
-  transition:0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+.category_box {
+  height: 20rem;
+  width: 20rem;
+  position: relative;
+}
+.box_1 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../public/assets/slice-crispy-pizza-with-meat-cheese.jpg") center
+      center/cover;
+}
+.box_2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../public/assets/pizza-3298685_1280.jpg") center center/cover;
+}
+.box_3 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../public/assets/food-g4b13c5ed4_640.jpg") center center/cover;
+}
+.box_4 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../public/assets/pizza-gcfa15edc3_640.jpg") center center/cover;
+}
+.category_box div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 2.5rem;
+}
+.category_box div p {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.category_box div small {
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  display: none;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+  padding: 0 4px;
+}
+.category_box:hover div {
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(235, 47, 6, 0.5), #000);
+}
+.category_box:hover div p {
+  font-size: 1.8rem;
+}
+.category_box:hover div small {
+  display: block;
+}
+.category_page {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../public/assets/samuel-richard-UWY8nGROvbk-unsplash.jpg") center
+      center/cover;
+}
+
+@media only screen and (max-width: 450px) {
+  .category_box {
+    height: 12rem;
+    width: 10rem;
+  }
+  .category_box div {
+    position: unset;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(235, 47, 6, 0.2), #000);
+  }
+  .category_box div p {
+    font-size: 1rem;
+  }
+  .category_box div small {
+    display: block;
+    font-size: 0.6rem;
+  }
 }

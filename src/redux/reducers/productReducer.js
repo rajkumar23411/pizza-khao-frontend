@@ -3,6 +3,9 @@ import {
   ADD_REVIEW_REQUEST,
   ADD_REVIEW_RESET,
   ADD_REVIEW_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
   ALL_PRODUCT_FAIL,
   ALL_PRODUCT_REQUEST,
   ALL_PRODUCT_RESET,
@@ -10,6 +13,9 @@ import {
   ALL_REVIEW_FAIL,
   ALL_REVIEW_REQUEST,
   ALL_REVIEW_SUCCESS,
+  CATEGORY_PRODUCT_FAIL,
+  CATEGORY_PRODUCT_REQUEST,
+  CATEGORY_PRODUCT_SUCCESS,
   CLEAR_ERRORS,
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_REQUEST,
@@ -26,18 +32,29 @@ import {
 export const productReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCT_REQUEST:
+    case ADMIN_PRODUCT_REQUEST:
+    case CATEGORY_PRODUCT_REQUEST:
       return {
         loading: true,
         products: [],
       };
     case ALL_PRODUCT_SUCCESS:
+    case ADMIN_PRODUCT_SUCCESS:
       return {
         loading: false,
         products: action.payload.products,
         productsCount: action.payload.totalProducts,
         filteredProductCount: action.payload.filteredProductCount,
       };
+    case CATEGORY_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products,
+      };
+
     case ALL_PRODUCT_FAIL:
+    case ADMIN_PRODUCT_FAIL:
+    case CATEGORY_PRODUCT_FAIL:
       return {
         loading: false,
         error: action.payload,

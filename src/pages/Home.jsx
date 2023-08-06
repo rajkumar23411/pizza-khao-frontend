@@ -10,6 +10,7 @@ import Quotes from "../components/Quotes";
 import { useMediaQuery } from "@mui/material";
 import MobileMenu from "../components/MobileMenu";
 import { useSelector } from "react-redux";
+import HomeCategory from "../components/HomeCategory";
 
 const Home = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -21,6 +22,7 @@ const Home = () => {
       <Banner />
       <Options />
       <BuildPizza />
+      <HomeCategory />
       <HomeMenu />
       <Events />
       <PizzaBox />

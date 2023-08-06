@@ -36,7 +36,7 @@ const MenuLight = () => {
       toaster.error(error);
       dispatch(clearError());
     }
-  }, [error, toaster, dispatch]);
+  }, [error, dispatch]);
 
   useEffect(() => {
     dispatch(getAllProducts());

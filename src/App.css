@@ -57,7 +57,9 @@
 .pagination .page-item.pageActive .page_link {
   color: #fff;
 }
-
+.category_1{
+  background: url('https://ik.imagekit.io/zquvvhmdy/pizza_khao/slice-crispy-pizza-with-meat-cheese.jpg?updatedAt=1691211722913') center center/cover;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {

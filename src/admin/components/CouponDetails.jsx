@@ -15,6 +15,7 @@ import {
 import Loader from "./Loader";
 import toaster from "react-hot-toast";
 import { RESET_COUPON } from "../../redux/constants/couponConstant";
+import NoResultFound from "./NoResultsFound";
 const CouponDetails = () => {
   const [showCouponForm, setShowCouponForm] = React.useState(false);
   const { loading, coupons, success, error, message } = useSelector(
@@ -81,6 +82,8 @@ const CouponDetails = () => {
             />
             {loading ? (
               <Loader />
+            ) : coupons?.length === 0 ? (
+              <NoResultFound />
             ) : (
               coupons?.map((coupon) => (
                 <CouponTableData

@@ -36,6 +36,7 @@ import Orders from "./admin/pages/Orders";
 import Coupon from "./admin/pages/Coupon";
 import CouponUpdate from "./admin/pages/CouponUpdate";
 import SingleOrderView from "./admin/pages/SingleOrderView";
+import CategorizedPizza from "./pages/CategorizedPizza";
 
 const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
@@ -75,6 +76,7 @@ const App = () => {
       <Route path="/pizza/:id" element={<SinglePizza />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/resturent-menu" element={<ResturentMenu />} />
+      <Route path="/pizza" element={<CategorizedPizza />} />
       <Route
         path="/my-order"
         element={

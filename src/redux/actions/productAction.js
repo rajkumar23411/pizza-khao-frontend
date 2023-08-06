@@ -4,12 +4,18 @@ import {
   ADD_REVIEW_FAIL,
   ADD_REVIEW_REQUEST,
   ADD_REVIEW_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
   ALL_PRODUCT_FAIL,
   ALL_PRODUCT_REQUEST,
   ALL_PRODUCT_SUCCESS,
   ALL_REVIEW_FAIL,
   ALL_REVIEW_REQUEST,
   ALL_REVIEW_SUCCESS,
+  CATEGORY_PRODUCT_FAIL,
+  CATEGORY_PRODUCT_REQUEST,
+  CATEGORY_PRODUCT_SUCCESS,
   CLEAR_ERRORS,
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_REQUEST,
@@ -61,7 +67,7 @@ export const createProduct =
   };
 
 export const getAllProducts =
-  (keyword = "", price = [0, 1000]) =>
+  (keyword = "", price = [0, 1000], limit) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
@@ -69,6 +75,9 @@ export const getAllProducts =
       let Link = `/api/products?keyword=${keyword}}`;
       if (price) {
         Link = `/api/products?keyword=${keyword}&prices.regular[gte]=${price[0]}&prices.regular[lte]=${price[1]}`;
+      }
+      if (limit) {
+        Link = `/api/products?keyword=${keyword}&limit=${limit}`;
       }
       const { data } = await axios.get(Link, config);
 
@@ -141,6 +150,42 @@ export const getRelatedProducts = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: RELATED_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// get all products for admin
+export const getAllProductsAdmin =
+  (keyword = "", skip) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ADMIN_PRODUCT_REQUEST });
+
+      let link = `/api/admin/products?keyword=${keyword}`;
+
+      if (skip) {
+        link = `/api/admin/products?skip=${skip}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({ type: ADMIN_PRODUCT_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_PRODUCT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+export const categorizedProducts = (category) => async (dispatch) => {
+  try {
+    dispatch({ type: CATEGORY_PRODUCT_REQUEST });
+    const { data } = await axios.get(`/api/products/category/${category}`);
+    dispatch({ type: CATEGORY_PRODUCT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }

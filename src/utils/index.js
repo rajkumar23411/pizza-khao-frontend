@@ -132,3 +132,28 @@ export const shopSubMenu = [
   { name: "Favourites", link: "/account/favourites" },
   { name: "Manage Address", link: "/account/address" },
 ];
+
+export const cheeseText = [
+  "Cheesy delights: Dive into our tasty cheese pizzas",
+  "Mouthwatering cheese pizzas for cheese lovers",
+  "Say cheese! Enjoy our gooey cheese pizzas",
+  "Indulge in the creaminess: Irresistible cheese pizzas",
+];
+export const veggieText = [
+  "Fresh and wholesome: Discover our veggie pizzas",
+  "Garden delights: Savor our nutritious veggie pizzas",
+  "Veggie paradise: Delicious pizzas packed with veggies",
+  "Green goodness: Try our scrumptious veggie pizzas",
+];
+export const piquantText = [
+  "Spice up your taste buds: Explore our piquant pizzas",
+  "Fiery flavors: Brave our spicy piquant pizzas",
+  "Bold and Zesty: Try our adventurous piquant pizzas",
+  "For heat seekers: savor our hot and spicy pizzas",
+];
+export const forKidsText = [
+  "Kids' pizza party: fun and yummy pizzas for kids",
+  "Little chefs' favorites: Pizzas for your kids",
+  "Kid-approved pizzas: Tasty and colorful delights",
+  "Pizza adventure for kids: Playful and delicious pizzas",
+];
