@@ -26,6 +26,7 @@ export const settings = {
   initialSlide: 0,
   autoplay: true,
   autoplaySpeed: 2500,
+  centerMode: true,
   prevArrow: <PreviousBtn />,
   nextArrow: <NextBtn />,
   responsive: [

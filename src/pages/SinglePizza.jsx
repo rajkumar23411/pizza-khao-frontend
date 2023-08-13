@@ -21,11 +21,19 @@ import {
   getCartItems,
 } from "../redux/actions/cartActions";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
-import SingleRelatedPizza from "./../components/SingleRelatedPizza";
-import Slider from "react-slick";
 import PageHead from "../components/PageHead";
 import toaster from "react-hot-toast";
-import { settings } from "../components/Arrows";
+import SavorySuggestion from "../components/SavorySuggestion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
+import SinglePizzaCard from "../components/SinglePizzaCard";
+import { delay } from "framer-motion";
+
 const SinglePizza = () => {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetails);
@@ -72,7 +80,6 @@ const SinglePizza = () => {
     setLoadingProductId(id);
     dispatch(addToCart(id, quantity, size));
   };
-
   useEffect(() => {
     if (success) {
       toaster.success("Pizza added to cart");
@@ -101,9 +108,7 @@ const SinglePizza = () => {
   return (
     <>
       <MainNav />
-      {
-        product?.name && (<PageHead pageName={`Shop / ${product?.name}`} />)
-      }
+      {product?.name && <PageHead pageName={`Shop / ${product?.name}`} />}
       <section className="flex flex-col">
         {loading ? (
           <SinglePizzaLoader />
@@ -260,29 +265,47 @@ const SinglePizza = () => {
             {product && <PizzaInformation id={id} pizza={product} />}
           </>
         )}
-
+        {isItemPresetInCart >= 0 && (
+          <SavorySuggestion isItemInCart={isItemPresetInCart} />
+        )}
         {loading && relatedProductLoading ? (
           <div className="mb-10">
             <ItemSkeleton />
           </div>
         ) : (
-          relatedProducts.length > 0 && (
-            <section className="flex flex-col gap-3 sm:gap-10 lg:py-20 md:py-10 my-8">
-            <h1 className="font-medium text-golden mx-5 text-base sm:text-2xl tracking-wider uppercase lg:mx-20 md:mx-10">
-              Related products
-            </h1>
-            <Slider {...settings} className="overflow-hidden md:pr-10">
-              {relatedProducts.map((prod) => (
-                <SingleRelatedPizza
-                  product={prod}
-                  key={prod._id}
-                  addToCart={handleAddToCart}
-                  loadingProductId={loadingProductId}
-                  cartLoading={cartLoading}
-                />
-              ))}
-            </Slider>
-          </section>
+          relatedProducts?.length > 0 && (
+            <div className="m-5 md:m-10 lg:my-10 lg:mx-20">
+              <h1 className="font-medium text-golden text-base sm:text-2xl tracking-wider uppercase">
+                Related products
+              </h1>
+              <Swiper
+                modules={[Navigation, Autoplay]}
+                slidesPerView={5}
+                navigation
+                autoplay={{ delay: 2000 }}
+                breakpoints={{
+                  300: {
+                    slidesPerView: 3,
+                  },
+                  640: {
+                    slidesPerView: 4,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                  },
+                  1024: {
+                    slidesPerView: 5,
+                  },
+                }}
+                className="mySwiper"
+              >
+                {relatedProducts?.map((product) => (
+                  <SwiperSlide key={product._id}>
+                    <SinglePizzaCard pizza={product} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           )
         )}
       </section>

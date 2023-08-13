@@ -1,6 +1,5 @@
 import React from "react";
 import { pizzaSize } from "../utils";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import { useDispatch } from "react-redux";
 import { removeCartItem, updateCart } from "../redux/actions/cartActions";
@@ -28,12 +27,12 @@ const CartItem = ({ item, wishlist }) => {
       key={item.product._id}
     >
       <div className="flex items-start lg:gap-6 md:gap-2 h-full">
-        <div className="flex flex-col items-center justify-between h-full lg:gap-4">
-          <div className="h-20 lg:h-28 lg:w-28 md:h-24 md:w-24 rounded-md">
+        <div className="flex flex-col items-center justify-between h-full lg:gap-4 relative">
+          <div className="h-20 w-20 lg:h-28 lg:w-28 md:h-24 md:w-24 rounded-md overflow-hidden drop-shadow-md">
             <img
               src={item?.product?.image}
-              alt="pizza"
-              className="h-full w-full object-cover drop-shadow-md overflow-hidden"
+              alt={item?.product?.name}
+              className="h-full w-full object-cover"
             />
           </div>
           <div className="flex items-center justify-between gap-2 sm:gap-4">
@@ -64,7 +63,7 @@ const CartItem = ({ item, wishlist }) => {
                 onChange={(e) =>
                   handleSizeChange(item.product._id, e.target.value, item.size)
                 }
-                className="cursor-pointer text-xs sm:text-base"
+                className="cursor-pointer text-xs sm:text-base bg-transparent"
               >
                 {Array.from(Array(10).keys()).map((x, i) => (
                   <option
@@ -78,11 +77,27 @@ const CartItem = ({ item, wishlist }) => {
               </select>
             </div>
           </div>
+          <button
+            onClick={() => moveToWishlist(item?.product._id)}
+            className="absolute -left-1 -top-0 bg-white h-6 md:h-8 w-6 md:w-8 flex items-center justify-center rounded-full"
+          >
+            <i
+              className={`${
+                isItemInWishlist(item?.product._id)
+                  ? "fas fa-heart text-red-600"
+                  : "far fa-heart"
+              } text-sm md:text-base lg:text-lg`}
+            ></i>
+          </button>
         </div>
         <div className="flex items-start justify-between w-full h-full">
           <div className="flex flex-col sm:gap-1">
             <span className="text-gray-700 font-medium uppercase tracking-wider text-sm sm:text-base">
-              {item.product.name}
+              {isSmallScreen
+                ? item.product.name.length > 15
+                  ? `${item.product.name.slice(0, 12)}...`
+                  : item.product.name
+                : item.product.name}
             </span>
             {item && item.product && item.product.prices && (
               <span className="text-golden font-medium text-sm sm:text-lg">
@@ -98,52 +113,16 @@ const CartItem = ({ item, wishlist }) => {
           </div>
           <div className="flex flex-col items-end justify-between h-full">
             {item?.product?.prices && (
-              <div className="text-red-600 text-xl font-semibold">
+              <div className="text-red-600 text-base md:text-xl font-semibold">
                 ₹{item.quantity * item.product.prices[item.size]}
               </div>
             )}
-            <div
-              className={`flex items-center ${
-                isSmallScreen ? "gap-0" : "gap-4"
-              }`}
+            <button
+              className="text-xs sm:text-base uppercase text-blue-600 font-normal rounded cursor-pointer"
+              onClick={() => handleRemoveProduct(item.product._id)}
             >
-              <span onClick={() => moveToWishlist(item.product._id)}>
-                {isItemInWishlist(item.product._id) ? (
-                  <span
-                    className={`${
-                      isSmallScreen
-                        ? "bg-transparent"
-                        : "bg-gray-50 hover:bg-gray-200"
-                    } rounded-sm p-2 cursor-pointer `}
-                  >
-                    <FavoriteRoundedIcon
-                      fontSize="small"
-                      className="text-red-600"
-                    />
-                  </span>
-                ) : (
-                  <span
-                    className={`text-base lg:flex items-center justify-center gap-1 ${
-                      isSmallScreen
-                        ? "bg-transparent"
-                        : "bg-gray-50 hover:bg-gray-200"
-                    }  text-gray-600 font-normal p-2 rounded cursor-pointer`}
-                  >
-                    <FavoriteBorderRoundedIcon fontSize="small" />
-                    <span className={isSmallScreen ? "hidden" : "block"}>
-                      Add to favourite
-                    </span>
-                  </span>
-                )}
-              </span>
-              <button
-                className="text-xs sm:text-base flex items-center justify-center gap-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-normal p-1 sm:p-2 rounded cursor-pointer"
-                onClick={() => handleRemoveProduct(item.product._id)}
-              >
-                <DeleteOutlineOutlinedIcon fontSize="small" />
-                Remove
-              </button>
-            </div>
+              Remove
+            </button>
           </div>
         </div>
       </div>

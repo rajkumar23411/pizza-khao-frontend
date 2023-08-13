@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
 import { Link } from "react-router-dom";
 import AddToCartBtn from "./Buttons/AddToCartBtn";
-import QuickViewBtn from './Buttons/QuickViewBtn';
+import QuickViewBtn from "./Buttons/QuickViewBtn";
 
 const SinglePizzaCard = ({ pizza }) => {
   const [open, setOpen] = useState(false);
@@ -47,18 +47,23 @@ const SinglePizzaCard = ({ pizza }) => {
         </Link>
         <div className="w-full flex items-center justify-center gap-2 button-box">
           {loadingProductId === pizza._id && loading ? (
-            <button disabled={true} className="flex items-center justify-center gap-2 bg-red-400 px-6 py-1 lg:py-3 md:py-3 font-normal tracking-wider text-white uppercase rounded">
+            <button
+              disabled={true}
+              className="flex items-center justify-center gap-2 bg-red-400 px-6 py-1 lg:py-3 md:py-3 font-normal tracking-wider text-white uppercase rounded"
+            >
               <i className="fas fa-spinner fa-spin"></i>Adding...
             </button>
           ) : (
-            <AddToCartBtn handleClick={() => handleAddtoCart(pizza._id, 1, "regular")} />
+            <AddToCartBtn
+              handleClick={() => handleAddtoCart(pizza._id, 1, "regular")}
+            />
           )}
-          <span
+          <button
             className="hidden py-2 lg:py-0 md:py-0 lg:h-full md:h-full bg-slate-100 sm:flex md:flex lg:flex items-center cursor-pointer justify-center px-3 uppercase font-normal rounded-sm text-gray-800 text-xs lg:text-sm md:text-sm tracking-widest hover:bg-slate-200"
             onClick={handleClickOpen}
           >
             Quick view
-          </span>
+          </button>
         </div>
       </div>
 

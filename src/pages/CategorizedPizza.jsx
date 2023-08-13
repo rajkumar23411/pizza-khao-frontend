@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categorizedProducts } from "../redux/actions/productAction";
 import toaster from "react-hot-toast";
 import MainNav from "./../components/MainNav";
-import AddToCartBtn from "./../components/Buttons/AddToCartBtn";
 import {
   cheeseText,
   forKidsText,
   piquantText,
   veggieText,
 } from "./../utils/index";
-import { Dialog, useMediaQuery } from "@mui/material";
-import { addToCart } from "../redux/actions/cartActions";
-import DialogBoxData from "../components/DialogBoxData";
 import MenuLightPizza from "../components/MenuLightPizza";
 import PlaceHolderCard from "./../components/PlaceHolderCard";
 
@@ -22,20 +18,9 @@ const CategorizedPizza = () => {
   const category = location.search.split("=")[1];
   const formattedCategory = category.split("-").join(" ");
   const dispatch = useDispatch();
-  const [loadingProductId, setLoadingProductId] = useState(null);
-  const [open, setOpen] = useState(false);
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
   const { loading, error, products } = useSelector((state) => state.products);
-  const handleAddtoCart = (id, count, size) => {
-    setLoadingProductId(id);
-    dispatch(addToCart(id, count, size));
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const array =
     formattedCategory === "cheese"
       ? cheeseText
@@ -50,7 +35,10 @@ const CategorizedPizza = () => {
   const randomText = array[randomIndex];
   useEffect(() => {
     dispatch(categorizedProducts(category));
-  }, [dispatch, category]);
+    if (error) {
+      toaster.error(error);
+    }
+  }, [dispatch, category, error]);
 
   return (
     <section className="h-full w-full">

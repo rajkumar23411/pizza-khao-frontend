@@ -31,7 +31,7 @@ const Cart = () => {
       dispatch({ type: RESET_ADD_TO_FAVOURITE });
     }
     dispatch(getWishlist());
-  }, [wishListMessage, toaster, dispatch]);
+  }, [wishListMessage, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -47,7 +47,7 @@ const Cart = () => {
       dispatch({ type: REMOVE_CART_ITEM_RESET });
     }
     dispatch(getCartItems());
-  }, [dispatch, error, message, wishListMessage, success, toaster]);
+  }, [dispatch, error, message, wishListMessage, success]);
 
   const totalPrice = cart && cart.totalPrice;
   const tax = cart && Number((cart.totalPrice / 100) * 5);

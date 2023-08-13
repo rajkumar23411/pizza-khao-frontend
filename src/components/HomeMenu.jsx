@@ -2,14 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
 import SinglePizzaCard from "./SinglePizzaCard";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ItemSkeleton from "./ItemSkeleton";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { clearError } from "../redux/actions/cartActions";
 import toaster from "react-hot-toast";
-import { settings } from "./Arrows";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
 const HomeMenu = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
@@ -26,7 +31,7 @@ const HomeMenu = () => {
       toaster.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, success, error, toaster]);
+  }, [dispatch, success, error]);
   return (
     <div className="lg:h-[76vh] md:h-[60vh] lg:pt-20 md:pt-20 pt-10">
       <div className="w-full flex items-center justify-center flex-col gap-1 pb-10">
@@ -46,11 +51,30 @@ const HomeMenu = () => {
         <ItemSkeleton />
       ) : (
         products && (
-          <Slider {...settings}>
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            slidesPerView={5}
+            navigation
+            autoplay={{ delay: 2000 }}
+            breakpoints={{
+              640: {
+                slidesPerView: 3,
+              },
+              768: {
+                slidesPerView: 4,
+              },
+              1024: {
+                slidesPerView: 5,
+              },
+            }}
+            className="mySwiper"
+          >
             {products?.map((pizza) => (
-              <SinglePizzaCard key={pizza._id} pizza={pizza} />
+              <SwiperSlide key={pizza._id}>
+                <SinglePizzaCard pizza={pizza} />
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         )
       )}
     </div>
