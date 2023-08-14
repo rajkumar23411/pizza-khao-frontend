@@ -28,11 +28,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import SinglePizzaCard from "../components/SinglePizzaCard";
-import { delay } from "framer-motion";
 
 const SinglePizza = () => {
   const dispatch = useDispatch();
@@ -282,16 +279,18 @@ const SinglePizza = () => {
                 modules={[Navigation, Autoplay]}
                 slidesPerView={5}
                 navigation
-                autoplay={{ delay: 2000 }}
+                autoplay={{ delay: 3000 }}
                 breakpoints={{
                   300: {
                     slidesPerView: 3,
                   },
                   640: {
                     slidesPerView: 4,
+                    spaceBetween: 20,
                   },
-                  768: {
+                  780: {
                     slidesPerView: 4,
+                    spaceBetween: 60,
                   },
                   1024: {
                     slidesPerView: 5,

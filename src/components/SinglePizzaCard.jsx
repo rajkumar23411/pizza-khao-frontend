@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dialog } from "@mui/material";
 import DialogBoxData from "./DialogBoxData";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
 import { Link } from "react-router-dom";
 import AddToCartBtn from "./Buttons/AddToCartBtn";
-import QuickViewBtn from "./Buttons/QuickViewBtn";
 
 const SinglePizzaCard = ({ pizza }) => {
   const [open, setOpen] = useState(false);

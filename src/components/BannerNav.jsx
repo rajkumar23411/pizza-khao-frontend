@@ -76,15 +76,15 @@ const BannerNav = () => {
             >
               {PagesSubMenu.map((item, index) => (
                 <li
-                  className="tracking-wide text-gray-800 font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
+                  className="tracking-wide text-gray-800 font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
                   key={index}
                 >
                   {item}
                 </li>
               ))}
-              {isAuthenticated && user && user.role === "admin" && (
+              {isAuthenticated && user?.role === "admin" && (
                 <NavLink to="/add/pizza">
-                  <li className="tracking-wide text-gray-800 font-medium text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
+                  <li className="tracking-wide text-gray-800 font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     Add a pizza
                   </li>
                 </NavLink>
@@ -104,7 +104,7 @@ const BannerNav = () => {
             >
               {MenuSubTags.map((item, index) => (
                 <NavLink to={item.link} key={index}>
-                  <li className="tracking-wide font-medium text-gray-800 text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
+                  <li className="tracking-wide font-normal text-gray-800 text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
                     {item.name}
                   </li>
                 </NavLink>

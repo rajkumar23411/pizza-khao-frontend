@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MainNav from "./../components/MainNav";
-import MenuLightPizza from "../components/MenuLightPizza";
 import HomeFooter from "./../components/HomeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
@@ -11,6 +10,7 @@ import { clearError } from "../redux/actions/cartActions";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "./../components/Loader";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SinglePizzaCard from "./../components/SinglePizzaCard";
 const MenuLight = () => {
   const { loading, products } = useSelector((state) => state.products);
   const { loading: cartLoading, error } = useSelector((state) => state.myCart);
@@ -117,7 +117,7 @@ const MenuLight = () => {
         >
           <AnimatePresence>
             {filteredProducts?.map((product, i) => (
-              <MenuLightPizza key={i} product={product} loading={cartLoading} />
+              <SinglePizzaCard key={i} pizza={product} />
             ))}
           </AnimatePresence>
         </motion.div>

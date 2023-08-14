@@ -10,8 +10,8 @@ import {
   piquantText,
   veggieText,
 } from "./../utils/index";
-import MenuLightPizza from "../components/MenuLightPizza";
 import PlaceHolderCard from "./../components/PlaceHolderCard";
+import SinglePizzaCard from "./../components/SinglePizzaCard";
 
 const CategorizedPizza = () => {
   const location = useLocation();
@@ -66,11 +66,7 @@ const CategorizedPizza = () => {
       ) : (
         <div className="grid grid-cols-2 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center place-content-center place-items-center py-10 md:p-10">
           {products?.map((product) => (
-            <MenuLightPizza
-              product={product}
-              loading={loading}
-              key={product._id}
-            />
+            <SinglePizzaCard pizza={product} key={product._id} />
           ))}
         </div>
       )}

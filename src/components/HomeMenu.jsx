@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
 import SinglePizzaCard from "./SinglePizzaCard";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import ItemSkeleton from "./ItemSkeleton";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { clearError } from "../redux/actions/cartActions";
@@ -13,8 +11,9 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
+import "swiper/css/thumbs";
+
 const HomeMenu = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
@@ -55,8 +54,14 @@ const HomeMenu = () => {
             modules={[Navigation, Autoplay]}
             slidesPerView={5}
             navigation
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 3000 }}
             breakpoints={{
+              250: {
+                slidesPerView: 2,
+              },
+              350: {
+                slidesPerView: 3,
+              },
               640: {
                 slidesPerView: 3,
               },

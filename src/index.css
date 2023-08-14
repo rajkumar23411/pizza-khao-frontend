@@ -24,13 +24,11 @@ input[type="number"] {
 }
 
 .imageDiv {
-  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446")
-      center center,
-    url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/crust-must.png?updatedAt=1683123622541")
-      center center/cover;
+  background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/h6-rev-img-2.png?updatedAt=1691990543499")
+    center center;
   background-repeat: no-repeat;
 }
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .imageDiv {
     background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/huge-pizza.png?updatedAt=1683123626446")
         center center/contain,
@@ -38,7 +36,7 @@ input[type="number"] {
         center center/contain;
     background-repeat: no-repeat;
   }
-}
+} */
 .pizza-box:hover .btns {
   visibility: visible;
 }
@@ -163,19 +161,18 @@ input[type="number"] {
     left: 150%;
   }
 }
-
 .slick-arrow.slick-prev,
 .slick-arrow.slick-next {
-  width: 47px;
-  height: 80px;
+  width: 80px;
+  height: 100px;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  background: transparent;
-  backdrop-filter: blur(10px);
-  color: #8888;
-  z-index: 1;
+  background: #fff !important;
+  color: red !important;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 @media only screen and (max-width: 450px) {
   .slick-arrow.slick-prev,
@@ -186,23 +183,34 @@ input[type="number"] {
     background-color: white;
   }
 }
-.slick-prev {
-  left: 0 !important;
-  border-radius: 0 5px 5px 0;
+.slick-arrow.slick-prev {
+  left: -2.8rem !important;
 }
 .slick-next {
-  right: 0 !important;
-  border-radius: 5px 0 0 5px;
+  right: -2.7rem !important;
 }
-.slick-prev::before,
+.slick-prev::before {
+  content: "Prev" !important;
+  font-family: sans-serif !important;
+  color: rgba(231, 76, 60, 1) !important;
+  transform: rotate(90deg);
+  font-size: 12px !important;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
 .slick-next::before {
-  display: none;
+  content: "Next" !important;
+  font-family: sans-serif !important;
+  color: rgba(231, 76, 60, 1) !important;
+  transform: rotate(-90deg);
+  font-size: 12px !important;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
-.slick-arrow.slick-prev:hover,
-.slick-arrow.slick-next:hover {
-  color: #8888 !important;
-}
-
 .menu-light-category-box:hover p {
   color: #b7903c;
 }

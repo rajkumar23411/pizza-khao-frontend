@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { randomSuggestionText } from "../utils";
 import axios from "axios";
-import SingleRelatedProduct from "./SingleRelatedPizza";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -35,7 +35,7 @@ const SavorySuggestion = ({ isItemInCart }) => {
         <h1 className="font-medium text-golden text-base sm:text-2xl tracking-wider uppercase">
           Drinks & Desserts
         </h1>
-        <p className="font-sans text-gray-600 text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-2xl">
+        <p className="font-sans text-gray-600 text-xs md:text-sm lg:text-base">
           {randomSuggestionText()}
         </p>
       </div>
@@ -45,16 +45,13 @@ const SavorySuggestion = ({ isItemInCart }) => {
             modules={[Navigation, Autoplay]}
             slidesPerView={5}
             navigation
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 3000 }}
             breakpoints={{
               300: {
                 slidesPerView: 3,
               },
               640: {
-                slidesPerView: 4,
-              },
-              768: {
-                slidesPerView: 4,
+                slidesPerView: 3,
               },
               1024: {
                 slidesPerView: 5,

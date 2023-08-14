@@ -48,12 +48,15 @@ const App = () => {
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
   // });
+
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
   useEffect(() => {
     if (error) store.dispatch(clearError());
   }, [error]);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,

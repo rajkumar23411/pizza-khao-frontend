@@ -1,29 +1,82 @@
 import React from "react";
 import BannerNav from "./BannerNav";
-import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectCube, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import "swiper/css/effect-cube";
+import "swiper/css/pagination";
+const ImageBlock = ({ imageMain, imageHeading }) => {
+  return (
+    <div className="h-screen w-sch-screen relative drop-shadow-2xl">
+      <img
+        src={imageMain}
+        alt="asset"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-max w-max"
+      />
+      <img
+        src={imageHeading}
+        alt="heading"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 md:h-max md:w-max"
+      />
+      <img
+        src="/assets/h6-rev-img-6.png"
+        alt="small heading"
+        className="absolute top-[44%] md:top-[38%] left-1/2 transform -translate-x-1/2 -translate-y-[44%] md:-translate-y-[38%] w-48 md:h-max md:w-max "
+      />
+      <img
+        src="/assets/h6-rev-img-4.png"
+        alt="crown"
+        className="absolute top-[36%] md:top-96 lg:top-20 left-[25%] transform -translate-y-[36%] -translate-x-[25%] w-20 md:h-max md:w-max"
+      />
+    </div>
+  );
+};
 const Banner = () => {
   return (
-    <section className="lg:h-screen md:h-[75vh] w-full bg-[#D1411E] relative h-[90vh]">
+    <section className="h-[80vh] lg:h-screen md:h-[75vh] w-full bg-[#D1411E] overflow-hidden md:bg-banner-background md:bg-no-repeat md:bg-cover relative flex items-center justify-center">
       <BannerNav />
-      <div className="imageDiv h-full w-full flex items-center justify-center flex-col">
-        <motion.img
-          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/crown.png?updatedAt=1683123622054"
-          alt="crown"
-          className="absolute top-36 sm:top-0 left-[21%] h-20 sm:h-max"
-        />
-        <motion.img
-          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/new-menu.png?updatedAt=1683123629393"
-          className="h-10 sm:h-max"
-          alt="New Menu"
-        />
-        <img
-          src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/pizza-time.png?updatedAt=1683123631900"
-          alt="pizza time"
-          className="h-20 sm:h-max"
-        />
-        <div className="hidden sm:grid bg-[#FFA323] h-32 w-32 rounded-full  place-items-center text-xl uppercase tracking-wider text-center font-normal text-white absolute top-24 right-[21%]">
-          Best Offer
-        </div>
+      <img
+        src="/assets/samuel-richard-UWY8nGROvbk-unsplash.jpg"
+        alt=""
+        className="md:hidden absolute h-full w-full top-0 left-0 right-0 object-cover mix-blend-screen"
+      />
+      <div className="h-full w-full">
+        <Swiper
+          modules={[Navigation, Autoplay, EffectCube, Pagination]}
+          effect={"cube"}
+          navigation={true}
+          autoplay={{ delay: 3000 }}
+          className="mySwiper"
+          grabCursor={true}
+          pagination={true}
+          cubeEffect={{
+            shadow: true,
+            slideShadows: false,
+            shadowOffset: 20,
+            shadowScale: 0.94,
+          }}
+        >
+          <SwiperSlide>
+            <ImageBlock
+              imageMain={"/assets/h6-rev-img-8.png"}
+              imageHeading={"/assets/h6-rev-img-7.png"}
+            />{" "}
+          </SwiperSlide>
+          <SwiperSlide>
+            <ImageBlock
+              imageMain={"/assets/h6-rev-img-3.png"}
+              imageHeading={"/assets/h6-rev-img-7.png"}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ImageBlock
+              imageMain={"/assets/h6-rev-img-9.png"}
+              imageHeading={"/assets/h6-rev-img-7.png"}
+            />
+          </SwiperSlide>
+        </Swiper>
       </div>
     </section>
   );
