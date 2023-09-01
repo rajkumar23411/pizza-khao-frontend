@@ -74,6 +74,13 @@ const BannerNav = () => {
                 isModelOpen === 1 ? "scale-100 h-max" : "scale-0 h-0"
               }  absolute w-[16rem] bg-white top-full left-0 flex flex-col justify-between transition-all duration-300 origin-top-left overflow-hidden h-max shadow-md rounded`}
             >
+              {isAuthenticated && user?.role === "admin" && (
+                <NavLink to="/admin/dashboard">
+                  <li className="tracking-wide text-gray-800 font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
+                    Admin Dashboard
+                  </li>
+                </NavLink>
+              )}
               {PagesSubMenu.map((item, index) => (
                 <li
                   className="tracking-wide text-gray-800 font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3"
@@ -82,13 +89,6 @@ const BannerNav = () => {
                   {item}
                 </li>
               ))}
-              {isAuthenticated && user?.role === "admin" && (
-                <NavLink to="/add/pizza">
-                  <li className="tracking-wide text-gray-800 font-normal text-sm hover:bg-red-50 hover:text-red-600 px-6 py-3">
-                    Add a pizza
-                  </li>
-                </NavLink>
-              )}
             </ul>
           </Link>
           <Link

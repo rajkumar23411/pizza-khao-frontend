@@ -2,10 +2,21 @@ import React from "react";
 
 const PageTracker = ({ pagename }) => {
   return (
-    <div className="flex items-center text-sm gap-2 font-sans">
+    <div className="flex items-center justify-center gap-2 font-roboto text-sm">
       <span className="font-roboto">Dashboard</span>
-      <i className="far fa-angle-right"></i>
-      <span className="font-roboto text-red-800">{pagename}</span>
+      {typeof pagename === "string" ? (
+        <>
+          <i className="far fa-angle-right"></i>
+          <span className="font-roboto">{pagename}</span>
+        </>
+      ) : (
+        pagename.map((name, indx) => (
+          <>
+            <i className="far fa-angle-right"></i>
+            <span className="font-roboto">{name}</span>
+          </>
+        ))
+      )}
     </div>
   );
 };

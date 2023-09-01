@@ -14,7 +14,6 @@ import store from "./redux/store";
 import { clearError, loadUser } from "./redux/actions/userAction";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import AddPizza from "./pages/AddPizza";
 import WishList from "./pages/WishList";
 import OrderSuccess from "./pages/OrderSuccess";
 import VerifyPayment from "./pages/VerifyPayment";
@@ -37,6 +36,8 @@ import Coupon from "./admin/pages/Coupon";
 import CouponUpdate from "./admin/pages/CouponUpdate";
 import SingleOrderView from "./admin/pages/SingleOrderView";
 import CategorizedPizza from "./pages/CategorizedPizza";
+import AddProduct from "./admin/pages/AddProduct";
+import EditProduct from "./admin/components/EditProduct";
 
 const App = () => {
   const isSmallScreen = useMediaQuery("(max-width:650px)");
@@ -119,14 +120,6 @@ const App = () => {
       <Route path="/verify/otp" element={<VerifyOTP />} />
       <Route path="/verify/login/otp" element={<VerifyLoginOTP />} />
       <Route path="/reset/password" element={<ResetPassword />} />
-      <Route
-        path="/add/pizza"
-        element={
-          <ProtectedRoute>
-            <AddPizza />
-          </ProtectedRoute>
-        }
-      />
       <Route path="/menu/:keyword" element={<SearchMenu />} />
       <Route path="/pizza/:keyword" element={<Menu />} />
       <Route
@@ -172,6 +165,14 @@ const App = () => {
         }
       />
       <Route
+        path="/admin/dashboard/product/add"
+        element={
+          <ProtectedRoute>
+            <AddProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/dashboard/orders"
         element={
           <ProtectedRoute>
@@ -200,6 +201,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <SingleOrderView />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard/product/edit"
+        element={
+          <ProtectedRoute>
+            <EditProduct />
           </ProtectedRoute>
         }
       />

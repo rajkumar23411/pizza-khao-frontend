@@ -27,6 +27,10 @@ import {
   RELATED_PRODUCT_FAIL,
   RELATED_PRODUCT_REQUEST,
   RELATED_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_RESET,
+  UPDATE_PRODUCT_SUCCESS,
 } from "../constants/productConstant";
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -38,6 +42,19 @@ export const productReducer = (state = { products: [] }, action) => {
         loading: true,
         products: [],
       };
+    case UPDATE_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        ...state,
+        isUpdated: false,
+      };
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        isUpdated: action.payload.success,
+        message: action.payload.message,
+      };
+
     case ALL_PRODUCT_SUCCESS:
     case ADMIN_PRODUCT_SUCCESS:
       return {
@@ -55,11 +72,16 @@ export const productReducer = (state = { products: [] }, action) => {
     case ALL_PRODUCT_FAIL:
     case ADMIN_PRODUCT_FAIL:
     case CATEGORY_PRODUCT_FAIL:
+    case UPDATE_PRODUCT_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-
+    case UPDATE_PRODUCT_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
     case ALL_PRODUCT_RESET:
       return {
         ...state,

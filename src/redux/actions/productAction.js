@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl, config } from "../../utils";
+import { config } from "../../utils";
 import {
   ADD_REVIEW_FAIL,
   ADD_REVIEW_REQUEST,
@@ -26,6 +26,9 @@ import {
   RELATED_PRODUCT_FAIL,
   RELATED_PRODUCT_REQUEST,
   RELATED_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
 } from "../constants/productConstant";
 
 export const createProduct =
@@ -65,6 +68,22 @@ export const createProduct =
       });
     }
   };
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PRODUCT_REQUEST });
+    const { data } = await axios.put(
+      `/api/admin/product/update/${id}`,
+      productData,
+      config
+    );
+    dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const getAllProducts =
   (keyword = "", price = [0, 1000], limit) =>

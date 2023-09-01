@@ -1,8 +1,9 @@
 import React from "react";
 
-const ProductActionBtn = ({ type }) => {
+const ProductActionBtn = ({ type, action }) => {
   return (
     <button
+      onClick={action}
       className={`flex items-center justify-center gap-1
     ${
       type === "Edit"

@@ -431,3 +431,34 @@ input[type="number"] {
     font-size: 0.6rem;
   }
 }
+.swiper-button-prev,
+.swiper-button-next {
+  background: goldenrod;
+  height: 3rem !important;
+  width: 3rem !important;
+  border-radius: 50%;
+  position: relative;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: "PREV" !important;
+  transform: rotate(-90deg);
+  position: absolute !important;
+  font-family: sans-serif !important;
+  font-size: 0.7rem !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  filter: drop-shadow(10px);
+  transform: rotate(-90deg);
+}
+.swiper-button-next::after {
+  content: "NEXT" !important;
+  transform: rotate(-90deg);
+  position: absolute !important;
+  font-family: sans-serif !important;
+  font-size: 0.7rem !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  filter: drop-shadow(10px);
+  transform: rotate(90deg);
+}

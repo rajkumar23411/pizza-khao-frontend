@@ -1,7 +1,13 @@
 import React from "react";
 import ProductActionBtn from "./ProductActionBtn";
+import { useNavigate } from "react-router-dom";
 
 const ProductFormData = ({ product }) => {
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    navigate(`/admin/dashboard/product/edit?id=${product._id}`);
+  };
   return (
     <div className="flex bg-white items-center justify-center my-2 rounded-md shadow-md shadow-slate-200 py-2">
       <div className="flex-[0.5] flex items-center justify-center">
@@ -25,7 +31,7 @@ const ProductFormData = ({ product }) => {
         ))}
       </div>
       <div className="flex-1 flex items-center justify-center gap-4 border-l">
-        <ProductActionBtn type={"Edit"} />
+        <ProductActionBtn type={"Edit"} action={navigateTo} />
         <ProductActionBtn type={"View"} />
       </div>
     </div>

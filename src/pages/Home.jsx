@@ -6,7 +6,7 @@ import HomeFooter from "../components/HomeFooter";
 import HomeMenu from "../components/HomeMenu";
 import Options from "../components/Options";
 import PizzaBox from "../components/PizzaBox";
-import Quotes from "../components/Quotes";
+import Feedback from "../components/Feedback";
 import { useMediaQuery } from "@mui/material";
 import MobileMenu from "../components/MobileMenu";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ const Home = () => {
       <HomeMenu />
       <Events />
       <PizzaBox />
-      <Quotes />
+      {/* <Feedback /> */}
       <HomeFooter />
     </>
   );
