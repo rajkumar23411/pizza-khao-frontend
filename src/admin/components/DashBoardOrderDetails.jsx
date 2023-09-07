@@ -19,6 +19,7 @@ import Loader from "./Loader";
 import toaster from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ADMIN_ORDER_RESET } from "../../redux/constants/orderConstant";
+import SearchBar from "./SearchBar";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -72,7 +73,7 @@ const DashBoardOrderDetails = () => {
     dispatch(getAllOrdersAdmin());
   }, [dispatch, success, error, message, navigate]);
   return (
-    <section className="flex-1 bg-gray-100 ">
+    <section className="flex-1 bg-slate-50 ">
       <PageHeader pagetitle={"Orders"} />
       <section className="flex flex-col gap-5 w-full p-4">
         <div className="flex items-center justify-between">
@@ -81,6 +82,7 @@ const DashBoardOrderDetails = () => {
             <span>Total Orders:</span>
             <span>{totalOrders && totalOrders}</span>
           </div>
+          <SearchBar />
         </div>
         {totalOrders === 0 ? (
           <div className="flex items-center justify-center flex-col gap-2">

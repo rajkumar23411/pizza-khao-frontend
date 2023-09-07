@@ -2,7 +2,7 @@ import React from "react";
 
 const NoResultsFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center mt-8">
+    <div className="flex flex-col items-center justify-center mt-8 h-full w-full">
       <img
         src="https://ik.imagekit.io/zquvvhmdy/pizza_khao/13717663_5326251.svg?updatedAt=1689393571044"
         alt="no results found"

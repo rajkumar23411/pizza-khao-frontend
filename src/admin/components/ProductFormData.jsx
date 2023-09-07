@@ -17,18 +17,17 @@ const ProductFormData = ({ product }) => {
           className="w-12 h-12 rounded-full overflow-hidden object-cover drop-shadow-lg"
         />
       </div>
-      <div className="flex-1 text-center text-gray-700 capitalize">
+      <div className="flex-1 text-center text-gray-700 capitalize font-sans tracking-tight">
         {product.name}
       </div>
       <div className="flex-1 text-center text-gray-500">
         {`₹${product?.prices["regular"]} - ₹${product?.prices["extralarge"]}`}
       </div>
       <div className="flex-1 text-center">
-        {product?.category.map((cat, i) => (
-          <span key={i} className="text-gray-500">
-            {cat}
-          </span>
-        ))}
+        {/* add comma between the categories */}
+        <span className="text-gray-600 font-sans tracking-tight">
+          {product?.category.join(", ")}
+        </span>
       </div>
       <div className="flex-1 flex items-center justify-center gap-4 border-l">
         <ProductActionBtn type={"Edit"} action={navigateTo} />
