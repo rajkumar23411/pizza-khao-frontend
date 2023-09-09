@@ -123,7 +123,7 @@ export const newProductReducer = (state = {}, action) => {
                 product: action.payload.createdProduct,
             };
         case NEW_PRODUCT_FAIL:
-            return { ...state, loading: false, error: action.payload };
+            return { loading: false, error: action.payload };
         case NEW_PRODUCT_RESET:
             return {
                 ...state,

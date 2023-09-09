@@ -29,29 +29,22 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-import SinglePizzaCard from "../components/SinglePizzaCard";
+import PizzaCard from "../components/PizzaCard";
 
 const SinglePizza = () => {
     const dispatch = useDispatch();
     const { loading, product } = useSelector((state) => state.productDetails);
-
-    const {
-        success,
-        error,
-        cart,
-        loading: cartLoading,
-    } = useSelector((state) => state.myCart);
+    const { success, error, cart } = useSelector((state) => state.myCart);
     const { loading: relatedProductLoading, relatedProducts } = useSelector(
         (state) => state.relatedProducts
     );
-
     const [price, setPrice] = useState();
     const [size, setSize] = useState(product ? "regular" : "");
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     const navigate = useNavigate();
     const isSmallScreen = useMediaQuery("(max-width: 640px)");
-    const [loadingProductId, setLoadingProductId] = useState(null);
+    const [showSavorySuggestion, setShowSavorySuggestion] = useState(false);
     const handleSelectSize = (e) => {
         setSize(e.target.value);
         if (e.target.value === "regular") {
@@ -74,7 +67,6 @@ const SinglePizza = () => {
     };
 
     const handleAddToCart = (id, quantity, size) => {
-        setLoadingProductId(id);
         dispatch(addToCart(id, quantity, size));
     };
     useEffect(() => {
@@ -82,14 +74,21 @@ const SinglePizza = () => {
             toaster.success("Pizza added to cart");
             dispatch({ type: ADD_TO_CART_RESET });
             dispatch(getCartItems());
-            setLoadingProductId(null);
+
+            if (
+                product?.category?.includes("savory") ||
+                product?.category?.includes("sweet")
+            ) {
+                setShowSavorySuggestion(false);
+            } else {
+                setShowSavorySuggestion(true);
+            }
         }
         if (error) {
             toaster.error(error);
             dispatch(clearError());
-            setLoadingProductId(null);
         }
-    }, [dispatch, success, error]);
+    }, [dispatch, success, error, product?.category]);
 
     useEffect(() => {
         dispatch(getProductDetails(id));
@@ -103,7 +102,7 @@ const SinglePizza = () => {
         navigate("/cart");
     };
     return (
-        <>
+        <section className="bg-slate-50">
             <MainNav />
             {product?.name && <PageHead pageName={`Shop / ${product?.name}`} />}
             <section className="flex flex-col">
@@ -112,7 +111,7 @@ const SinglePizza = () => {
                 ) : (
                     <>
                         <section className="h-max flex gap-10 flex-col lg:flex-row lg:p-20 md:p-10">
-                            <div className="flex-1 flex bg-gray-50 h-max py-20 rounded-md items-center justify-center relative">
+                            <div className="flex-1 flex bg-white h-max py-20 rounded-md items-center justify-center relative">
                                 {product?.discount > 0 && (
                                     <span className="h-20 w-20 bg-yellow-400 absolute top-4 left-4 text-lg text-white font-bold rounded-full flex items-center justify-center">
                                         -{product.discount}%
@@ -163,12 +162,7 @@ const SinglePizza = () => {
                                     </div>
                                 )}
                                 <p className=" text-gray-500 pt-1 sm:pt-2 font-light text-xs sm:text-base">
-                                    Lorem ipsum dolor, sit amet consectetur
-                                    adipisicing elit. Minima ipsum rerum,
-                                    voluptatum earum provident recusandae fugit
-                                    dignissimos rem sint sit facere neque
-                                    nesciunt porro fugiat id, quisquam et!
-                                    Nihil, corporis?
+                                    {product?.description.substring(0, 200)}...
                                 </p>
                                 <div>
                                     <h1 className="uppercase text-golden pt-4 font-medium tracking-wide">
@@ -319,8 +313,8 @@ const SinglePizza = () => {
                         )}
                     </>
                 )}
-                {isItemPresetInCart >= 0 && (
-                    <SavorySuggestion isItemInCart={isItemPresetInCart} />
+                {showSavorySuggestion && !loading && (
+                    <SavorySuggestion fetchItem={isItemPresetInCart} />
                 )}
                 {loading && relatedProductLoading ? (
                     <div className="mb-10">
@@ -329,7 +323,7 @@ const SinglePizza = () => {
                 ) : (
                     relatedProducts?.length > 0 && (
                         <div className="m-5 md:m-10 lg:my-10 lg:mx-20">
-                            <h1 className="font-medium text-golden text-base sm:text-2xl tracking-wider uppercase">
+                            <h1 className="font-medium text-golden text-base sm:text-2xl tracking-wider uppercase mb-6">
                                 Related products
                             </h1>
                             <Swiper
@@ -357,7 +351,10 @@ const SinglePizza = () => {
                             >
                                 {relatedProducts?.map((product) => (
                                     <SwiperSlide key={product._id}>
-                                        <SinglePizzaCard pizza={product} />
+                                        <PizzaCard
+                                            product={product}
+                                            primaryBtn={"ADD TO CART"}
+                                        />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -366,7 +363,7 @@ const SinglePizza = () => {
                 )}
             </section>
             <HomeFooter />
-        </>
+        </section>
     );
 };
 
