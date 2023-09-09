@@ -31,18 +31,16 @@ const FormInput = ({ type, name, placeholder, value, formValueChange }) => {
 const EditProduct = () => {
     const id = useLocation().search.split("=")[1];
     const { loading, product } = useSelector((state) => state.productDetails);
-    const {
-        isUpdated,
-        message,
-        error,
-        loading: updateLoading,
-    } = useSelector((state) => state.products);
+    const { isUpdated, message, error } = useSelector(
+        (state) => state.products
+    );
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [toggleAddCategory, setToggleAddCategory] = useState(false);
     const [category, setCategory] = useState(product?.category || []);
     const [image, setImage] = useState("");
     const [newImageData, setNewImageData] = useState("");
+    const [updateLoading, setUpdateLoading] = useState(false);
     const isImageChange = useCallback(() => {
         if (image) return true;
         else return false;
@@ -114,12 +112,19 @@ const EditProduct = () => {
     };
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        if (isImageChange()) {
-            const imageUrl = await uploadImage();
-            await setFormData({ ...formData, image: imageUrl });
-            await dispatch(updateProduct(id, formData));
-        } else {
-            dispatch(updateProduct(id, formData));
+        setUpdateLoading(true);
+        try {
+            if (isImageChange()) {
+                const imageUrl = await uploadImage();
+                await setFormData({ ...formData, image: imageUrl });
+                await dispatch(updateProduct(id, formData));
+            } else {
+                dispatch(updateProduct(id, formData));
+            }
+        } catch (error) {
+            toaster.error(error.message);
+        } finally {
+            setUpdateLoading(false);
         }
     };
     useEffect(() => {

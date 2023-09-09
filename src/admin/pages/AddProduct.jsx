@@ -21,9 +21,8 @@ const Input = ({ name, type, placeholder, value, handleFormValueChange }) => {
 };
 const AddProduct = () => {
     const dispatch = useDispatch();
-    const { loading, success, error } = useSelector(
-        (state) => state.newProduct
-    );
+    const { success, error } = useSelector((state) => state.newProduct);
+    const [loading, setLoading] = useState(false);
     const nevigate = useNavigate();
     const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
@@ -91,19 +90,26 @@ const AddProduct = () => {
     };
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const imageUrl = await uploadImage();
-        await dispatch(
-            createProduct(
-                formData.name,
-                formData.regularPrice,
-                formData.mediumPrice,
-                formData.largePrice,
-                formData.extraLargePrice,
-                category,
-                formData.description,
-                imageUrl
-            )
-        );
+        setLoading(true);
+        try {
+            const imageUrl = await uploadImage();
+            await dispatch(
+                createProduct(
+                    formData.name,
+                    formData.regularPrice,
+                    formData.mediumPrice,
+                    formData.largePrice,
+                    formData.extraLargePrice,
+                    category,
+                    formData.description,
+                    imageUrl
+                )
+            );
+        } catch (error) {
+            toaster.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
     useEffect(() => {
         if (error) {
