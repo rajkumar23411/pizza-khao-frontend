@@ -7,17 +7,22 @@ import { useMediaQuery } from "@mui/material";
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
     const { wishlist } = useSelector((state) => state.wishlist);
+    const isSmallScreen = useMediaQuery("(max-width: 640px)");
+
+    // to delete the item from cart
     const handleRemoveProduct = (id) => {
         dispatch(removeCartItem(id));
     };
-    const isSmallScreen = useMediaQuery("(max-width: 640px)");
+    // to move the item to wishlist
     const moveToWishlist = (id) => {
         dispatch(addRemoveFromWishlist(id));
     };
+    // to check if the item is in wishlist
     const isItemInWishlist = (id) => {
         return wishlist?.items?.find((item) => item.product._id === id);
     };
-    const handleSizeChange = (id, quantity, size) => {
+    // to update the cart
+    const handleCartChange = (id, quantity, size) => {
         dispatch(updateCart(id, quantity, size));
     };
     return (
@@ -51,9 +56,9 @@ const CartItem = ({ item }) => {
                 <h1 className="text-lg font-medium capitalize text-gray-800">
                     {item.product?.name}
                 </h1>
-                <p className="text-sm text-gray-600 font-light">
+                {/* <p className="text-sm text-gray-600 font-light">
                     {item.product?.description?.substring(0, 35)}...
-                </p>
+                </p> */}
                 <h1 className="text-red-600 font-medium">
                     ₹{item.product?.prices?.[item.size]}
                 </h1>
@@ -77,7 +82,7 @@ const CartItem = ({ item }) => {
                     <select
                         value={item.size}
                         onChange={(e) =>
-                            handleSizeChange(
+                            handleCartChange(
                                 item.product._id,
                                 item.quantity,
                                 e.target.value
@@ -86,45 +91,25 @@ const CartItem = ({ item }) => {
                         className="capitalize text-gray-600 w-full border border-gray-400 rounded-md h-8"
                     >
                         {pizzaSize.map((size) => (
-                            <option
-                                value={size}
-                                key={size}
-                                onClick={() =>
-                                    handleSizeChange(
-                                        item.product._id,
-                                        item.quantity,
-                                        size
-                                    )
-                                }
-                            >
+                            <option value={size} key={size}>
                                 {size}
                             </option>
                         ))}
                     </select>
                     <select
-                        value={item?.quantity}
+                        value={item.quantity}
                         className="text-gray-600 w-full border border-gray-400 rounded-md h-8"
                         onChange={(e) =>
-                            handleSizeChange(
+                            handleCartChange(
                                 item.product._id,
-                                item.quantity,
-                                e.target.value
+                                e.target.value,
+                                item.size
                             )
                         }
                     >
                         {Array.from({ length: 10 }, (_, i) => i + 1).map(
                             (quantity) => (
-                                <option
-                                    value={quantity}
-                                    key={quantity}
-                                    onClick={() =>
-                                        handleSizeChange(
-                                            item.product._id,
-                                            quantity,
-                                            item.size
-                                        )
-                                    }
-                                >
+                                <option value={quantity} key={quantity}>
                                     {quantity}
                                 </option>
                             )
