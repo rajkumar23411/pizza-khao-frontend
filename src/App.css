@@ -1,76 +1,77 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+    filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .pagination {
-  display: flex!important;
-  gap: 0.5rem !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin: 5rem 0 ;
+    display: flex !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 5rem 0;
 }
 .pagination .page-item {
-  /* color: #14a751 !important; */
-  padding: 3px 8px;
-  border-radius: 2px;
-  font-weight: 500;
+    /* color: #14a751 !important; */
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-weight: 500;
 }
 .pagination .page-item .page_link {
-  color: #151875;
-  font-size: 14px;
+    color: #151875;
+    font-size: 14px;
 }
 .pagination .page-item:hover {
-  background: #fb0079;
-  cursor: pointer;
+    background: #fb0079;
+    cursor: pointer;
 }
 .pagination .page-item:hover .page_link {
-  color: #fff;
+    color: #fff;
 }
 .pagination .page-item.pageActive {
-  background-color: #fb0079;
+    background-color: #fb0079;
 }
 .pagination .page-item.pageActive .page_link {
-  color: #fff;
+    color: #fff;
 }
-.category_1{
-  background: url('https://ik.imagekit.io/zquvvhmdy/pizza_khao/slice-crispy-pizza-with-meat-cheese.jpg?updatedAt=1691211722913') center center/cover;
+.category_1 {
+    background: url("https://ik.imagekit.io/zquvvhmdy/pizza_khao/slice-crispy-pizza-with-meat-cheese.jpg?updatedAt=1691211722913")
+        center center/cover;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+    a:nth-of-type(2) .logo {
+        animation: logo-spin infinite 20s linear;
+    }
 }
 
 .card {
-  padding: 2em;
+    padding: 2em;
 }
 
 .read-the-docs {
-  color: #888;
+    color: #888;
 }

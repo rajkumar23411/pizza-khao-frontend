@@ -157,12 +157,12 @@ const SinglePizza = () => {
                                 </div>
                                 {product?.prices && (
                                     <div className="text-xl sm:text-2xl font-medium text-golden">
-                                        ₹{product.prices.regular} - ₹
-                                        {product.prices.extralarge}
+                                        ₹{product?.prices?.regular} - ₹
+                                        {product.prices?.extralarge}
                                     </div>
                                 )}
                                 <p className=" text-gray-500 pt-1 sm:pt-2 font-light text-xs sm:text-base">
-                                    {product?.description.substring(0, 200)}...
+                                    {product?.description?.substring(0, 200)}...
                                 </p>
                                 <div>
                                     <h1 className="uppercase text-golden pt-4 font-medium tracking-wide">
