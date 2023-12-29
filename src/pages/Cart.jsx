@@ -140,7 +140,7 @@ const Cart = () => {
                 ) : cart?.items?.length <= 0 ? (
                     <EmptyCart />
                 ) : (
-                    <section className="p-6 flex flex-col md:flex-row items-start justify-between gap-10">
+                    <section className="p-2 sm:p-6 flex flex-col md:flex-row items-start justify-between gap-10">
                         <div className="w-full sm:w-[74%] flex flex-col gap-10">
                             <div className="flex flex-col gap-6">
                                 <h1 className="uppercase text-2xl text-golden">

@@ -13,6 +13,7 @@ import {
     Radio,
     RadioGroup,
     Skeleton,
+    useMediaQuery,
 } from "@mui/material";
 import NoResultFound from "../components/NoResultFound";
 import PageHead from "../components/PageHead";
@@ -54,8 +55,9 @@ const Menu = () => {
     const [price, setPrice] = useState([0, 1000]);
     const [discount, setDiscount] = useState(0);
     const [loadingProductId, setLoadingProductId] = useState(null);
+    const [showFilterMenu, setShowFilterMenu] = useState(false);
     const resultPerPage = 16;
-
+    const isSmallScreen = useMediaQuery("(max-width: 640px)");
     const fetchedMoreProduct = (e) => {
         setPage(parseInt(e));
     };
@@ -99,6 +101,20 @@ const Menu = () => {
             toaster.error(error, { className: "font-roboto" });
             dispatch(clearError());
         }
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                setShowFilterMenu(false);
+            }
+        });
+        window.addEventListener("click", (e) => {
+            if (
+                e.target.parentElement.classList.contains("filterMenu") ||
+                e.target.parentElement.classList.contains("showFilterBtn") ||
+                e.target.classList.contains("PrivateSwitchBase-input")
+            )
+                setShowFilterMenu(true);
+            else setShowFilterMenu(false);
+        });
     }, [success, error, dispatch]);
     useEffect(() => {
         dispatch(
@@ -127,8 +143,26 @@ const Menu = () => {
         <section>
             <MainNav />
             <PageHead pageName={"Menu"} />
-            <section className="w-full h-full bg-slate-50 gap-6 flex p-10">
-                <div className="h-max w-96 bg-white rounded-lg flex flex-col pb-10">
+            <section
+                className={`w-full h-full bg-slate-50 gap-6 flex p-4 sm:p-10`}
+            >
+                <div
+                    className={`bg-white p-4 shadow z-40 filterMenu ${
+                        isSmallScreen
+                            ? `fixed top-0 left-0 h-full w-72 overflow-x-auto ${
+                                  showFilterMenu
+                                      ? "left-0 w-72"
+                                      : "-left-full w-0"
+                              }`
+                            : "w-80 h-max rounded-xl hidden sm:block"
+                    }`}
+                >
+                    <div
+                        className="absolute top-0 rounded-r-2xl shadow left-72 bg-white p-4"
+                        onClick={() => setShowFilterMenu(false)}
+                    >
+                        <i className="fal fa-times text-xl"></i>
+                    </div>
                     <div className="flex items-center justify-between p-2">
                         <h1 className="uppercase text-red-600 text-lg font-medium">
                             Filters
@@ -238,7 +272,7 @@ const Menu = () => {
                         <select
                             onChange={(e) => handleSortByChange(e)}
                             value={sort}
-                            className="h-12 w-64 bg-white shadow font-roboto text-gray-500 text-sm cursor-pointer px-2 rounded-md focus:border focus:border-blue-300 focus:shadow-blue-400"
+                            className="h-12 w-44 sm:w-64 bg-white shadow font-roboto text-gray-500 text-sm cursor-pointer px-2 rounded-md focus:border focus:border-blue-300 focus:shadow-blue-400"
                         >
                             <option value={""} className="font-roboto">
                                 Default Sort
@@ -252,14 +286,21 @@ const Menu = () => {
                                 </option>
                             ))}
                         </select>
-                        <div className="text-gray-500 text-sm text-center font-roboto">
+                        <div className="text-gray-500 text-sm text-center font-roboto hidden sm:block">
                             Showing {perPageProductCount} of {productsCount}{" "}
                             results
                         </div>
+                        <button
+                            className="flex items-center gap-1 bg-white h-12 px-4 rounded-lg shadow-md sm:hidden showFilterBtn"
+                            onClick={() => setShowFilterMenu(true)}
+                        >
+                            <i className="fal fa-filter"></i>
+                            <span className="font-roboto">Filters</span>
+                        </button>
                         <SearchBar onSearch={handleSearch} />
                     </div>
                     {loading ? (
-                        <section className="grid grid-cols-4 gap-6">
+                        <section className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-6">
                             {Array(16)
                                 .fill(null)
                                 .map((_, index) => (
@@ -270,8 +311,8 @@ const Menu = () => {
                                         animation="wave"
                                         key={index}
                                         variant="rectangular"
-                                        width={220}
-                                        height={220}
+                                        width={isSmallScreen ? 120 : 220}
+                                        height={isSmallScreen ? 120 : 220}
                                         className="rounded-xl "
                                     />
                                 ))}
@@ -280,12 +321,16 @@ const Menu = () => {
                         <NoResultFound />
                     ) : (
                         <>
-                            <section className="grid grid-cols-4 gap-y-10">
+                            <section className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-10 place-items-center">
                                 {products?.map((product) => (
                                     <PizzaCard
                                         product={product}
                                         key={product._id}
-                                        primaryBtn={"ADD TO CART"}
+                                        primaryBtn={
+                                            isSmallScreen
+                                                ? "Add"
+                                                : "Add to Cart"
+                                        }
                                         handleClick={handleAddToCart}
                                         loadingProductId={loadingProductId}
                                         cartLoading={cartLoading}
@@ -295,7 +340,7 @@ const Menu = () => {
                             {filteredProductsCount > resultPerPage && (
                                 <Stack
                                     spacing={2}
-                                    className="mt-5 mx-auto flex items-center justify-center"
+                                    className="mt-2 sm:mt-5 mx-auto flex items-center justify-center"
                                 >
                                     <Pagination
                                         count={parseInt(

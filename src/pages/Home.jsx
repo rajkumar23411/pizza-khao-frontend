@@ -6,30 +6,29 @@ import HomeFooter from "../components/HomeFooter";
 import HomeMenu from "../components/HomeMenu";
 import Options from "../components/Options";
 import PizzaBox from "../components/PizzaBox";
-import Feedback from "../components/Feedback";
 import { useMediaQuery } from "@mui/material";
 import MobileMenu from "../components/MobileMenu";
 import { useSelector } from "react-redux";
 import HomeCategory from "../components/HomeCategory";
 
 const Home = () => {
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const { cart } = useSelector((state) => state.myCart);
+    const isSmallScreen = useMediaQuery("(max-width:600px)");
+    const { cart } = useSelector((state) => state.myCart);
 
-  return (
-    <>
-      {isSmallScreen && <MobileMenu cart={cart} />}
-      <Banner />
-      <Options />
-      <BuildPizza />
-      <HomeCategory />
-      <HomeMenu />
-      <Events />
-      <PizzaBox />
-      {/* <Feedback /> */}
-      <HomeFooter />
-    </>
-  );
+    return (
+        <>
+            {isSmallScreen && <MobileMenu cart={cart} />}
+            <Banner />
+            <Options />
+            <BuildPizza />
+            <HomeCategory />
+            <HomeMenu />
+            <Events />
+            <PizzaBox />
+            {/* <Feedback /> */}
+            <HomeFooter />
+        </>
+    );
 };
 
 export default Home;
