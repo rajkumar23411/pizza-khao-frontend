@@ -21,11 +21,6 @@ import {
     VALIDATE_COUPON_SUCCESS,
 } from "../constants/couponConstant";
 import { config } from "../../utils";
-import {
-    REMOVE_CART_ITEM_FAIL,
-    REMOVE_CART_ITEM_SUCCESS,
-} from "../constants/cartConstant";
-
 export const addNewCoupon = (coupon) => async (dispatch) => {
     try {
         dispatch({ type: ADD_NEW_COUPON_REQUEST });
