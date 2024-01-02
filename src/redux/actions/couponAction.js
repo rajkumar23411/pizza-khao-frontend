@@ -10,7 +10,9 @@ import {
     GET_ALL_COUPONS_FAIL,
     GET_ALL_COUPONS_REQUEST,
     GET_ALL_COUPONS_SUCCESS,
+    REMOVE_COUPON_FAIL,
     REMOVE_COUPON_REQUEST,
+    REMOVE_COUPON_SUCCESS,
     UPDATE_COUPON_FAIL,
     UPDATE_COUPON_REQUEST,
     UPDATE_COUPON_SUCCESS,
@@ -114,14 +116,15 @@ export const removeCoupon = () => async (dispatch) => {
     try {
         dispatch({ type: REMOVE_COUPON_REQUEST });
         const { data } = await axios.post(`/api/coupon/remove`);
-        dispatch({ type: REMOVE_CART_ITEM_SUCCESS, payload: data });
+        dispatch({ type: REMOVE_COUPON_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
-            type: REMOVE_CART_ITEM_FAIL,
+            type: REMOVE_COUPON_FAIL,
             payload: error.response.data.message,
         });
     }
 };
+
 export const clearError = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };

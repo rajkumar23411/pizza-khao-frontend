@@ -16,13 +16,12 @@ const FormDiv = ({ children }) => {
 const FormLebel = ({ children }) => {
     return <label className="text-sm text-gray-800">{children}</label>;
 };
-const FormInput = ({ type, name, placeholder, value, formValueChange }) => {
+const FormInput = ({ type, name, value, formValueChange }) => {
     return (
         <input
             type={type}
             name={name}
             value={value}
-            placeholder={placeholder}
             onChange={formValueChange}
             className="h-12 border-2 w-full border-gray-400 bg-transparent rounded-lg px-1 focus:border-blue-300 font-roboto"
         />
@@ -146,8 +145,7 @@ const EditProduct = () => {
         }
     }, [id, dispatch]);
     return (
-        <section className="flex">
-            <DashboardNavBar />
+        <section className="w-full">
             <div className="flex-1 bg-slate-50">
                 <PageHeader
                     pagetitle={["Product", "Edit", `${product?.name}`]}
@@ -167,7 +165,6 @@ const EditProduct = () => {
                                         <FormInput
                                             type="text"
                                             name="name"
-                                            placeholder="Name"
                                             value={formData.name}
                                             formValueChange={
                                                 handleFormValueChange
@@ -182,7 +179,6 @@ const EditProduct = () => {
                                             <FormInput
                                                 type="text"
                                                 name="regularPrice"
-                                                placeholder="Regular size price"
                                                 value={formData.regularPrice}
                                                 formValueChange={
                                                     handleFormValueChange
@@ -196,7 +192,6 @@ const EditProduct = () => {
                                             <FormInput
                                                 type="text"
                                                 name="mediumPrice"
-                                                placeholder="Medium size price"
                                                 value={formData.mediumPrice}
                                                 formValueChange={
                                                     handleFormValueChange
@@ -210,7 +205,6 @@ const EditProduct = () => {
                                             <FormInput
                                                 type="text"
                                                 name="largePrice"
-                                                placeholder="Large size price"
                                                 value={formData.largePrice}
                                                 formValueChange={
                                                     handleFormValueChange
@@ -226,7 +220,6 @@ const EditProduct = () => {
                                             <FormInput
                                                 type="text"
                                                 name="extraLargePrice"
-                                                placeholder="Extra Large size price"
                                                 value={formData.extraLargePrice}
                                                 formValueChange={
                                                     handleFormValueChange
@@ -268,7 +261,6 @@ const EditProduct = () => {
                                         <textarea
                                             name="description"
                                             id="description"
-                                            placeholder="Description"
                                             value={formData.description}
                                             onChange={handleFormValueChange}
                                             className="h-20 resize-none border-2 rounded-lg border-gray-400 bg-transparent px-1 focus:border-blue-300 font-roboto"

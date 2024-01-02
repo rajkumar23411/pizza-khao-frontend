@@ -138,20 +138,3 @@ export const forKidsText = [
     "Kid-approved pizzas: Tasty and colorful delights",
     "Pizza adventure for kids: Playful and delicious pizzas",
 ];
-
-export const suggestionText = [
-    "Complete Your Meal with Refreshing Options",
-    "Delightful Pairings: Explore Soft Drinks and Desserts",
-    "Satisfy Your Cravings: Discover Soft Drinks and Desserts",
-    "Sweet Endings and Thirst Quenchers",
-    "Beverages and Treats to Complement Your Pizza",
-    "Perfect Partners: Soft Drinks and Desserts",
-    "Enhance Your Order: Choose from Soft Drinks and Desserts",
-    "Elevate Your Meal: Indulge in Our Drink and Dessert Selection",
-    "Tasty Additions: Enjoy Our Soft Drinks and Desserts",
-    "Refresh and Savor: Soft Drinks and Desserts Collection",
-];
-
-export const randomSuggestionText = () => {
-    return suggestionText[Math.floor(Math.random() * suggestionText.length)];
-};

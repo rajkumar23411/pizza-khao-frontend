@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { randomSuggestionText } from "../utils";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -9,9 +8,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import PizzaCard from "./PizzaCard";
+
 const SavorySuggestion = ({ fetchItem }) => {
     const [products, setProducts] = useState();
     const [loading, setLoading] = useState(true);
+    // eslint-disable-next-line
     const [error, setError] = useState(false);
 
     const fetchProducts = async () => {
@@ -24,12 +25,14 @@ const SavorySuggestion = ({ fetchItem }) => {
             setLoading(false);
         }
     };
+
     useEffect(() => {
         if (fetchItem >= 0) fetchProducts();
         else return;
     }, [fetchItem]);
+
     return (
-        <section className="mx-5 lg:mx-20 md:mx-10">
+        <section className="mx-5 py-5 lg:mx-20 lg:my-10 md:mx-10">
             <div>
                 <h1 className="font-medium text-golden text-base sm:text-2xl tracking-wider uppercase">
                     Drinks & Desserts

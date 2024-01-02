@@ -157,12 +157,12 @@ const Menu = () => {
                             : "w-80 h-max rounded-xl hidden sm:block"
                     }`}
                 >
-                    <div
+                    {/* <div
                         className="absolute top-0 rounded-r-2xl shadow left-72 bg-white p-4"
                         onClick={() => setShowFilterMenu(false)}
                     >
                         <i className="fal fa-times text-xl"></i>
-                    </div>
+                    </div> */}
                     <div className="flex items-center justify-between p-2">
                         <h1 className="uppercase text-red-600 text-lg font-medium">
                             Filters

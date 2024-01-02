@@ -69,7 +69,7 @@ export const cartReducer = (state = { cart: [] }, action) => {
                 ...state,
                 loading: false,
                 success: action.payload.success,
-                message: action.payload.message,
+                message: action.payload,
             };
         case REMOVE_CART_ITEM_RESET:
             return {

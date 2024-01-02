@@ -56,7 +56,7 @@ const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
                     onClick={() => selectAddress(address)}
                     size={isSmallScreen ? "small" : "medium"}
                 />
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4" id="address_radio">
                     <div className="flex gap-5">
                         <p className="text-gray-800 font-medium text-sm sm:text-base">
                             {address.name}

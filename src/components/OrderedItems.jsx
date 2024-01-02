@@ -26,7 +26,9 @@ const OrderedItems = ({ items }) => {
             toaster.error(error);
             dispatch(clearError());
         }
+        dispatch(getCartItems());
     }, [dispatch, message, error]);
+
     return items.map((item) => (
         <div className="flex items-start gap-4 sm:gap-8 border-b-[1px] py-2 lg:px-8 lg:py-4 md:p-4">
             <div className="flex flex-col items-start justify-start gap-3 w-max">

@@ -4,21 +4,11 @@ import useWindowSize from "react-use/lib/useWindowSize";
 
 const CouponApplied = () => {
     const { width, height } = useWindowSize();
-    console.log(width, height);
     return (
-        // <div className="fixed  h-screen w-screen z-10 bg-[rgba(0,0,0,0.7)] flex items-center justify-center couponSuccessBox">
-        //     <div className="flex items-center justify-center flex-col gap-4">
-        //         <h1 className="text-4xl text-red-500 uppercase">Woohoo!</h1>
-        //         <h1 className="uppercase text-3xl text-gray-800">
-        //             Coupon applied successfully
-        //         </h1>
-        //     </div>
-        // </div>
-
         <div className="overflow-hidden z-50">
             <Confetti
-                width={1500}
-                height={1500}
+                width={width}
+                height={height}
                 numberOfPieces={1000}
                 gravity={0.2}
                 initialVelocityX={8.1}

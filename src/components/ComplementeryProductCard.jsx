@@ -9,8 +9,6 @@ const ComplementeryProductCard = ({ product }) => {
     const handleAddToCart = (id, qty, size) => {
         dispatch(addToCart(id, size, qty));
     };
-    const ip = window.location.host;
-    console.log(ip);
     return (
         <div
             className="h-max w-28 md:w-52 bg-white border border-gray-300 shadow-sm overflow-hidden rounded-md"

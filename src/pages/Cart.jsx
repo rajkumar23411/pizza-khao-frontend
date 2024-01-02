@@ -48,7 +48,12 @@ const Cart = () => {
     const { loading, cart, success, error, message } = useSelector(
         (state) => state.myCart
     );
-    const { isValidate, coupons } = useSelector((state) => state.coupon);
+    const {
+        isValidate,
+        coupons,
+        message: couponMessage,
+        error: couponError,
+    } = useSelector((state) => state.coupon);
     const { message: wishListMessage } = useSelector((state) => state.wishlist);
     const [complementeryProduct, setComplementryProduct] = useState([]);
     const dispatch = useDispatch();
@@ -119,7 +124,6 @@ const Cart = () => {
         getComplementryProducts();
         dispatch(getCartItems());
         dispatch(getWishlist());
-        dispatch(getCoupons());
     }, [
         getComplementryProducts,
         success,
@@ -129,6 +133,20 @@ const Cart = () => {
         wishListMessage,
         isValidate,
     ]);
+
+    useEffect(() => {
+        if (couponMessage) {
+            toaster.success(couponMessage);
+            dispatch({ type: RESET_COUPON });
+        }
+        if (couponError) {
+            toaster.error(couponError);
+            dispatch({ type: RESET_COUPON });
+        }
+
+        dispatch(getCoupons());
+        dispatch(getCartItems());
+    }, [couponError, couponMessage, dispatch]);
     return (
         <section className={`${showCouponAppliedSuccess && "overflow-hidden"}`}>
             {showCouponAppliedSuccess && <CouponApplied />}
@@ -228,9 +246,7 @@ const Cart = () => {
                                                 </div>
                                             ) : (
                                                 <PriceSectionAmount
-                                                    amount={shipping.toFinxed(
-                                                        2
-                                                    )}
+                                                    amount={shipping.toFixed(2)}
                                                 />
                                             )}
                                         </div>

@@ -1,4 +1,3 @@
-import { REMOVE_CART_ITEM_FAIL } from "../constants/cartConstant";
 import {
     ADD_NEW_COUPON_FAIL,
     ADD_NEW_COUPON_REQUEST,
@@ -10,6 +9,7 @@ import {
     GET_ALL_COUPONS_FAIL,
     GET_ALL_COUPONS_REQUEST,
     GET_ALL_COUPONS_SUCCESS,
+    REMOVE_COUPON_FAIL,
     REMOVE_COUPON_REQUEST,
     REMOVE_COUPON_SUCCESS,
     RESET_COUPON,
@@ -61,13 +61,13 @@ export const couponReducer = (state = {}, action) => {
                 ...state,
                 loading: false,
                 success: action.payload.success,
-                message: action.payload.msg,
+                message: action.payload.message,
             };
         case ADD_NEW_COUPON_FAIL:
         case DELETE_COUPON_FAIL:
         case UPDATE_COUPON_FAIL:
         case GET_ALL_COUPONS_FAIL:
-        case REMOVE_CART_ITEM_FAIL:
+        case REMOVE_COUPON_FAIL:
             return {
                 ...state,
                 loading: false,

@@ -1,14 +1,12 @@
 import React from "react";
-import DashboardNavBar from "../components/DashboardNavBar";
 import DashBoardOrderDetails from "../components/DashBoardOrderDetails";
 
 const Orders = () => {
-  return (
-    <section className="flex">
-      <DashboardNavBar />
-      <DashBoardOrderDetails />
-    </section>
-  );
+    return (
+        <section className="w-full min-h-screen">
+            <DashBoardOrderDetails />
+        </section>
+    );
 };
 
 export default Orders;
