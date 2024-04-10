@@ -40,7 +40,7 @@ export const createProduct =
         extraLargePrice,
         category,
         description,
-        image
+        file
     ) =>
     async (dispatch) => {
         try {
@@ -55,9 +55,12 @@ export const createProduct =
                     extraLargePrice,
                     category,
                     description,
-                    image,
+                    file,
                 },
-                config
+                {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    credentials: "include",
+                }
             );
             dispatch({ type: NEW_PRODUCT_SUCCESS, payload: data });
         } catch (error) {
@@ -74,7 +77,10 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         const { data } = await axios.put(
             `/api/admin/product/update/${id}`,
             productData,
-            config
+            {
+                headers: { "Content-Type": "multipart/form-data" },
+                credentials: "include",
+            }
         );
         dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
     } catch (error) {
@@ -166,7 +172,7 @@ export const getAllProducts =
         try {
             dispatch({ type: ALL_PRODUCT_REQUEST });
 
-            let apiUrl = `/api/admin/products?page=${page}`;
+            let apiUrl = `/api/products?page=${page}`;
 
             if (resultPerPage) apiUrl += `&limit=${resultPerPage}`;
             if (keyword) apiUrl += `&keyword=${keyword}`;

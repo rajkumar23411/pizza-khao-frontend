@@ -6,12 +6,6 @@ const CartLoader = () => {
         <section className="h-[50rem] flex p-10">
             <div className="flex flex-col p-6 flex-1 gap-10">
                 <div>
-                    <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        height={60}
-                        width={300}
-                    />
                     <div className="grid grid-cols-4 gap-4 mt-8">
                         {Array(8)
                             .fill(null)

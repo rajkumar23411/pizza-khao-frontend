@@ -1,64 +1,37 @@
 import React from "react";
 import { pizzaSize } from "../utils";
-import { useDispatch, useSelector } from "react-redux";
-import { removeCartItem, updateCart } from "../redux/actions/cartActions";
-import { addRemoveFromWishlist } from "../redux/actions/wishListAction";
-import { useMediaQuery } from "@mui/material";
-const CartItem = ({ item, coupon }) => {
-    const dispatch = useDispatch();
-    const { wishlist } = useSelector((state) => state.wishlist);
-    const isSmallScreen = useMediaQuery("(max-width: 640px)");
-    // to delete the item from cart
-    const handleRemoveProduct = (id) => {
-        dispatch(removeCartItem(id));
-    };
-    // to move the item to wishlist
-    const moveToWishlist = (id) => {
-        dispatch(addRemoveFromWishlist(id));
-    };
-    // to check if the item is in wishlist
-    const isItemInWishlist = (id) => {
-        return wishlist?.items?.find((item) => item.product._id === id);
-    };
+import WishlistState from "./WishlistState";
+
+const CartItem = ({
+    item,
+    wishlist,
+    handleRemoveCartItem,
+    handleCartUpdate,
+}) => {
     // to update the cart
-    const handleCartChange = (id, quantity, size) => {
-        dispatch(updateCart(id, quantity, size));
-    };
     return (
         <div
-            className="bg-white border border-gray-300 rounded-lg w-44 sm:w-52 md:w-60 h-max flex flex-col gap-4 overflow-hidden p-2 sm:p-4
+            className="bg-white border border-gray-200 rounded-md w-44 sm:w-52 md:w-60 h-max flex flex-col overflow-hidden
          relative"
         >
+            <WishlistState wishlist={wishlist} product={item.product._id} />
             <button
-                onClick={() => moveToWishlist(item?.product._id)}
-                className="absolute top-3 left-3 h-7 w-7 flex items-center justify-center rounded-full cursor-pointer bg-white"
-            >
-                <i
-                    className={` ${
-                        isItemInWishlist(item?.product?._id)
-                            ? "fas text-red-600 sm:text-lg md:text-xl"
-                            : "fal"
-                    } fa-heart`}
-                ></i>
-            </button>
-            <button
-                onClick={() => handleRemoveProduct(item.product._id)}
-                className="absolute top-3 right-3"
-            >
-                <i className="fal fa-trash-alt text-red-700 sm:text-lg md:text-xl"></i>
-            </button>
-            <div className="w-full h-28 sm:h-32">
+                className="fas fa-trash text-gray-400 absolute left-3 top-3 hover:text-gray-600 h-8 w-8 bg-white rounded-full"
+                title="Remove product from cart"
+                onClick={() => handleRemoveCartItem(item.product._id)}
+            />
+            <div className="w-full h-28 sm:h-32 flex items-center">
                 <img
                     src={item.product?.image}
                     alt={item.product?.name}
                     className="h-full w-full object-contain"
                 />
             </div>
-            <div>
-                <h1 className="text-base sm:text-lg text-gray-800 uppercase">
+            <div className="bg-slate-50 p-2">
+                <h1 className="text-base sm:text-lg text-gray-800 uppercase font-oswald">
                     {item.product?.name}
                 </h1>
-                <h1 className="text-red-600 font-medium text-sm sm:text-base">
+                <h1 className="text-golden font-oswald font-medium text-sm sm:text-base">
                     ₹{item.product?.prices?.[item.size]}
                 </h1>
                 <div className="flex gap-6">
@@ -73,7 +46,7 @@ const CartItem = ({ item, coupon }) => {
                 </div>
                 <div className="flex gap-1 text-xs sm:text-sm">
                     <span className="text-gray-600">Subtotal:</span>
-                    <span className="text-red-700 font-medium">
+                    <span className="text-golden font-oswald font-medium">
                         ₹{item.quantity * item.product?.prices?.[item.size]}
                     </span>
                 </div>
@@ -81,13 +54,13 @@ const CartItem = ({ item, coupon }) => {
                     <select
                         value={item.size}
                         onChange={(e) =>
-                            handleCartChange(
+                            handleCartUpdate(
                                 item.product._id,
                                 item.quantity,
                                 e.target.value
                             )
                         }
-                        className="capitalize text-gray-600 w-full border border-gray-400 rounded h-8"
+                        className="w-full border border-gray-300 h-8 capitalize text-sm rounded"
                     >
                         {pizzaSize.map((size) => (
                             <option value={size} key={size}>
@@ -97,9 +70,9 @@ const CartItem = ({ item, coupon }) => {
                     </select>
                     <select
                         value={item.quantity}
-                        className="text-gray-600 w-full border border-gray-400 rounded h-8"
+                        className="w-full border border-gray-300 h-8 text-sm rounded"
                         onChange={(e) =>
-                            handleCartChange(
+                            handleCartUpdate(
                                 item.product._id,
                                 e.target.value,
                                 item.size

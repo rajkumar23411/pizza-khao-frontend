@@ -84,10 +84,9 @@ export const couponReducer = (state = {}, action) => {
         case RESET_COUPON:
             return {
                 ...state,
-                success: false,
-                error: null,
+                loading: false,
                 message: null,
-                isValidate: null,
+                success: false,
             };
         case CLEAR_ERRORS:
             return {

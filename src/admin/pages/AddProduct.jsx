@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { clearError, createProduct } from "../../redux/actions/productAction";
 import toaster from "react-hot-toast";
 import { NEW_PRODUCT_RESET } from "../../redux/constants/productConstant";
+import { useDropzone } from "react-dropzone";
 const Input = ({ name, type, placeholder, value, handleFormValueChange }) => {
     return (
         <input
@@ -14,19 +15,18 @@ const Input = ({ name, type, placeholder, value, handleFormValueChange }) => {
             name={name}
             value={value[name]}
             onChange={(e) => handleFormValueChange(e)}
-            className="border border-gray-500 rounded h-12 w-full bg-transparent pl-2 font-roboto placeholder:text-gray-500  focus:border-blue-600 focus:shadow focus:shadow-blue-400"
+            className="border border-gray-400 rounded h-10 w-full bg-transparent pl-2 font-sans placeholder:text-gray-500  placeholder:text-sm focus:border-blue-600 focus:shadow focus:shadow-blue-400"
         />
     );
 };
 const AddProduct = () => {
     const dispatch = useDispatch();
-    const { success, error } = useSelector((state) => state.newProduct);
-    const [loading, setLoading] = useState(false);
+    const { loading, success, error } = useSelector(
+        (state) => state.newProduct
+    );
     const nevigate = useNavigate();
     const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
-    const [imageName, setImageName] = useState("");
-    const [imageData, setImageData] = useState("");
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -34,7 +34,26 @@ const AddProduct = () => {
         mediumPrice: "",
         largePrice: "",
         extraLargePrice: "",
+        file: "",
         discount: 0,
+    });
+
+    const onDrop = useCallback((acceptedFiles) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setImage(e.target.result);
+        };
+        setFormData((prev) => ({
+            ...prev,
+            file: acceptedFiles[0],
+        }));
+        reader.readAsDataURL(acceptedFiles[0]);
+    }, []);
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            "image/*": [".png", ".jpg", ".jpeg", ".gif"],
+        },
     });
 
     const handleCategorySelect = (e) => {
@@ -54,62 +73,23 @@ const AddProduct = () => {
         }
         setFormData((prev) => ({ ...prev, [name]: value }));
     }, []);
-    const productImageChange = (e) => {
-        const fileInput = e.target;
 
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            setImageName(fileInput.files[0].name);
-            const data = new FormData();
-            data.append("file", fileInput.files[0]);
-            data.append("upload_preset", "sbxnht5g");
-            data.append("cloud_name", "dkukx5byz");
-            setImageData(data);
-
-            reader.onload = (e) => {
-                setImage(e.target.result);
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    };
-    const uploadImage = async () => {
-        try {
-            const response = await fetch(
-                "https://api.cloudinary.com/v1_1/dkukx5byz/image/upload",
-                {
-                    method: "POST",
-                    body: imageData,
-                }
-            );
-            const data = await response.json();
-            return data.secure_url;
-        } catch (error) {
-            toaster.error(error.message);
-        }
-    };
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            const imageUrl = await uploadImage();
-            await dispatch(
-                createProduct(
-                    formData.name,
-                    formData.regularPrice,
-                    formData.mediumPrice,
-                    formData.largePrice,
-                    formData.extraLargePrice,
-                    category,
-                    formData.description,
-                    imageUrl
-                )
-            );
-        } catch (error) {
-            toaster.error(error.message);
-        } finally {
-            setLoading(false);
-        }
+        dispatch(
+            createProduct(
+                formData.name,
+                formData.regularPrice,
+                formData.mediumPrice,
+                formData.largePrice,
+                formData.extraLargePrice,
+                category,
+                formData.description,
+                formData.file
+            )
+        );
     };
+
     useEffect(() => {
         if (error) {
             toaster.error(error);
@@ -128,7 +108,27 @@ const AddProduct = () => {
                 <form
                     className="w-[45%] flex flex-col gap-4 bg-white p-10 rounded-lg"
                     onSubmit={handleFormSubmit}
+                    typeof=""
                 >
+                    <div
+                        {...getRootProps()}
+                        className="w-max m-auto text-center"
+                    >
+                        <input
+                            {...getInputProps()}
+                            className="cursor-pointer w-full"
+                        />
+                        <div className="cursor-pointer gap-2">
+                            <img
+                                src={image || "https://placehold.co/150x150"}
+                                alt="pizza"
+                                className="h-32 w-32 rounded-full object-cover object-center"
+                            />
+                            <p className="font-sans pt-2 text-purple-600 text-sm font-medium">
+                                Add a product image*
+                            </p>
+                        </div>
+                    </div>
                     <Input
                         type={"text"}
                         placeholder={"Name*"}
@@ -170,14 +170,14 @@ const AddProduct = () => {
                     </div>
                     <div className="flex gap-2">
                         <select
-                            className="border border-gray-500 rounded font-roboto text-gray-800 h-12 bg-transparent w-full"
+                            className="border border-gray-400 rounded font-sans text-sm text-gray-800 h-10 bg-transparent w-full"
                             value={category}
                             onChange={handleCategorySelect}
                         >
                             <option
                                 value=""
                                 defaultValue={""}
-                                className="font-roboto"
+                                className="font-roboto text-gray-700"
                                 disabled
                             >
                                 Select category*
@@ -186,7 +186,7 @@ const AddProduct = () => {
                                 <option
                                     value={cat}
                                     key={indx}
-                                    className="font-roboto text-gray-800"
+                                    className="font-sans text-sm text-gray-800"
                                 >
                                     {cat}
                                 </option>
@@ -196,11 +196,11 @@ const AddProduct = () => {
                             onChange={handleFormValueChange}
                             value={formData.discount}
                             name="discount"
-                            className="h-12 border-2 cursor-pointer focus:border-blue-400 border-gray-400 rounded-md font-roboto text-gray-600 w-full"
+                            className="h-10 border cursor-pointer focus:border-blue-400 border-gray-400 rounded-md font-sans text-sm text-gray-600 w-full"
                         >
                             <option
                                 defaultValue={""}
-                                className="font-roboto text-gray-600"
+                                className="font-sans text-sm text-gray-600"
                             >
                                 Select discount
                             </option>
@@ -236,40 +236,10 @@ const AddProduct = () => {
                         name="description"
                         value={formData.description}
                         onChange={(e) => handleFormValueChange(e)}
-                        rows="4"
-                        className="h-full resize-none border bg-transparent border-gray-500 placeholder:text-gray-500 pl-2 rounded font-roboto"
+                        rows="3"
+                        className="h-full resize-none border bg-transparent border-gray-500 placeholder:text-gray-500 pl-2 rounded font-sans text-sm"
                         placeholder="Description*"
                     />
-                    <div className="flex items-center justify-between gap-6">
-                        {image && (
-                            <div className="text-center">
-                                <div className="h-24 w-40 bg-white">
-                                    <img
-                                        src={image}
-                                        alt={image}
-                                        className="h-full w-full object-contain"
-                                    />
-                                </div>
-                                <span className="text-sm">{imageName}</span>
-                            </div>
-                        )}
-                        <div className="relative h-12 w-full ">
-                            <input
-                                type="file"
-                                id="fileInput"
-                                accept="image/*"
-                                className="hidden h-full w-full"
-                                onChange={productImageChange}
-                            />
-                            <label
-                                htmlFor="fileInput"
-                                className="absolute h-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center w-full font-roboto rounded cursor-pointer text-white"
-                            >
-                                <i className="fal fa-image text-2xl text-white"></i>
-                                &nbsp;&nbsp;&nbsp; Choose an image
-                            </label>
-                        </div>
-                    </div>
                     <button
                         disabled={loading}
                         className={`h-12 w-full text-white ${

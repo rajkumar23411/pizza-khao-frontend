@@ -36,7 +36,7 @@ const MainNav = () => {
         isSmallScreen && <MobileMenu cart={cart} />
     ) : (
         <>
-            <nav className="w-full flex items-center justify-between lg:px-10 md:px-5 h-20 bg-white">
+            <nav className="w-full flex items-center justify-between lg:px-10 md:px-5 h-20 bg-white font-oswald">
                 <div className="h-full">
                     <ul className="flex items-center h-full justify-center">
                         <NavLink to="/">
@@ -149,16 +149,13 @@ const MainNav = () => {
                     <Link to="/cart">
                         <div className="cursor-pointer uppercase text-xs text-gray-600 font-medium tracking-wide flex items-center justify-center gap-1 relative">
                             {cart && cart.items && (
-                                <span className="absolute -left-3 -top-1 bg-gray-700 text-white h-4 w-4 rounded-full flex items-center justify-center text-xs">
+                                <span className="absolute -left-2 -top-1 bg-red-500 text-white h-4 w-4 rounded-full grid place-items-center font-roboto font-normal text-xs">
                                     {cart.items.length === 0
                                         ? 0
                                         : cart.items.length}
                                 </span>
                             )}
-                            <MopedOutlinedIcon
-                                fontSize="medium"
-                                className="text-gray-600"
-                            />
+                            <i className="fal fa-shopping-basket text-2xl"></i>
                             <span>Cart</span>
                         </div>
                     </Link>

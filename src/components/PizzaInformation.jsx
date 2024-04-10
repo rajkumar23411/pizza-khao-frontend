@@ -31,7 +31,7 @@ const PizzaInformation = ({ id, pizza }) => {
                         onClick={() => toggleTag(1)}
                         className={`${
                             toggleState === 1 ? "tab-active" : ""
-                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer`}
+                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer font-oswald`}
                     >
                         Description
                     </p>
@@ -39,7 +39,7 @@ const PizzaInformation = ({ id, pizza }) => {
                         onClick={() => toggleTag(2)}
                         className={`${
                             toggleState === 2 ? "tab-active" : ""
-                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer`}
+                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer font-oswald`}
                     >
                         Additional Information
                     </p>
@@ -47,7 +47,7 @@ const PizzaInformation = ({ id, pizza }) => {
                         onClick={() => toggleTag(3)}
                         className={`${
                             toggleState === 3 ? "tab-active" : ""
-                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer`}
+                        } uppercase  tracking-wide text-golden text-sm sm:text-base font-medium hover:text-red-800 cursor-pointer font-oswald`}
                     >
                         Reviews{" "}
                         {reviews &&
@@ -74,10 +74,10 @@ const PizzaInformation = ({ id, pizza }) => {
                     >
                         <div className="flex gap-6">
                             <div className="flex flex-col gap-2">
-                                <span className="uppercase text-golden text-sm sm:text-base font-medium tracking-wide">
+                                <span className="text-golden text-sm sm:text-base font-medium">
                                     Weight
                                 </span>
-                                <span className="uppercase text-golden text-sm sm:text-base font-medium tracking-wide">
+                                <span className="text-golden text-sm sm:text-base font-medium">
                                     Dimensions
                                 </span>
                             </div>
@@ -99,13 +99,13 @@ const PizzaInformation = ({ id, pizza }) => {
                         } `}
                     >
                         {pizza && pizza.numOfReviews > 0 && (
-                            <h1 className="uppercase text-golden pb-6 font-normal tracking-wide text-sm sm:text-base">
+                            <h1 className=" pb-6 font-normal text-sm sm:text-base">
                                 {pizza.numOfReviews} Reviews for {pizza.name}
                             </h1>
                         )}
                         <div className="flex flex-col gap-3">
                             {reviews && reviews.length === 0 ? (
-                                <h1 className="text-gray-500 font-normal text-sm sm:text-base">
+                                <h1 className="text-gray-500 font-normal text-sm sm:text-base font-oswald">
                                     No reviews yet
                                 </h1>
                             ) : (
@@ -118,7 +118,7 @@ const PizzaInformation = ({ id, pizza }) => {
                             )}
                             <div
                                 onClick={handleCommentBox}
-                                className="border-2 border-red-600 text-xs font-medium sm:text-sm rounded w-max uppercase text-red-600 tracking-wide px-2 sm:px-4 py-2 mt-3 sm:mt-6 hover:text-white hover:bg-red-600 cursor-pointer"
+                                className="border-2 font-oswald border-red-600 text-xs font-medium sm:text-sm rounded w-max uppercase text-red-600 tracking-wide px-2 sm:px-4 py-2 mt-3 sm:mt-6 hover:text-white hover:bg-red-600 cursor-pointer"
                             >
                                 Post a review
                             </div>

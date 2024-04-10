@@ -42,7 +42,7 @@ const OrderedItems = ({ items }) => {
             </div>
             <div className="w-full flex justify-between items-start">
                 <div className="flex flex-col">
-                    <p className="uppercase font-medium text-golden tracking-wide text-sm sm:text-base">
+                    <p className="uppercase font-medium font-oswald text-golden tracking-wide text-sm sm:text-base">
                         {item.product.name}
                     </p>
                     <p className="text-xs sm:text-sm text-gray-600 capitalize">
@@ -51,12 +51,12 @@ const OrderedItems = ({ items }) => {
                     <p className="text-xs sm:text-sm text-gray-600">
                         {item.quantity}
                     </p>
-                    <p className="text-red-600 font-semibold text-base sm:text-lg">
+                    <p className="text-gray-700 font-medium font-oswald">
                         ₹{item.quantity * item.product.prices[item.size]}
                     </p>
                 </div>
                 <button
-                    className="bg-transparent text-blue-500 font-normal cursor-pointer sm:mt-2 uppercase hover:text-blue-700 text-xs sm:text-base"
+                    className="text-red-500 hover:text-red-600 text-sm tracking-tight font-roboto font-medium"
                     onClick={() => handleDeleteItem(item.product._id)}
                 >
                     Remove

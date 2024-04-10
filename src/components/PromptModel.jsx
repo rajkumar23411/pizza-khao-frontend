@@ -6,6 +6,7 @@ import {
     deleteAddress,
     myAddresses,
 } from "../redux/actions/addressAction";
+import { DELETE_ADDRESS_RESET } from "../redux/constants/addressConstant";
 
 const PromptModel = ({ displayText, buttonText, onClose, caneclText, id }) => {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const PromptModel = ({ displayText, buttonText, onClose, caneclText, id }) => {
             onClose();
             toaster.success("Address deleted successfully");
             dispatch(myAddresses());
+            dispatch({ type: DELETE_ADDRESS_RESET });
         }
         if (error) {
             toaster.error(error);

@@ -3,7 +3,7 @@ import MainNav from "../components/MainNav";
 import OrderedItems from "../components/OrderedItems";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutLoginForm from "../components/CheckoutLoginForm";
-import { clearError, myAddresses } from "../redux/actions/addressAction";
+import { myAddresses } from "../redux/actions/addressAction";
 import { Radio, useMediaQuery } from "@mui/material";
 import { clearErrors, createOrder } from "../redux/actions/orderAction";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,11 +12,20 @@ import axios from "axios";
 import useRazorpay from "react-razorpay";
 import { NEW_ORDER_RESET } from "../redux/constants/orderConstant";
 import AddressForm from "./../components/AddressForm";
-import { ADD_NEW_ADDRESS_RESET } from "../redux/constants/addressConstant";
 import PageHead from "../components/PageHead";
 import Loader from "./../components/Loader";
 import HomeFooter from "../components/HomeFooter";
 
+const Button = ({ handleClick, children }) => {
+    return (
+        <button
+            className="text-white bg-[#d2401e] w-max rounded font-roboto tracking-tight px-4 py-2 text-sm sm:text-base hover:bg-[#b9381b]"
+            onClick={handleClick}
+        >
+            {children}
+        </button>
+    );
+};
 const CheckoutStep = (props) => {
     return (
         <div className="bg-white shadow-sm w-full rounded-md overflow-hidden">
@@ -33,7 +42,7 @@ const CheckoutStep = (props) => {
                         {props.stepNumber}
                     </p>
                     <p
-                        className={`uppercase sm:text-base text-sm tracking-wider text-gray-800 font-normal ${
+                        className={`uppercase sm:text-base text-sm tracking-wider font-oswald text-gray-800 font-normal ${
                             props.active && "text-white"
                         }`}
                     >
@@ -49,36 +58,41 @@ const CheckoutStep = (props) => {
 };
 const Address = ({ address, confirmDeliveryAddress, selectAddress }) => {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
+
     return (
-        <div className={`flex flex-col ${address.length > 1 && "border-b-2"}`}>
-            <div className="flex items-start justify-start lg:gap-6 gap-3">
+        <div
+            className={`flex flex-col border-b border-gray-200 last:border-none py-4`}
+        >
+            <div className="flex items-start justify-start gap-4">
                 <Radio
                     onClick={() => selectAddress(address)}
                     size={isSmallScreen ? "small" : "medium"}
+                    id="select_address"
                 />
-                <div className="flex flex-col gap-4" id="address_radio">
+                <label id="select_address" className="flex flex-col">
                     <div className="flex gap-5">
-                        <p className="text-gray-800 font-medium text-sm sm:text-base">
-                            {address.name}
-                        </p>
-                        <p className="text-gray-800 font-medium text-sm sm:text-base">
+                        <p className="text-gray-700 text-sm sm:text-base font-medium font-roboto">
+                            {address.name}&nbsp; &mdash; &nbsp;
                             {address.contact}
                         </p>
                     </div>
-                    <div className="text-gray-600 font-normal flex items-center gap-1 lg:text-base md:text-sm text-xs">
+                    <div className="text-gray-800 font-normal flex items-center gap-1 lg:text-base md:text-sm text-xs pt-2">
                         {address.locality}, {address.address},{" "}
-                        {address.landMark}, {address.alternatContact} <br />{" "}
-                        {address.state} - {address.pinCode}
+                        {address.landMark}{" "}
+                        {address.alternatContact
+                            ? `, ${address.alternatContact}`
+                            : null}{" "}
+                        <br /> {address.state} - {address.pinCode}
                     </div>
                     {address.selected && (
                         <button
-                            className="bg-[#d2401e] rounded text-white uppercase font-normal text-xs px-4 py-2 w-max sm:text-base tracking-wider"
+                            className="bg-blue-500 rounded mt-6 text-white font-normal text-sm px-4 py-2 w-max sm:text-base"
                             onClick={() => confirmDeliveryAddress(address)}
                         >
                             Deliver here
                         </button>
                     )}
-                </div>
+                </label>
             </div>
         </div>
     );
@@ -96,7 +110,7 @@ const CheckOut = () => {
     const { addresses, loading: addressLoading } = useSelector(
         (state) => state.myAddresses
     );
-    const { success: addAddressSuccess, error: addAddressError } = useSelector(
+    const { success: addAddressSuccess } = useSelector(
         (state) => state.newAddress
     );
     const [confirmAddress, setConfirmAddress] = useState(false);
@@ -226,20 +240,12 @@ const CheckOut = () => {
             toaster.error(error);
             dispatch(clearErrors());
         }
-    }, [success, error, navigate, dispatch]);
 
-    useEffect(() => {
         if (addAddressSuccess) {
-            setNewAddress(false);
-            toaster.success("Address added successfully");
-            dispatch({ type: ADD_NEW_ADDRESS_RESET });
-        }
-        if (addAddressError) {
-            toaster.error(addAddressError);
-            dispatch(clearError());
+            dispatch(myAddresses());
         }
         dispatch(myAddresses());
-    }, [dispatch, addAddressSuccess, addAddressError]);
+    }, [success, error, navigate, addAddressSuccess, dispatch]);
 
     useEffect(() => {
         const address = addresses?.map((adr) => ({ ...adr, selected: false }));
@@ -280,11 +286,15 @@ const CheckOut = () => {
                                 userLoading ? (
                                     <Loader />
                                 ) : isAuthenticated ? (
-                                    <div className="flex items-center gap-4 text-sm sm:text-base font-medium lg:pl-12 md:pl-4 text-gray-700">
-                                        <span className="capitalize">
-                                            {user.firstname} {user.lastname}
-                                        </span>
-                                        <span>{user.contact}</span>
+                                    <div className="flex items-start gap-4 text-sm sm:text-base font-medium lg:pl-12 md:pl-4 text-gray-700">
+                                        <i className="fas fa-check-circle text-xl text-green-500"></i>
+                                        <div className="flex items-center gap-4">
+                                            <p className="capitalize font-roboto text-gray-800 text-lg">
+                                                {user.firstname} {user.lastname}
+                                            </p>
+                                            &mdash;
+                                            <span>{user.contact}</span>
+                                        </div>
                                     </div>
                                 ) : (
                                     <CheckoutLoginForm />
@@ -301,7 +311,7 @@ const CheckOut = () => {
                                 ) : address?.length === 0 ? (
                                     <AddressForm
                                         onCancel={() => setNewAddress(false)}
-                                        button={"Save and Deliver here"}
+                                        button={"Save and deliver here"}
                                     />
                                 ) : confirmAddress ? (
                                     selectedAddress && (
@@ -326,9 +336,9 @@ const CheckOut = () => {
                                         </div>
                                     )
                                 ) : (
-                                    address?.map((address) => (
+                                    address?.map((adrs) => (
                                         <Address
-                                            address={address}
+                                            address={adrs}
                                             confirmDeliveryAddress={
                                                 confirmDeliveryAddress
                                             }
@@ -363,12 +373,11 @@ const CheckOut = () => {
                                         <>
                                             <OrderedItems items={cart.items} />
                                             <div className="mt-4 w-full">
-                                                <button
-                                                    className="text-white bg-[#d2401e] uppercase rounded font-normal px-4 py-2 text-sm sm:text-base tracking-wider hover:bg-[#b9381b]"
-                                                    onClick={proceedNext}
+                                                <Button
+                                                    handleClick={proceedNext}
                                                 >
                                                     Continue
-                                                </button>
+                                                </Button>
                                             </div>
                                         </>
                                     ) : null}
@@ -393,16 +402,17 @@ const CheckOut = () => {
                                                         />
                                                     </div>
                                                     <div className="leading-5">
-                                                        <p className="text-gray-700 font-medium uppercase tracking-wide text-sm sm:text-base">
+                                                        <p className="text-golden font-medium font-oswald uppercase tracking-wide text-sm sm:text-base">
                                                             {item.product.name}
                                                         </p>
                                                         <p className="capitalize text-gray-600 font-light text-xs sm:text-sm">
-                                                            {item.size}
+                                                            Size: {item.size}
                                                         </p>
                                                         <p className="text-gray-600 font-light text-xs sm:text-sm">
+                                                            Quantity:{" "}
                                                             {item.quantity}
                                                         </p>
-                                                        <p className="font-semibold text-red-600 text-sm sm:text-lg">
+                                                        <p className="font-medium font-oswald text-gray-600 text-sm sm:text-lg">
                                                             ₹
                                                             {item.quantity *
                                                                 item.product
@@ -494,14 +504,11 @@ const CheckOut = () => {
                                             </label>
                                         </div>
                                         {selectPaymentOption !== "" && (
-                                            <button
-                                                className="bg-[#d2401e] font-normal mx-auto text-white uppercase text-xs sm:text-sm py-2 rounded-sm w-max px-4 mt-4 tracking-wider hover:bg-[#b9381b]"
-                                                onClick={confirmOrder}
-                                            >
+                                            <Button handleClick={confirmOrder}>
                                                 {selectPaymentOption === "cod"
                                                     ? "Place order"
                                                     : "Proceed to payment"}
-                                            </button>
+                                            </Button>
                                         )}
                                     </div>
                                 ) : null

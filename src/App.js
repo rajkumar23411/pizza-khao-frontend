@@ -12,8 +12,6 @@ import MyAccount from "./pages/MyAccount";
 import AccountAddress from "./pages/AccountAddress";
 import store from "./redux/store";
 import { clearError, loadUser } from "./redux/actions/userAction";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
 import WishList from "./pages/WishList";
 import OrderSuccess from "./pages/OrderSuccess";
 import VerifyPayment from "./pages/VerifyPayment";
@@ -39,6 +37,9 @@ import CategorizedPizza from "./pages/CategorizedPizza";
 import AddProduct from "./admin/pages/AddProduct";
 import EditProduct from "./admin/components/EditProduct";
 import DashboardLayout from "./admin/DashboardLayout";
+import AuthLayout from "./_auth/AuthLayout";
+import SignInForm from "./_auth/forms/SignInForm";
+import SignUpForm from "./_auth/forms/SignUpForm";
 
 const App = () => {
     const isSmallScreen = useMediaQuery("(max-width:650px)");
@@ -68,6 +69,11 @@ const App = () => {
     }, [pathname]);
     return (
         <Routes>
+            <Route element={<AuthLayout />}>
+                <Route path="/login" element={<SignInForm />} />
+                <Route path="/register" element={<SignUpForm />} />
+            </Route>
+
             <Route path="/" element={<Home />} />
             <Route
                 path="/cart"
@@ -119,8 +125,7 @@ const App = () => {
                     </ProtectedRoute>
                 }
             />
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+
             <Route path="/forgot/password" element={<ForgotPassword />} />
             <Route path="/verify/otp" element={<VerifyOTP />} />
             <Route path="/verify/login/otp" element={<VerifyLoginOTP />} />

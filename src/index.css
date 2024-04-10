@@ -2,13 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    font-family: "Oswald", sans-serif;
-    transition: all 0.3s;
+
+@layer base {
+    * {
+        @apply box-border list-none p-0 m-0 scroll-smooth tracking-normal outline-none transition-all duration-200 ease-in-out;
+    }
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -374,6 +372,7 @@ input[type="number"] {
     justify-content: center;
     flex-direction: column;
     height: 2.5rem;
+    transition: all 200ms ease-in-out;
 }
 .category_box div p {
     color: white;
@@ -389,8 +388,7 @@ input[type="number"] {
     font-weight: 500;
     display: none;
     font-family: sans-serif;
-    letter-spacing: 0.5px;
-    padding: 0 4px;
+    padding: 0 8px;
 }
 .category_box:hover div {
     height: 100%;

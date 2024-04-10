@@ -24,8 +24,13 @@ import SearchBar from "../admin/components/SearchBar";
 import { ADD_TO_CART_RESET } from "../redux/constants/cartConstant";
 import { addToCart, clearError } from "../redux/actions/cartActions";
 import toaster from "react-hot-toast";
+import { getWishlist } from "../redux/actions/wishListAction";
 const Header = ({ name }) => {
-    return <h1 className="uppercase text-golden p-2 text-xl">{name}</h1>;
+    return (
+        <h1 className="font-roboto font-medium tracking-tight text-gray-700 p-2 text-xl">
+            {name}
+        </h1>
+    );
 };
 const FilterDiv = ({ children }) => {
     return (
@@ -47,6 +52,7 @@ const Menu = () => {
         success,
         error,
     } = useSelector((state) => state.myCart);
+    const { wishlist } = useSelector((state) => state.wishlist);
     const [category, setCategory] = useState("");
     const [keyword, setKeyword] = useState("");
     const dispatch = useDispatch();
@@ -116,6 +122,7 @@ const Menu = () => {
             else setShowFilterMenu(false);
         });
     }, [success, error, dispatch]);
+
     useEffect(() => {
         dispatch(
             getAllProducts(
@@ -128,6 +135,7 @@ const Menu = () => {
                 discount
             )
         );
+        dispatch(getWishlist());
     }, [
         dispatch,
         resultPerPage,
@@ -157,14 +165,8 @@ const Menu = () => {
                             : "w-80 h-max rounded-xl hidden sm:block"
                     }`}
                 >
-                    {/* <div
-                        className="absolute top-0 rounded-r-2xl shadow left-72 bg-white p-4"
-                        onClick={() => setShowFilterMenu(false)}
-                    >
-                        <i className="fal fa-times text-xl"></i>
-                    </div> */}
                     <div className="flex items-center justify-between p-2">
-                        <h1 className="uppercase text-red-600 text-lg font-medium">
+                        <h1 className="uppercase text-red-600 text-lg font-medium font-oswald">
                             Filters
                         </h1>
                         <Button
@@ -218,17 +220,17 @@ const Menu = () => {
                                 size="small"
                                 sx={{ color: "brown" }}
                             />
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <span className="uppercase text-golden font-medium">
+                            <div className="flex items-center justify-between w-full">
+                                <div className="font-oswald">
+                                    <span className="text-golden font-roboto">
                                         Price:{" "}
                                     </span>
-                                    <span className="text-red-700 font-medium">
+                                    <span className="text-red-700 font-sans">
                                         ₹{price[0]} - ₹{price[1]}
                                     </span>
                                 </div>
                                 <button
-                                    className="uppercase text-golden"
+                                    className="font-roboto text-sm text-blue-500 hover:text-blue-600 cursor-pointer"
                                     onClick={() => setPrice([0, 1000])}
                                 >
                                     Clear
@@ -334,6 +336,7 @@ const Menu = () => {
                                         handleClick={handleAddToCart}
                                         loadingProductId={loadingProductId}
                                         cartLoading={cartLoading}
+                                        wishlist={wishlist && wishlist}
                                     />
                                 ))}
                             </section>

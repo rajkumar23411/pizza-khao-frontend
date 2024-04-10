@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import DashboardNavBar from "./DashboardNavBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getProductDetails,
@@ -10,11 +9,17 @@ import PageHeader from "./PageHeader";
 import { Categories } from "../../utils";
 import toaster from "react-hot-toast";
 import { UPDATE_PRODUCT_RESET } from "../../redux/constants/productConstant";
+import { useDropzone } from "react-dropzone";
+
 const FormDiv = ({ children }) => {
     return <div className={`flex flex-col w-full gap-1`}>{children}</div>;
 };
 const FormLebel = ({ children }) => {
-    return <label className="text-sm text-gray-800">{children}</label>;
+    return (
+        <label className="text-xs text-gray-600 font-medium font-sans">
+            {children}
+        </label>
+    );
 };
 const FormInput = ({ type, name, value, formValueChange }) => {
     return (
@@ -23,7 +28,7 @@ const FormInput = ({ type, name, value, formValueChange }) => {
             name={name}
             value={value}
             onChange={formValueChange}
-            className="h-12 border-2 w-full border-gray-400 bg-transparent rounded-lg px-1 focus:border-blue-300 font-roboto"
+            className="h-10 border w-full border-gray-400 bg-transparent rounded-md px-1 focus:border-blue-300 font-roboto"
         />
     );
 };
@@ -38,12 +43,6 @@ const EditProduct = () => {
     const [toggleAddCategory, setToggleAddCategory] = useState(false);
     const [category, setCategory] = useState(product?.category || []);
     const [image, setImage] = useState("");
-    const [newImageData, setNewImageData] = useState("");
-    const [updateLoading, setUpdateLoading] = useState(false);
-    const isImageChange = useCallback(() => {
-        if (image) return true;
-        else return false;
-    }, [image]);
 
     const [formData, setFormData] = useState({
         name: product?.name,
@@ -51,10 +50,9 @@ const EditProduct = () => {
         mediumPrice: product?.prices?.medium,
         largePrice: product?.prices?.large,
         extraLargePrice: product?.prices?.extralarge,
-        discount: Number(product?.discount),
+        discount: Number(product?.discount) || 0,
         description: product?.description,
         category: category || [],
-        image: product?.image,
     });
     const handleFormValueChange = (e) => {
         const { name, value } = e.target;
@@ -78,54 +76,59 @@ const EditProduct = () => {
         setCategory(newCategory);
         setFormData({ ...formData, category: newCategory });
     };
-    const productImageChange = (e) => {
-        const fileInput = e.target;
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            const data = new FormData();
-            data.append("file", fileInput.files[0]);
-            data.append("upload_preset", "sbxnht5g");
-            data.append("cloud_name", "dkukx5byz");
-            setNewImageData(data);
-            reader.onload = (e) => {
-                setImage(e.target.result);
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    };
-    const uploadImage = async () => {
-        try {
-            const response = await fetch(
-                "https://api.cloudinary.com/v1_1/dkukx5byz/image/upload",
-                {
-                    method: "POST",
-                    body: newImageData,
-                }
-            );
-            const data = await response.json();
-            return data.secure_url;
-        } catch (error) {
-            toaster.error("Something went wrong");
-            console.log(error);
-        }
-    };
+    const onDrop = useCallback((acceptedFiles) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setImage(e.target.result);
+        };
+        setFormData((prev) => ({
+            ...prev,
+            file: acceptedFiles[0],
+        }));
+        reader.readAsDataURL(acceptedFiles[0]);
+    }, []);
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            "image/*": [".png", ".jpg", ".jpeg", ".gif"],
+        },
+    });
+    // const productImageChange = (e) => {
+    //     const fileInput = e.target;
+    //     if (fileInput.files && fileInput.files[0]) {
+    //         const reader = new FileReader();
+    //         const data = new FormData();
+    //         data.append("file", fileInput.files[0]);
+    //         data.append("upload_preset", "sbxnht5g");
+    //         data.append("cloud_name", "dkukx5byz");
+    //         setNewImageData(data);
+    //         reader.onload = (e) => {
+    //             setImage(e.target.result);
+    //         };
+    //         reader.readAsDataURL(fileInput.files[0]);
+    //     }
+    // };
+    // const uploadImage = async () => {
+    //     try {
+    //         const response = await fetch(
+    //             "https://api.cloudinary.com/v1_1/dkukx5byz/image/upload",
+    //             {
+    //                 method: "POST",
+    //                 body: newImageData,
+    //             }
+    //         );
+    //         const data = await response.json();
+    //         return data.secure_url;
+    //     } catch (error) {
+    //         toaster.error("Something went wrong");
+    //         console.log(error);
+    //     }
+    // };
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        setUpdateLoading(true);
-        try {
-            if (isImageChange()) {
-                const imageUrl = await uploadImage();
-                await setFormData({ ...formData, image: imageUrl });
-                await dispatch(updateProduct(id, formData));
-            } else {
-                dispatch(updateProduct(id, formData));
-            }
-        } catch (error) {
-            toaster.error(error.message);
-        } finally {
-            setUpdateLoading(false);
-        }
+        dispatch(updateProduct(id, formData));
     };
+
     useEffect(() => {
         if (isUpdated) {
             toaster.success(message);
@@ -159,7 +162,29 @@ const EditProduct = () => {
                                 <form
                                     className="flex flex-col w-[28rem] gap-4"
                                     onSubmit={handleFormSubmit}
+                                    encType="multipart/form-data"
                                 >
+                                    <div {...getRootProps()}>
+                                        <input
+                                            {...getInputProps()}
+                                            className="cursor-pointer w-full"
+                                        />
+                                        <div className="cursor-pointer flex flex-col items-center justify-center gap-2">
+                                            <img
+                                                src={
+                                                    image
+                                                        ? image
+                                                        : product?.image ||
+                                                          "https://placehold.co/150x150"
+                                                }
+                                                alt="pizza"
+                                                className="h-32 w-32 rounded-full object-cover object-center"
+                                            />
+                                            <p className="font-sans text-purple-600 text-sm font-medium">
+                                                Change profile photo
+                                            </p>
+                                        </div>
+                                    </div>
                                     <FormDiv>
                                         <FormLebel>Name</FormLebel>
                                         <FormInput
@@ -232,7 +257,7 @@ const EditProduct = () => {
                                                 onChange={handleFormValueChange}
                                                 value={formData.discount}
                                                 name="discount"
-                                                className="h-12 border-2 cursor-pointer focus:border-blue-400 border-gray-400 rounded-md font-roboto text-gray-600"
+                                                className="h-10 border cursor-pointer focus:border-blue-400 border-gray-400 rounded-md font-roboto text-gray-600"
                                             >
                                                 <option
                                                     defaultValue={
@@ -263,7 +288,7 @@ const EditProduct = () => {
                                             id="description"
                                             value={formData.description}
                                             onChange={handleFormValueChange}
-                                            className="h-20 resize-none border-2 rounded-lg border-gray-400 bg-transparent px-1 focus:border-blue-300 font-roboto"
+                                            className="h-20 resize-none border rounded-lg border-gray-400 bg-transparent px-1 focus:border-blue-300 font-roboto text-sm"
                                         />
                                     </FormDiv>
                                     <FormDiv>
@@ -351,45 +376,13 @@ const EditProduct = () => {
                                             </div>
                                         )}
                                     </FormDiv>
-                                </form>
-                                <div className="flex items-start flex-col gap-2">
-                                    <FormLebel>Image</FormLebel>
-                                    <div className="w-[20rem] h-[20rem] flex items-center justify-center">
-                                        <img
-                                            src={image ? image : product?.image}
-                                            alt={product?.name}
-                                        />
-                                    </div>
-                                    <div className="relative h-12 w-full mt-2">
-                                        <input
-                                            type="file"
-                                            id="fileInput"
-                                            accept="image/*"
-                                            className="hidden h-full w-full"
-                                            onChange={productImageChange}
-                                        />
-                                        <label
-                                            htmlFor="fileInput"
-                                            className="absolute h-full bg-blue-500 flex items-center justify-center w-full font-sans rounded-lg cursor-pointer text-white hover:bg-blue-600"
-                                        >
-                                            <i className="fal fa-image text-2xl text-white"></i>
-                                            &nbsp;&nbsp;Choose an image
-                                        </label>
-                                    </div>
                                     <button
-                                        disabled={updateLoading}
-                                        onClick={handleFormSubmit}
-                                        className={`h-12 ${
-                                            updateLoading
-                                                ? "bg-red-500 cursor-not-allowed"
-                                                : "bg-red-600 hover:bg-red-700 cursor-pointer"
-                                        }  text-white w-full uppercase tracking-wider rounded-lg  `}
+                                        type="submit"
+                                        className="h-12 bg-red-600 text-white font-medium font-sans rounded-md hover:bg-red-700 cursor-pointer"
                                     >
-                                        {updateLoading
-                                            ? "Updating..."
-                                            : "Update"}
+                                        Update product
                                     </button>
-                                </div>
+                                </form>
                             </>
                         )}
                     </div>

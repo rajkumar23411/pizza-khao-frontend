@@ -1,22 +1,14 @@
 import { Rating, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
 import { pizzaSize } from "../utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
-import toaster from "react-hot-toast";
-import {
-    addRemoveFromWishlist,
-    getWishlist,
-} from "../redux/actions/wishListAction";
-import { RESET_ADD_TO_FAVOURITE } from "../redux/constants/wishListConstant";
 import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const DialogBoxData = ({ pizza, onClose }) => {
     const [size, setSize] = React.useState("regular");
     const dispatch = useDispatch();
-    const { success } = useSelector((state) => state.myCart);
-    const { wishlist, message } = useSelector((state) => state.wishlist);
     const isSmallScreen = useMediaQuery("(max-width: 640px)");
     const handleSizeChange = (event) => {
         setSize(event.target.value);
@@ -24,22 +16,6 @@ const DialogBoxData = ({ pizza, onClose }) => {
     const handleAddtoCart = (id, count, size) => {
         dispatch(addToCart(id, count, size));
     };
-    const isInWishlist = wishlist?.items?.find(
-        (item) => item.product._id === pizza._id
-    );
-    const handleAddtoFavourite = (id) => {
-        dispatch(addRemoveFromWishlist(id));
-    };
-    useEffect(() => {
-        if (success) {
-            onClose();
-        }
-        if (message) {
-            toaster.success(message);
-            dispatch({ type: RESET_ADD_TO_FAVOURITE });
-        }
-        dispatch(getWishlist());
-    }, [success, dispatch, toaster, message, onClose]);
     return (
         <div className="flex flex-col sm:flex-row">
             <div className="flex-1 flex items-center justify-center m-4 sm:m-10">
@@ -172,7 +148,7 @@ const DialogBoxData = ({ pizza, onClose }) => {
                     >
                         Add to cart
                     </div>
-                    {isInWishlist ? (
+                    {/* {isInWishlist ? (
                         <Link
                             to="/account/favourites"
                             className="flex-1 text-center border-2 border-gray-300 text-gray-600 py-2 sm:py-3 uppercase text-sm tracking-wide cursor-pointer rounded"
@@ -186,7 +162,7 @@ const DialogBoxData = ({ pizza, onClose }) => {
                         >
                             Save to Favourite
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

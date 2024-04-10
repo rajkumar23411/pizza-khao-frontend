@@ -1,5 +1,7 @@
 export const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
+export const phoneRegExp = /\+?\d[\d -]{8,12}\d/;
+
 export const config = {
     headers: { "Content-Type": "application/json" },
     credential: "include",
@@ -36,18 +38,49 @@ export const sortingOptions = [
     "Average Rating",
 ];
 
-export const getDate = (createdAt) => {
-    const date = new Date(createdAt);
+export function formatDateString(dateString) {
     const options = {
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
     };
-    const formattedDate = date.toLocaleString("en-US", options);
-    return formattedDate;
+
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    const time = date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+
+    return `${formattedDate} at ${time}`;
+}
+
+export const multiFormatDateString = (timestamp) => {
+    const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
+    const date = new Date(timestampNum * 1000);
+    const now = new Date();
+
+    const diff = now.getTime() - date.getTime();
+    const diffInSeconds = diff / 1000;
+    const diffInMinutes = diffInSeconds / 60;
+    const diffInHours = diffInMinutes / 60;
+    const diffInDays = diffInHours / 24;
+
+    switch (true) {
+        case Math.floor(diffInDays) >= 30:
+            return formatDateString(timestamp);
+        case Math.floor(diffInDays) === 1:
+            return `${Math.floor(diffInDays)} day ago`;
+        case Math.floor(diffInDays) > 1 && diffInDays < 30:
+            return `${Math.floor(diffInDays)} days ago`;
+        case Math.floor(diffInHours) >= 1:
+            return `${Math.floor(diffInHours)} hours ago`;
+        case Math.floor(diffInMinutes) >= 1:
+            return `${Math.floor(diffInMinutes)} minutes ago`;
+        default:
+            return "Just now";
+    }
 };
 
 export const menuLightCategories = [
@@ -138,3 +171,22 @@ export const forKidsText = [
     "Kid-approved pizzas: Tasty and colorful delights",
     "Pizza adventure for kids: Playful and delicious pizzas",
 ];
+
+// if order status is placed then color yellow
+// if order status is placed then color yellow
+// if order status is placed then color yellow
+// if order status is placed then color yellow
+export const statusColor = (status) => {
+    switch (status) {
+        case "Placed":
+            return "bg-red-600";
+        case "Preparing":
+            return "bg-yellow-600";
+        case "Out of delivery":
+            return "bg-blue-600";
+        case "Delivered":
+            return "bg-green-600";
+        default:
+            return "bg-red-600";
+    }
+};

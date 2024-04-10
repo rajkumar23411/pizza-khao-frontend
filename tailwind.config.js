@@ -21,9 +21,10 @@ module.exports = {
             },
         },
         fontFamily: {
+            oswald: ["Oswald"],
             sans: ["sans-serif"],
             roboto: ["Roboto", "sans-serif"],
         },
     },
-    plugins: [],
+    plugins: [require("tailwindcss-animated")],
 };

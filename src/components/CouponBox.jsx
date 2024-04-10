@@ -1,4 +1,5 @@
 import React from "react";
+import toaster from "react-hot-toast";
 const getDate = (date) => {
     const months = [
         "Jan",
@@ -21,32 +22,48 @@ const getDate = (date) => {
     return `${day} ${month}`;
 };
 const CouponBox = ({ coupon }) => {
+    const copyCouponCode = async (e) => {
+        try {
+            await navigator.clipboard.writeText(e.target.innerText);
+            toaster.success("Coupon code copied to your clipboard");
+        } catch (error) {
+            toaster.error("Could not copy coupon code");
+        }
+    };
     return (
-        <div className="flex justify-center items-center m-6 p-6 bg-red-50 rounded-lg gap-10 border border-red-200">
-            <div className="flex flex-col text-center gap-2">
-                <div className="fad fa-badge-percent text-5xl text-red-500"></div>
-                <span className="uppercase">{coupon.name}</span>
+        <div className="flex justify-center items-center m-6 p-4 bg-blue-50 rounded-lg gap-6 border-2 border-blue-200">
+            <div className="flex flex-col text-center gap-1">
+                <div className="fad fa-badge-percent text-5xl text-blue-500"></div>
+                <span className="uppercase font-oswald text-blue-600">
+                    {coupon.name}
+                </span>
             </div>
             <div>
-                <h1 className="text-lg text-gray-900 font-roboto font-medium">
-                    Get {coupon.discount}% off on your first order
+                <h1 className="text-gray-800 font-roboto font-medium">
+                    Get upto {coupon.discount}% off on your first order
                 </h1>
-                <p className="text-gray-700 font-roboto">
-                    Use coupon code &nbsp;
-                    <span className="text-red-600 uppercase">
-                        {coupon.code}
-                    </span>
-                </p>
-                <div className="text-sm font-light flex flex-col mt-2">
-                    <ul className="list-disc pl-4">
-                        <li>
-                            <span className="font-roboto">
+                <div className="flex items-center text-sm">
+                    <p className="text-gray-700 font-roboto">
+                        Use coupon code &nbsp;
+                    </p>
+                    <button
+                        className="uppercase font-medium text-blue-600 hover:underline hover:cursor-pointer flex items-center gap-1 "
+                        onClick={(e) => copyCouponCode(e)}
+                    >
+                        <span>{coupon.code}</span>
+                        <span className="fal fa-copy" />
+                    </button>
+                </div>
+                <div className="text-sm flex flex-col mt-2">
+                    <ul className="pl-4">
+                        <li className="list-disc font-light text-gray-600">
+                            <span>
                                 Save upto {coupon.discount}% on order above Rs.
                                 {coupon.minOrderAmount}.
                             </span>
                         </li>
-                        <li>
-                            <span className="font-roboto">
+                        <li className="list-disc font-light text-gray-600">
+                            <span>
                                 Offer valid till {getDate(coupon.activeTo)}
                             </span>
                         </li>
