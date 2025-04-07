@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../../utils";
+import { apiConfig, baseUrl } from "../../utils";
 import {
     ALL_USERS_FAIL,
     ALL_USERS_REQUEST,
@@ -27,12 +27,16 @@ import {
     USER_LOAD_REQUEST,
     USER_LOAD_SUCCESS,
 } from "../constants/userConstant";
-axios.defaults.withCredentials = true;
+
 export const login = (loginData) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_REQUEST });
 
-        const { data } = await axios.post(`/api/login`, loginData, config);
+        const { data } = await axios.post(
+            `${baseUrl}/login`,
+            loginData,
+            apiConfig
+        );
         dispatch({ type: LOGIN_SUCCESS, payload: data });
     } catch (error) {
         dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
@@ -43,7 +47,7 @@ export const register = (formData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_REQUEST });
 
-        const { data } = await axios.post(`/api/register`, formData, config);
+        const { data } = await axios.post(`${baseUrl}/register`, formData);
         dispatch({ type: REGISTER_SUCCESS, payload: data.user });
     } catch (error) {
         dispatch({
@@ -57,9 +61,7 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: USER_LOAD_REQUEST });
 
-        const { data } = await axios.get(`/api/me`, {
-            withCredentials: true,
-        });
+        const { data } = await axios.get(`${baseUrl}/me`, apiConfig);
 
         dispatch({ type: USER_LOAD_SUCCESS, payload: data });
     } catch (error) {
@@ -73,9 +75,12 @@ export const updateName = (firstname, lastname) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_USER_NAME_REQUEST });
         const { data } = await axios.post(
-            `/api/update/name`,
-            { firstname, lastname },
-            config
+            `${baseUrl}/update/name`,
+            {
+                firstname,
+                lastname,
+            },
+            apiConfig
         );
         dispatch({ type: UPDATE_USER_NAME_SUCCESS, payload: data.success });
     } catch (error) {
@@ -88,7 +93,7 @@ export const updateName = (firstname, lastname) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        await axios.get(`/api/logout`);
+        await axios.get(`${baseUrl}/logout`, apiConfig);
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
         dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
@@ -99,9 +104,11 @@ export const forgotPassword = (contact) => async (dispatch) => {
         dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
         const { data } = await axios.post(
-            "/api/forgot/password",
-            { contact },
-            config
+            `${baseUrl}/forgot/password`,
+            {
+                contact,
+            },
+            apiConfig
         );
 
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.success });
@@ -116,9 +123,12 @@ export const verifyLoginOtp = (contact, otp) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_USING_OTP_REQUEST });
         const { data } = await axios.post(
-            `/api/verify/login/otp`,
-            { contact, otp },
-            config
+            `${baseUrl}/verify/login/otp`,
+            {
+                contact,
+                otp,
+            },
+            apiConfig
         );
         dispatch({ type: LOGIN_SUCCESS, payload: data });
     } catch (error) {
@@ -131,9 +141,12 @@ export const resetPassword = (contact, password) => async (dispatch) => {
         dispatch({ type: RESET_PASSWORD_REQUEST });
 
         const { data } = await axios.post(
-            `/api/reset/password`,
-            { contact, password },
-            config
+            `${baseUrl}/reset/password`,
+            {
+                contact,
+                password,
+            },
+            apiConfig
         );
 
         dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data });
@@ -151,7 +164,10 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch({
             type: ALL_USERS_REQUEST,
         });
-        const { data } = await axios.get(`/api/admin/users/all`);
+        const { data } = await axios.get(
+            `${baseUrl}/admin/users/all`,
+            apiConfig
+        );
         dispatch({ type: ALL_USERS_SUCCESS, payload: data });
     } catch (error) {
         dispatch({

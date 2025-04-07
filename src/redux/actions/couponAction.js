@@ -20,12 +20,16 @@ import {
     VALIDATE_COUPON_REQUEST,
     VALIDATE_COUPON_SUCCESS,
 } from "../constants/couponConstant";
-import { config } from "../../utils";
+import { apiConfig, baseUrl } from "../../utils";
 export const addNewCoupon = (coupon) => async (dispatch) => {
     try {
         dispatch({ type: ADD_NEW_COUPON_REQUEST });
 
-        const { data } = await axios.post(`/api/coupon/create`, coupon, config);
+        const { data } = await axios.post(
+            `${baseUrl}/coupon/create`,
+            coupon,
+            apiConfig
+        );
 
         dispatch({ type: ADD_NEW_COUPON_SUCCESS, payload: data });
     } catch (error) {
@@ -43,7 +47,8 @@ export const getCoupons =
             dispatch({ type: GET_ALL_COUPONS_REQUEST });
 
             const { data } = await axios.get(
-                `/api/coupon/all?keyword=${keyword}`
+                `${baseUrl}/coupon/all?keyword=${keyword}`,
+                apiConfig
             );
 
             dispatch({ type: GET_ALL_COUPONS_SUCCESS, payload: data });
@@ -57,7 +62,11 @@ export const getCoupons =
 export const updateCoupon = (id, data) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_COUPON_REQUEST });
-        const res = await axios.post(`/api/coupon/update/${id}`, data, config);
+        const res = await axios.post(
+            `${baseUrl}/coupon/update/${id}`,
+            data,
+            apiConfig
+        );
         dispatch({ type: UPDATE_COUPON_SUCCESS, payload: res.data });
     } catch (error) {
         dispatch({
@@ -70,7 +79,10 @@ export const updateCoupon = (id, data) => async (dispatch) => {
 export const deleteCoupon = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_COUPON_REQUEST });
-        const { data } = await axios.delete(`/api/coupon/delete/${id}`);
+        const { data } = await axios.delete(
+            `${baseUrl}/coupon/delete/${id}`,
+            apiConfig
+        );
         dispatch({ type: DELETE_COUPON_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -82,9 +94,13 @@ export const deleteCoupon = (id) => async (dispatch) => {
 export const changeStatus = (id, status) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_COUPON_REQUEST });
-        const { data } = await axios.post(`/api/coupon/status/${id}`, {
-            status,
-        });
+        const { data } = await axios.post(
+            `${baseUrl}/coupon/status/${id}`,
+            {
+                status,
+            },
+            apiConfig
+        );
         dispatch({ type: UPDATE_COUPON_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -97,7 +113,13 @@ export const changeStatus = (id, status) => async (dispatch) => {
 export const validateCoupon = (code) => async (dispatch) => {
     try {
         dispatch({ type: VALIDATE_COUPON_REQUEST });
-        const { data } = await axios.post(`/api/coupon/validate`, { code });
+        const { data } = await axios.post(
+            `${baseUrl}/coupon/validate`,
+            {
+                code,
+            },
+            apiConfig
+        );
         dispatch({ type: VALIDATE_COUPON_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -110,7 +132,10 @@ export const validateCoupon = (code) => async (dispatch) => {
 export const removeCoupon = () => async (dispatch) => {
     try {
         dispatch({ type: REMOVE_COUPON_REQUEST });
-        const { data } = await axios.post(`/api/coupon/remove`);
+        const { data } = await axios.post(
+            `${baseUrl}/coupon/remove`,
+            apiConfig
+        );
         dispatch({ type: REMOVE_COUPON_SUCCESS, payload: data });
     } catch (error) {
         dispatch({

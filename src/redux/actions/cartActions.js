@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../../utils";
+import { apiConfig, baseUrl } from "../../utils";
 import {
     ADD_TO_CART_FAIL,
     ADD_TO_CART_REQUEST,
@@ -17,9 +17,13 @@ import {
 export const addToCart = (productId, quantity, size) => async (dispatch) => {
     try {
         const { data } = await axios.post(
-            `/api/add_to_cart`,
-            { productId, quantity, size },
-            config
+            `${baseUrl}/add_to_cart`,
+            {
+                productId,
+                quantity,
+                size,
+            },
+            apiConfig
         );
         dispatch({ type: ADD_TO_CART_SUCCESS, payload: data });
     } catch (error) {
@@ -34,7 +38,7 @@ export const getCartItems = () => async (dispatch) => {
     try {
         dispatch({ type: ADD_TO_CART_REQUEST });
 
-        const { data } = await axios.get(`/api/my/cart`, config);
+        const { data } = await axios.get(`${baseUrl}/my/cart`, apiConfig);
 
         dispatch({ type: GET_CART_ITEMS_SUCCESS, payload: data.cart });
     } catch (error) {
@@ -48,11 +52,15 @@ export const getCartItems = () => async (dispatch) => {
 export const updateCart = (id, quantity, size) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_CART_REQUEST });
-        const { data } = await axios.put(`/api/cart/update`, {
-            id,
-            quantity,
-            size,
-        });
+        const { data } = await axios.put(
+            `${baseUrl}/cart/update`,
+            {
+                id,
+                quantity,
+                size,
+            },
+            apiConfig
+        );
         dispatch({ type: UPDATE_CART_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -64,7 +72,10 @@ export const updateCart = (id, quantity, size) => async (dispatch) => {
 
 export const removeCartItem = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.delete(`/api/cart/delete/${id}`);
+        const { data } = await axios.delete(
+            `${baseUrl}/cart/delete/${id}`,
+            apiConfig
+        );
 
         dispatch({ type: REMOVE_CART_ITEM_SUCCESS, payload: data.message });
     } catch (error) {

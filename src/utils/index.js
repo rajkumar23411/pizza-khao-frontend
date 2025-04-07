@@ -2,11 +2,6 @@ export const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const phoneRegExp = /\+?\d[\d -]{8,12}\d/;
 
-export const config = {
-    headers: { "Content-Type": "application/json" },
-    credential: "include",
-};
-
 export const Categories = [
     "Cheese",
     "For Kids",
@@ -189,4 +184,8 @@ export const statusColor = (status) => {
         default:
             return "bg-red-600";
     }
+};
+
+export const apiConfig = {
+    withCredentials: true,
 };

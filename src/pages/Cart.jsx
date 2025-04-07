@@ -29,6 +29,7 @@ import CouponApplied from "../components/CouponApplied";
 import { removeCoupon } from "../redux/actions/couponAction";
 import { getWishlist } from "../redux/actions/wishListAction";
 import { RESET_COUPON } from "../redux/constants/couponConstant";
+import { baseUrl } from "../utils";
 
 const PriceSectionHeader = ({ name }) => {
     return (
@@ -72,7 +73,9 @@ const Cart = () => {
 
     const getComplementryProducts = useCallback(async () => {
         try {
-            const { data } = await axios.get(`/api/products/complementry`);
+            const { data } = await axios.get(
+                `${baseUrl}/products/complementry`
+            );
             if (data.success) {
                 setComplementryProducts(data.products);
             }

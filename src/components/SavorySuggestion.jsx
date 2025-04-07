@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import PizzaCard from "./PizzaCard";
+import { baseUrl } from "../utils";
 
 const SavorySuggestion = ({ fetchItem }) => {
     const [products, setProducts] = useState();
@@ -17,7 +18,9 @@ const SavorySuggestion = ({ fetchItem }) => {
 
     const fetchProducts = async () => {
         try {
-            const { data } = await axios.get("/api/products/complementry");
+            const { data } = await axios.get(
+                `${baseUrl}/products/complementry`
+            );
             if (data.success) setProducts(data.products);
         } catch (error) {
             setError(true);

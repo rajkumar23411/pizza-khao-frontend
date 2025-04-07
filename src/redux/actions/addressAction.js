@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../../utils/index";
+import { apiConfig, baseUrl } from "../../utils/index";
 import {
     ADD_NEW_ADDRESS_FAIL,
     ADD_NEW_ADDRESS_REQUEST,
@@ -21,9 +21,9 @@ export const addAddress = (addressData) => async (dispatch) => {
         dispatch({ type: ADD_NEW_ADDRESS_REQUEST });
 
         const { data } = await axios.post(
-            `/api/address/add`,
+            `${baseUrl}/address/add`,
             addressData,
-            config
+            apiConfig
         );
         dispatch({
             type: ADD_NEW_ADDRESS_SUCCESS,
@@ -40,7 +40,7 @@ export const addAddress = (addressData) => async (dispatch) => {
 export const myAddresses = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_ADDRESS_REQUEST });
-        const { data } = await axios.get(`/api/address`, config);
+        const { data } = await axios.get(`${baseUrl}/address`, apiConfig);
         dispatch({
             type: GET_ALL_ADDRESS_SUCCESS,
             payload: data,
@@ -56,11 +56,11 @@ export const myAddresses = () => async (dispatch) => {
 export const deleteAddress = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_ADDRESS_REQUEST });
-        console.log(id);
+
         const { data } = await axios.delete(
-            `/api/delete/address/${id}`,
+            `${baseUrl}/delete/address/${id}`,
             id,
-            config
+            apiConfig
         );
 
         dispatch({ type: DELETE_ADDRESS_SUCCESS, payload: data.success });
@@ -77,9 +77,9 @@ export const updateAddress = (id, addressData) => async (dispatch) => {
         dispatch({ type: UPDATE_ADDRESS_REQUEST });
 
         const { data } = await axios.put(
-            `/api/address/${id}`,
+            `${baseUrl}/address/${id}`,
             addressData,
-            config
+            apiConfig
         );
 
         dispatch({ type: UPDATE_ADDRESS_SUCCESS, payload: data.success });
